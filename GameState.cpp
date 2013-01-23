@@ -8,6 +8,10 @@
 #include "GameState.h"
 #include "misc.h"
 
+namespace Game {
+
 GameState::GameState():
 loop(true),
 outcome(IN_PROGRESS){}
+
+} // namespace Game

@@ -10,6 +10,8 @@
 #include "globals.h"
 #include "util.h"
 
+namespace Game {
+
 int Surface::surfacesLoaded_ = 0;
 int Surface::screensSet_ = 0;
 
@@ -44,9 +46,16 @@ surface_(0){
       surface_ = SDL_SetVideoMode(Screen::getScreenRes().x,
                                   Screen::getScreenRes().y,
                                   SCREEN_BPP,
+#ifndef __APPLE__
                                   SDL_HWSURFACE | (Screen::getWindowedMode() ?
                                   0 :
                                   SDL_FULLSCREEN));
+#else
+                                  SDL_HWSURFACE |
+                                  (Screen::getWindowedMode() ? 0 : SDL_FULLSCREEN) |
+                                  SDL_DOUBLEBUF);
+#endif
+                                  
       SDL_WM_SetCaption("[ Game name here ]", 0);
       isScreen_ = true;
       assert (screensSet_ == 0);
@@ -215,3 +224,5 @@ void Surface::saveToBitmap(std::string fileName) const{
 Point Surface::getDim() const{
    return Point(surface_->w, surface_->h);
 }
+
+} // namespace Game

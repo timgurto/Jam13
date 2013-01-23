@@ -4,6 +4,8 @@
 #include "util.h"
 #include "Point.h"
 
+namespace Game {
+
 Point::Point(const SDL_Rect &original):
 x(original.x),
 y(original.y){}
@@ -104,3 +106,5 @@ bool Point::operator==(const SDL_Rect &rhs) const{
 bool operator==(const SDL_Rect &lhs, const Point &rhs){
    return rhs == lhs;
 }
+
+} // namespace Game

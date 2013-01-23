@@ -7,6 +7,8 @@
 #include <queue>
 #include <vector>
 
+namespace Game {
+
 //TODO consider switching to double
 //screen locations and distances
 typedef Sint32 pixels_t;
@@ -16,5 +18,7 @@ typedef Sint32 pixels_t;
 typedef Uint32 timer_t;
 
 typedef Uint32 typeNum_t;
+
+} // namespace Game
 
 #endif

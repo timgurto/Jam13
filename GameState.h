@@ -7,6 +7,8 @@
 #include "Surface.h"
 #include "Sound.h"
 
+namespace Game {
+
 struct GameState{
 
    bool loop; //whether or not to continue the game loop
@@ -15,5 +17,7 @@ struct GameState{
    GameState();
 
 };
+
+} // namespace Game
 
 #endif

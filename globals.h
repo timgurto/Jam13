@@ -14,8 +14,13 @@
 #ifdef NDEBUG //VS: Debug vs. Release mode
 #define DEBUG false
 #else
+#ifdef DEBUG
+#undef DEBUG
+#endif
 #define DEBUG true
 #endif
+
+namespace Game {
 
 //higher = slower game speed.
 //Game is normalized around this delta.
@@ -84,6 +89,8 @@ enum GameOutcome{
    RESTART,
    WON
 };
+
+} // namespace Game
 
 //for more terse iterating
 #define ITERATE(TYPE, CONTAINER, ITERATOR) \

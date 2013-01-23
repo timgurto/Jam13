@@ -8,6 +8,8 @@
 #include "SDL_ttf.h"
 #include "types.h"
 
+namespace Game {
+
 class Surface;
 
 //In Release, these objects have zero functionality.
@@ -76,6 +78,7 @@ public:
       ss << a << b << c << d;
       add(ss.str());
    }
+#ifdef WIN32
    template<>
    void operator()<std::string>(std::string s){
       add(s);
@@ -84,6 +87,7 @@ public:
    void operator()<char *>(char *s){
       add(s);
    }
+#endif // WIN32
 };
 
 //Empty class for Release mode, that keeps method calls
@@ -110,5 +114,7 @@ public:
 };
 
 #endif //class definition
+
+} // namespace Game
 
 #endif //header guard

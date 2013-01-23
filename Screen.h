@@ -9,6 +9,8 @@
 #include "Point.h"
 #include "ScreenElement.h"
 
+namespace Game {
+
 class Surface;
 
 class Screen{
@@ -81,5 +83,7 @@ public:
    static const Point &getScreenRes();
    static bool getWindowedMode();
 };
+
+} // namespace Game
 
 #endif

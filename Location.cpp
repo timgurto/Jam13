@@ -3,6 +3,8 @@
 #include "Location.h"
 #include "Point.h"
 
+namespace Game {
+
 Location::Location(const Point &rhs):
 x(rhs.x),
 y(rhs.y){}
@@ -22,3 +24,5 @@ Location::operator SDL_Rect() const{
    r.w = r.h = 0;
    return r;
 }
+
+} // namespace Game

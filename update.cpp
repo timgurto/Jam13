@@ -13,6 +13,8 @@
 #include "Screen.h"
 #include "GameState.h"
 
+namespace Game {
+
 extern Debug debug;
 
 void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
@@ -126,3 +128,5 @@ void handleEvents(GameState &state, MessageBox &fpsDisplay){
 
       } //switch event
 }
+
+} // namespace Game

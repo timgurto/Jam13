@@ -3,6 +3,8 @@
 #ifndef DAWN_H
 #define DAWN_H
 
+namespace Game {
+
 class ScreenElement;
 class Screen;
 
@@ -19,5 +21,7 @@ int playCampaign(Screen &game);
 
 //compiles previously collected playtesting data into image files
 void compilePlaytestData();
+
+} // namespace Game
 
 #endif

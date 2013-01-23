@@ -6,6 +6,8 @@
 #include "Point.h"
 #include "SDL.h"
 
+namespace Game {
+
 struct Location{
    double x;
    double y;
@@ -17,5 +19,7 @@ struct Location{
 
    operator SDL_Rect() const;
 };
+
+} // namespace Game
 
 #endif

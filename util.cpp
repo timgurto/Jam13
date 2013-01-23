@@ -7,6 +7,8 @@
 #include "Point.h"
 #include "Surface.h"
 
+namespace Game {
+
 extern Debug debug;
 
 //Fake constructor
@@ -246,3 +248,5 @@ Point midpoint(SDL_Rect rect){
 long long abs(long long a){
    return a < 0 ? -a : a;
 }
+
+} // namespace Game

@@ -11,6 +11,8 @@
 #include "types.h"
 #include "globals.h"
 
+namespace Game {
+
 //double % int, preserves fraction
 double modulo(double a, int b);
 
@@ -30,5 +32,7 @@ void emptyQueue(std::queue<T> &q){
 //push a mouse-move event onto the queue, to refresh the
 //calculations handled there
 void pushMouseMove();
+
+} // namespace Game
 
 #endif

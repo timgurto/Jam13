@@ -12,6 +12,8 @@
 #include "util.h"
 #include "misc.h"
 
+namespace Game {
+
 extern Debug debug, deltaLog;
 
 void render(const GameState &state, const MessageBox &fpsDisplay){
@@ -30,3 +32,5 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
    //Finalize
    screenBuf.flip();
 }
+
+} // namespace Game

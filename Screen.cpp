@@ -12,6 +12,8 @@
 #include "globals.h"
 #include "util.h"
 
+namespace Game {
+
 extern Debug debug;
 
 //TODO remove
@@ -98,7 +100,8 @@ int Screen::handleEventsDefault_(){
                if (returnEnter_ != ScreenElement::NO_ID)
                   return returnEnter_;
                break;
-
+            default:
+                break;
             }
          }
          break;
@@ -143,10 +146,12 @@ void Screen::drawDefault_() const{
       int
          xTiles = screenRes_.x / sizeX + 1,
          yTiles = screenRes_.y / sizeY + 1;
-      for (int x = 0; x != xTiles; ++x)
-         for (int y = 0; y != yTiles; ++y)
-            background_->draw(screenBuf, &makeRect(x * sizeX,
-                                                   y * sizeY));
+      for (int x = 0; x != xTiles; ++x) {
+         for (int y = 0; y != yTiles; ++y) {
+            SDL_Rect rect = makeRect(x * sizeX, y * sizeY);
+            background_->draw(screenBuf, &rect);
+         }
+      }
    }
 
    //elements
@@ -154,8 +159,10 @@ void Screen::drawDefault_() const{
       it->draw();
 
    //cursor
-   if (cursor_)
-      cursor_->draw(screenBuf, &makeRect(mousePos));
+   if (cursor_) {
+      SDL_Rect rect = makeRect(mousePos);
+      cursor_->draw(screenBuf, &rect);
+   }
 
    //debug log
    if (DEBUG)
@@ -207,3 +214,5 @@ const Point &Screen::getScreenRes(){
 bool Screen::getWindowedMode(){
    return windowedMode_;
 }
+
+} // namespace Game

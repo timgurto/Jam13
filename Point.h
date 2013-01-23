@@ -6,6 +6,8 @@
 #include "SDL.h"
 #include "Types.h"
 
+namespace Game {
+
 //Simple x and y, with operations to work with
 //SDL_Rects
 struct Point{
@@ -50,5 +52,7 @@ SDL_Rect operator-(SDL_Rect lhs, const Point &rhs);
 
 //comparison with SDL_Rect, reversed
 bool operator==(const SDL_Rect &lhs, const Point &rhs);
+
+} // namespace Game
 
 #endif

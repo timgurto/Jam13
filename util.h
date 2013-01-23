@@ -7,6 +7,8 @@
 #include "SDL.h"
 #include "types.h"
 
+namespace Game {
+
 struct Point;
 class Surface;
 
@@ -104,5 +106,7 @@ void drawLine(Surface &dst,
 Point midpoint(SDL_Rect rect);
 
 long long abs(long long a);
+
+} // namespace Game
 
 #endif

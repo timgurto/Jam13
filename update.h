@@ -5,6 +5,8 @@
 
 #include "MessageBox.h"
 
+namespace Game {
+
 struct SDL_Surface;
 struct GameState;
 
@@ -13,5 +15,7 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay);
 
 //Handles events and changes game data accordingly
 void handleEvents(GameState &state, MessageBox &fpsDisplay);
+
+} // namespace Game
 
 #endif

@@ -14,6 +14,8 @@
 #include "Debug.h"
 #include "Screen.h"
 
+namespace Game {
+
 extern Debug debug;
 
 //Adds a leading space if x < 100 (fps display)
@@ -52,3 +54,5 @@ double modulo(double a, int b){
    int aInt = int(a);
    return aInt % b + a - aInt;
 }
+
+} // namespace Game

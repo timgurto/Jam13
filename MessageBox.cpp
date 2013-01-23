@@ -6,6 +6,8 @@
 #include "util.h"
 #include "Surface.h"
 
+namespace Game {
+
 MessageBox::MessageBox(SDL_Color color,
                        pixels_t x, pixels_t y,
                        pixels_t margin,
@@ -39,13 +41,17 @@ void MessageBox::draw() const{
          pixels_t width = text->clip_rect.w + margin_;
 
          //background
-         if (background_)
+         if (background_) {
+            SDL_Rect rect1 = makeRect(x_ - margin_, y_ - margin_);
+            SDL_Rect rect2 = makeRect(0, 0, width, height_);
             background_.draw(screenBuf,
-                             &makeRect(x_ - margin_, y_ - margin_),
-                             &makeRect(0, 0, width, height_));
+                             &rect1,
+                             &rect2);
+         }
 
          //message
-         text.draw(screenBuf, &makeRect(x_ + margin_, y_ + margin_));
+         SDL_Rect rect = makeRect(x_ + margin_, y_ + margin_);
+         text.draw(screenBuf, &rect);
       }
 }
 
@@ -57,3 +63,5 @@ void MessageBox::clear(){
 void MessageBox::toggleVisibility(){
    visible_ = !visible_;
 }
+
+} // namespace Game

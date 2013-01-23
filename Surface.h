@@ -9,6 +9,8 @@
 #include "types.h"
 #include "globals.h"
 
+namespace Game {
+
 class Surface;
 extern Surface screenBuf;
 
@@ -89,5 +91,7 @@ public:
    //dimensions of the surface
    Point getDim() const;
 };
+
+} // namespace Game
 
 #endif

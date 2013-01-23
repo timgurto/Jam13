@@ -6,6 +6,8 @@
 #include "globals.h"
 #include "Debug.h"
 
+namespace Game {
+
 extern Debug debug;
 
 int Sound::soundsLoaded_ = 0;
@@ -61,3 +63,5 @@ void Sound::unloadSound(Mix_Chunk *&sound){
       sound = 0;
    }
 }
+
+} // namespace Game

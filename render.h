@@ -5,6 +5,8 @@
 
 #include "MessageBox.h"
 
+namespace Game {
+
 struct CoreData;
 struct GameData;
 struct SDL_Surface;
@@ -12,5 +14,7 @@ struct GameState;
 
 //Draws everything to the screen
 void render(const GameState &state, const MessageBox &fpsDisplay);
+
+} // namespace Game
 
 #endif

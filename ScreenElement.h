@@ -8,6 +8,8 @@
 #include "Point.h"
 #include "Surface.h"
 
+namespace Game {
+
 enum Anchor{
    ANCHOR_TOP,
    ANCHOR_BOTTOM,
@@ -76,5 +78,7 @@ public:
 
    void draw() const;
 };
+
+} // namespace Game
 
 #endif

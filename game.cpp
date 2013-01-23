@@ -22,6 +22,8 @@
 #include "GameState.h"
 #include "Sound.h"
 
+namespace Game {
+
 extern Debug debug;
 extern bool gameLoop;
 extern GameOutcome gameOutcome;
@@ -76,3 +78,5 @@ unsigned gameMode(Screen &/*screen*/, const void * /*data*/){
    GameOutcome outcome = state.outcome;
    return outcome; //return something more meaningful
 }
+
+} // namespace Game

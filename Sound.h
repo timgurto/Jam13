@@ -6,6 +6,8 @@
 #include <string>
 #include "SDL_mixer.h"
 
+namespace Game {
+
 class Sound{
    //for reloading upon copy or assign
    std::string fileName_;
@@ -34,5 +36,7 @@ public:
 
    static void quit();
 };
+
+} // namespace Game
 
 #endif

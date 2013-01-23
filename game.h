@@ -5,9 +5,13 @@
 
 #include "Screen.h"
 
+namespace Game {
+
 class Entity;
 
 //Main game functionality
 Screen::GoFun gameMode;
+
+} // namespace Game
 
 #endif

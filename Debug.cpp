@@ -13,6 +13,8 @@
 #include "Surface.h"
 #include "Screen.h"
 
+namespace Game {
+
 extern Surface screenBuf;
 
 int Debug::debugCount_ = 0;
@@ -60,14 +62,18 @@ void Debug::display() const{
 
       //draw shadow
       Surface blackSurface(font_, message, BLACK);
-      blackSurface.draw(screenBuf, &makeRect(x_+1, y_+1 + lat));
+      SDL_Rect rect1 = makeRect(x_+1, y_+1 + lat);
+      blackSurface.draw(screenBuf, &rect1);
       
       //draw text
       Surface surface(font_, message, color_);
-      surface.draw(screenBuf, &makeRect(x_, y_ + lat));
+      SDL_Rect rect2 = makeRect(x_, y_ + lat);
+      surface.draw(screenBuf, &rect2);
 
       lat += height_;
    }
 }
+
+} // namespace Game
 
 #endif

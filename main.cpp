@@ -7,6 +7,10 @@
 #include <string>
 #include <cmath>
 
+#ifdef __APPLE__
+#include "SDLMain.h"
+#endif
+
 #include "SDL.h"
 #include "SDL_ttf.h"
 #include "SDL_mixer.h"
@@ -23,6 +27,20 @@
 #include "util.h"
 #include "misc.h"
 
+// Keep main in default namespace
+namespace Game {
+    int main(int argc, char **argv);
+}
+#ifdef __APPLE__
+int SDL_main(int argc, char **argv) {
+#else
+int main(int argc, char **argv) {
+#endif // __APPLE__
+    return Game::main(argc, argv);
+}
+
+namespace Game {
+
 //global screen buffer
 Surface screenBuf; //uninitialized
 
@@ -37,6 +55,7 @@ enum ButtonID{
    BUTTON_CREDITS,
 };
 
+// Keep main in default namespace
 int main(int argc, char **argv){
 
    //seed random generator
@@ -148,3 +167,5 @@ void addCredit(Screen &creditsScreen, int &yPos, std::string text){
 void addCreditGap(int &yPos){
    yPos += CREDITS_GAP;
 }
+
+} // namespace Game

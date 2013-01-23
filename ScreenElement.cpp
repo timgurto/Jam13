@@ -8,6 +8,8 @@
 #include "Screen.h"
 #include "util.h"
 
+namespace Game {
+
 SDL_Color      ScreenElement::defaultLabelColor_ = WHITE;
 SDL_Color      ScreenElement::defaultButtonColor_ = YELLOW;
 SDL_Color      ScreenElement::defaultButtonAltColor_ = RED;
@@ -56,13 +58,15 @@ rollover_(true){
 
    if (background)
       image_ << *background;
-   textSurface.draw(image_, &makeRect(1, 1));
+
+   SDL_Rect rect1by1 = makeRect(1, 1);
+   textSurface.draw(image_, &rect1by1);
 
    //alternate rollover image for buttons
    if (type_ == ELEM_BUTTON){
       if (background)
          altImage_ << *background;
-      altSurface.draw(altImage_, &makeRect(1, 1));
+      altSurface.draw(altImage_, &rect1by1);
    }
 
 
@@ -89,8 +93,11 @@ rollover_(true){
 }
 
 void ScreenElement::draw() const{
+   SDL_Rect rect = makeRect(loc_);
    if (type_ == ELEM_BUTTON && rollover_)
-      altImage_.draw(screenBuf, &makeRect(loc_));
+      altImage_.draw(screenBuf, &rect);
    else
-      image_.draw(screenBuf, &makeRect(loc_));
+      image_.draw(screenBuf, &rect);
 }
+
+} // namespace Game

@@ -10,6 +10,8 @@
 #include "Surface.h"
 #include "types.h"
 
+namespace Game {
+
 //Text that appears on the screen
 class MessageBox{
    SDL_Color color_; //font color
@@ -63,6 +65,7 @@ public:
       ss << a << b << c << d;
       message_ = ss.str();
    }
+#ifdef WIN32
    template<>
    void operator()<std::string>(std::string s){
       message_ = s;
@@ -71,9 +74,12 @@ public:
    void operator()<char *>(char *s){
       message_ = s;
    }
+#endif // WIN32
 };
 
 //for drawing
 typedef std::vector<MessageBox *> messageBoxes_t;
+
+} // namespace Game
 
 #endif
