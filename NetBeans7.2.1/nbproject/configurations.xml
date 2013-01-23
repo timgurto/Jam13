@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="84">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>../Debug.h</itemPath>
+      <itemPath>../GameState.h</itemPath>
+      <itemPath>../Location.h</itemPath>
+      <itemPath>../MessageBox.h</itemPath>
+      <itemPath>../Point.h</itemPath>
+      <itemPath>../SDLMain.h</itemPath>
+      <itemPath>../Screen.h</itemPath>
+      <itemPath>../ScreenElement.h</itemPath>
+      <itemPath>../Sound.h</itemPath>
+      <itemPath>../Surface.h</itemPath>
+      <itemPath>../game.h</itemPath>
+      <itemPath>../globals.h</itemPath>
+      <itemPath>../main.h</itemPath>
+      <itemPath>../misc.h</itemPath>
+      <itemPath>../render.h</itemPath>
+      <itemPath>../types.h</itemPath>
+      <itemPath>../update.h</itemPath>
+      <itemPath>../util.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>../Debug.cpp</itemPath>
+      <itemPath>../GameState.cpp</itemPath>
+      <itemPath>../Location.cpp</itemPath>
+      <itemPath>../MessageBox.cpp</itemPath>
+      <itemPath>../Point.cpp</itemPath>
+      <itemPath>../SDLMain.m</itemPath>
+      <itemPath>../Screen.cpp</itemPath>
+      <itemPath>../ScreenElement.cpp</itemPath>
+      <itemPath>../Sound.cpp</itemPath>
+      <itemPath>../Surface.cpp</itemPath>
+      <itemPath>../game.cpp</itemPath>
+      <itemPath>../main.cpp</itemPath>
+      <itemPath>../misc.cpp</itemPath>
+      <itemPath>../render.cpp</itemPath>
+      <itemPath>../update.cpp</itemPath>
+      <itemPath>../util.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>..</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <architecture>1</architecture>
+          <incDir>
+            <pElem>/Library/Frameworks/SDL.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_image.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_mixer.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_ttf.framework/Headers</pElem>
+          </incDir>
+          <commandLine>-ObjC -framework Cocoa</commandLine>
+          <preprocessorList>
+            <Elem>DEBUG</Elem>
+          </preprocessorList>
+          <warningLevel>3</warningLevel>
+        </cTool>
+        <ccTool>
+          <architecture>1</architecture>
+          <incDir>
+            <pElem>/Library/Frameworks/SDL.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_image.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_mixer.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_ttf.framework/Headers</pElem>
+          </incDir>
+          <commandLine>-ObjC++ -framework Cocoa</commandLine>
+          <preprocessorList>
+            <Elem>DEBUG</Elem>
+          </preprocessorList>
+          <warningLevel>3</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-framework Cocoa -framework SDL -framework SDL_image -framework SDL_mixer -framework SDL_ttf</commandLine>
+        </linkerTool>
+      </compileType>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+          <architecture>1</architecture>
+          <incDir>
+            <pElem>/Library/Frameworks/SDL.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_image.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_mixer.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_ttf.framework/Headers</pElem>
+          </incDir>
+          <commandLine>-ObjC -framework Cocoa</commandLine>
+          <preprocessorList>
+            <Elem>NDEBUG</Elem>
+            <Elem>RELEASE</Elem>
+          </preprocessorList>
+          <warningLevel>3</warningLevel>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <architecture>1</architecture>
+          <incDir>
+            <pElem>/Library/Frameworks/SDL.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_image.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_mixer.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SDL_ttf.framework/Headers</pElem>
+          </incDir>
+          <commandLine>-ObjC++ -framework Cocoa</commandLine>
+          <preprocessorList>
+            <Elem>NDEBUG</Elem>
+            <Elem>RELEASE</Elem>
+          </preprocessorList>
+          <warningLevel>3</warningLevel>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <commandLine>-framework Cocoa -framework SDL -framework SDL_image -framework SDL_mixer -framework SDL_ttf</commandLine>
+        </linkerTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>
