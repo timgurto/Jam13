@@ -86,7 +86,7 @@ int main(int argc, char **argv){
       buildScreens(mainMenu, credits);
 
 
-      //if (!DEBUG){
+      if (!DEBUG){
 
          //main menu
          bool loop = true;
@@ -112,8 +112,8 @@ int main(int argc, char **argv){
             }
          }while(loop);
 
-      //}else
-      //   while (game() == RESTART);
+      }else
+         while (game() == RESTART);
 
    }
 

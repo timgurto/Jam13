@@ -74,6 +74,10 @@ public:
    void fill(const SDL_Color color, SDL_Rect *rect = 0);
    void fill(Uint32 color = BLACK_UINT, SDL_Rect *rect = 0);
 
+   //draws an empty box onto the surface
+   void box(const SDL_Color color, SDL_Rect *rect, int thickness = 1);
+   void box(Uint32 color, SDL_Rect *rect, int thickness = 1);
+
    //draw onto another surface
    void draw(Surface &dst = screenBuf,
              SDL_Rect *dstRect = 0, SDL_Rect *srcRect = 0) const;

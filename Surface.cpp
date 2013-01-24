@@ -191,6 +191,24 @@ void Surface::fill(Uint32 color, SDL_Rect *rect){
    SDL_FillRect(surface_, rect, color);
 }
 
+//draws an empty box onto the surface
+void Surface::box(const SDL_Color color, SDL_Rect *rect, int thickness){
+   box(colorToUInt(color), rect, thickness);
+}
+
+void Surface::box(Uint32 color, SDL_Rect *rect, int thickness){
+   if (!rect)
+      return;
+
+   SDL_Rect &r = *rect;
+   int half = thickness/2;
+
+   SDL_FillRect(surface_, &makeRect(r.x       - half, r.y       - half, r.w + thickness,       thickness), color); //u
+   SDL_FillRect(surface_, &makeRect(r.x       - half, r.y + r.h - half, r.w + thickness,       thickness), color); //d
+   SDL_FillRect(surface_, &makeRect(r.x       - half, r.y       - half,       thickness, r.h + thickness), color); //l
+   SDL_FillRect(surface_, &makeRect(r.x + r.w - half, r.y       - half,       thickness, r.h + thickness), color); //r
+}
+
 //draw onto another surface
 void Surface::draw(Surface &dst,
                    SDL_Rect *dstRect, SDL_Rect *srcRect) const{
