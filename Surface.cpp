@@ -5,28 +5,31 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include "Debug.h"
 #include "Surface.h"
 #include "Screen.h"
 #include "globals.h"
 #include "util.h"
 
 namespace Game {
+    
+extern Debug debug;
 
 int Surface::surfacesLoaded_ = 0;
 int Surface::screensSet_ = 0;
 
 //constructor - from file
 Surface::Surface(const std::string fileName, bool alpha):
-isScreen_(false),
-surface_(0){
+surface_(0),
+isScreen_(false) {
    loadImage(fileName, alpha);
    ++surfacesLoaded_;
 }
 
 //constructor - from file, with transparent background
 Surface::Surface(const std::string fileName, const SDL_Color &background, bool alpha):
-isScreen_(false),
-surface_(0){
+surface_(0),
+isScreen_(false) {
    loadImage(fileName, alpha);
    setColorKey(background);
    ++surfacesLoaded_;
@@ -35,8 +38,8 @@ surface_(0){
 //constructor - special (blank, screen, or default uninitialized)
 Surface::Surface(SpecialSurface special, int width, int height,
                  SDL_Color background):
-isScreen_(false),
-surface_(0){
+surface_(0),
+isScreen_(false) {
    switch(special){
 
    case SUR_SCREEN:
@@ -72,6 +75,9 @@ surface_(0){
                                    0, 0, 0, 0);
       setColorKey(background);
       break;
+   case SUR_UNINIT:
+       debug("fail");
+       break;
    }
    if (surface_ && !isScreen_)
       ++surfacesLoaded_;
@@ -203,10 +209,14 @@ void Surface::box(Uint32 color, SDL_Rect *rect, int thickness){
    SDL_Rect &r = *rect;
    int half = thickness/2;
 
-   SDL_FillRect(surface_, &makeRect(r.x       - half, r.y       - half, r.w + thickness,       thickness), color); //u
-   SDL_FillRect(surface_, &makeRect(r.x       - half, r.y + r.h - half, r.w + thickness,       thickness), color); //d
-   SDL_FillRect(surface_, &makeRect(r.x       - half, r.y       - half,       thickness, r.h + thickness), color); //l
-   SDL_FillRect(surface_, &makeRect(r.x + r.w - half, r.y       - half,       thickness, r.h + thickness), color); //r
+   SDL_Rect r1 = makeRect(r.x       - half, r.y       - half, r.w + thickness,   thickness);
+   SDL_Rect r2 = makeRect(r.x       - half, r.y + r.h - half, r.w + thickness,       thickness);
+   SDL_Rect r3 = makeRect(r.x       - half, r.y       - half,       thickness, r.h + thickness);
+   SDL_Rect r4 = makeRect(r.x + r.w - half, r.y       - half,       thickness, r.h + thickness);
+   SDL_FillRect(surface_, &r1, color); //u
+   SDL_FillRect(surface_, &r2, color); //d
+   SDL_FillRect(surface_, &r3, color); //l
+   SDL_FillRect(surface_, &r4, color); //r
 }
 
 //draw onto another surface

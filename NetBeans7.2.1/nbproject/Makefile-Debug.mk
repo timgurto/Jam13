@@ -43,6 +43,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/1472/MessageBox.o \
 	${OBJECTDIR}/_ext/1472/ScreenElement.o \
 	${OBJECTDIR}/_ext/1472/misc.o \
+	${OBJECTDIR}/_ext/1472/Entity.o \
 	${OBJECTDIR}/_ext/1472/Location.o \
 	${OBJECTDIR}/_ext/1472/Debug.o \
 	${OBJECTDIR}/_ext/1472/main.o \
@@ -116,6 +117,11 @@ ${OBJECTDIR}/_ext/1472/misc.o: ../misc.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
 	$(COMPILE.cc) -g -Werror -DDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/misc.o ../misc.cpp
+
+${OBJECTDIR}/_ext/1472/Entity.o: ../Entity.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1472
+	${RM} $@.d
+	$(COMPILE.cc) -g -Werror -DDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Entity.o ../Entity.cpp
 
 ${OBJECTDIR}/_ext/1472/Location.o: ../Location.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472

@@ -43,6 +43,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/1472/MessageBox.o \
 	${OBJECTDIR}/_ext/1472/ScreenElement.o \
 	${OBJECTDIR}/_ext/1472/misc.o \
+	${OBJECTDIR}/_ext/1472/Entity.o \
 	${OBJECTDIR}/_ext/1472/Location.o \
 	${OBJECTDIR}/_ext/1472/Debug.o \
 	${OBJECTDIR}/_ext/1472/main.o \
@@ -80,82 +81,87 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/netbeans7.2.1: ${OBJECTFILES}
 ${OBJECTDIR}/_ext/1472/render.o: ../render.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/render.o ../render.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/render.o ../render.cpp
 
 ${OBJECTDIR}/_ext/1472/Screen.o: ../Screen.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Screen.o ../Screen.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Screen.o ../Screen.cpp
 
 ${OBJECTDIR}/_ext/1472/Surface.o: ../Surface.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Surface.o ../Surface.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Surface.o ../Surface.cpp
 
 ${OBJECTDIR}/_ext/1472/SDLMain.o: ../SDLMain.m 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.c) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/SDLMain.o ../SDLMain.m
+	$(COMPILE.c) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/SDLMain.o ../SDLMain.m
 
 ${OBJECTDIR}/_ext/1472/game.o: ../game.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/game.o ../game.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/game.o ../game.cpp
 
 ${OBJECTDIR}/_ext/1472/MessageBox.o: ../MessageBox.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/MessageBox.o ../MessageBox.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/MessageBox.o ../MessageBox.cpp
 
 ${OBJECTDIR}/_ext/1472/ScreenElement.o: ../ScreenElement.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/ScreenElement.o ../ScreenElement.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/ScreenElement.o ../ScreenElement.cpp
 
 ${OBJECTDIR}/_ext/1472/misc.o: ../misc.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/misc.o ../misc.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/misc.o ../misc.cpp
+
+${OBJECTDIR}/_ext/1472/Entity.o: ../Entity.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1472
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Entity.o ../Entity.cpp
 
 ${OBJECTDIR}/_ext/1472/Location.o: ../Location.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Location.o ../Location.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Location.o ../Location.cpp
 
 ${OBJECTDIR}/_ext/1472/Debug.o: ../Debug.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Debug.o ../Debug.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Debug.o ../Debug.cpp
 
 ${OBJECTDIR}/_ext/1472/main.o: ../main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/main.o ../main.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/main.o ../main.cpp
 
 ${OBJECTDIR}/_ext/1472/update.o: ../update.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/update.o ../update.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/update.o ../update.cpp
 
 ${OBJECTDIR}/_ext/1472/util.o: ../util.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/util.o ../util.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/util.o ../util.cpp
 
 ${OBJECTDIR}/_ext/1472/Sound.o: ../Sound.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Sound.o ../Sound.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Sound.o ../Sound.cpp
 
 ${OBJECTDIR}/_ext/1472/Point.o: ../Point.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Point.o ../Point.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/Point.o ../Point.cpp
 
 ${OBJECTDIR}/_ext/1472/GameState.o: ../GameState.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1472
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -Werror -DRELEASE -DNDEBUG -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/GameState.o ../GameState.cpp
+	$(COMPILE.cc) -O2 -Werror -DNDEBUG -DRELEASE -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/Library/Frameworks/SDL_mixer.framework/Headers -I/Library/Frameworks/SDL_ttf.framework/Headers -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1472/GameState.o ../GameState.cpp
 
 # Subprojects
 .build-subprojects:

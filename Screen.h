@@ -31,7 +31,8 @@ private:
    elements_t elements_;
 
    //default return values for Enter and Esc keys
-   int returnEscape_, returnEnter_;
+   int returnEnter_;
+   int returnEscape_;
    
    //the screen's background image
    const Surface *background_;

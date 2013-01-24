@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>../Debug.h</itemPath>
+      <itemPath>../Entity.h</itemPath>
       <itemPath>../GameState.h</itemPath>
       <itemPath>../Location.h</itemPath>
       <itemPath>../MessageBox.h</itemPath>
@@ -31,6 +32,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>../Debug.cpp</itemPath>
+      <itemPath>../Entity.cpp</itemPath>
       <itemPath>../GameState.cpp</itemPath>
       <itemPath>../Location.cpp</itemPath>
       <itemPath>../MessageBox.cpp</itemPath>

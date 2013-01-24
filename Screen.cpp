@@ -186,8 +186,8 @@ void Screen::setBackground(const Surface &backImage){
 Screen::Screen(GoFun go):
 go_(go),
 loop_(true),
-returnEscape_(ScreenElement::NO_ID),
 returnEnter_(ScreenElement::NO_ID),
+returnEscape_(ScreenElement::NO_ID),
 background_(0){}
 
 Screen::Screen(int returnEnter, int returnEscape):
