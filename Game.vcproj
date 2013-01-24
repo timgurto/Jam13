@@ -192,6 +192,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Entity.h"
+				>
+			</File>
+			<File
 				RelativePath=".\game.h"
 				>
 			</File>
@@ -269,6 +273,10 @@
 			>
 			<File
 				RelativePath=".\Debug.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Entity.cpp"
 				>
 			</File>
 			<File
