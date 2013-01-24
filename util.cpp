@@ -194,7 +194,8 @@ int whatIsArg(std::string arg, int argc, char* argv[]){
 
 //The one-dimensional distance between two points
 pixels_t distance(pixels_t a, pixels_t b){
-   return abs(a - b);
+   pixels_t result = a - b;
+   return result >= 0 ? result : -result;
 }
 
 //The two-dimensional distance between two points
