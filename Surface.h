@@ -94,6 +94,14 @@ public:
 
    //dimensions of the surface
    Point getDim() const;
+
+   //pixel getters
+   Uint32 pixel(int index) const;
+   Uint32 pixel(int x, int y) const;
+
+   //pixel setters
+   Uint32 &pixel(int index);
+   Uint32 &pixel(int x, int y);
 };
 
 } // namespace Game

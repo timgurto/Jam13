@@ -243,4 +243,20 @@ Point Surface::getDim() const{
    return Point(surface_->w, surface_->h);
 }
 
+//pixel getters
+Uint32 Surface::pixel(int index) const{
+   return ((Uint32 *)surface_->pixels) [index];
+}
+Uint32 Surface::pixel(int x, int y) const{
+   return ((Uint32 *)surface_->pixels) [y * surface_->w + x];
+}
+
+//pixel setters
+Uint32 &Surface::pixel(int index){
+   return ((Uint32 *)surface_->pixels) [index];
+}
+Uint32 &Surface::pixel(int x, int y){
+   return ((Uint32 *)surface_->pixels) [y * surface_->w + x];
+}
+
 } // namespace Game
