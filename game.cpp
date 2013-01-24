@@ -41,7 +41,7 @@ unsigned gameMode(Screen &/*screen*/, const void * /*data*/){
                          FONT_DEBUG, 0,
                          false, DEBUG);
 
-   SDL_ShowCursor(SDL_DISABLE);
+   //SDL_ShowCursor(SDL_DISABLE);
 
    //flush event queue before accepting game controls,
    //specifically the mouse up event from clicking "Play Game"
