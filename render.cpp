@@ -11,6 +11,7 @@
 #include "GameState.h"
 #include "util.h"
 #include "misc.h"
+#include "Vampire.h"
 
 namespace Game {
 
@@ -24,6 +25,7 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
    screenBuf.fill();
 
 
+   state.vampire.draw();
 
 
    debug.display();

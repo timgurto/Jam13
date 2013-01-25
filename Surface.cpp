@@ -76,7 +76,6 @@ isScreen_(false) {
       setColorKey(background);
       break;
    case SUR_UNINIT:
-       debug("fail");
        break;
    }
    if (surface_ && !isScreen_)

@@ -7,6 +7,7 @@
 #include "Surface.h"
 #include "Sound.h"
 #include "Entity.h"
+#include "Vampire.h"
 
 namespace Game {
 
@@ -16,6 +17,8 @@ struct GameState{
    GameOutcome outcome; //the game's outcome/current status
 
    GameState();
+
+   Vampire vampire;
 
 };
 
