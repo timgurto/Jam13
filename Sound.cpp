@@ -38,17 +38,10 @@ void Sound::changeVolume(int volume){
     Mix_VolumeChunk(sound_, volume);
 }
 
-void Sound::changeVolume(double volumeLevel){
-    int volume = int(volumeLevel * MIX_MAX_VOLUME + 0.5);
-    changeVolume(volume);
-}
-
 void Sound::play(int channel, int loops) const{
-#ifndef NO_ART
-   /*if (!DEBUG)*/
-      if (sound_)
-         Mix_PlayChannel(channel, sound_, loops);
-#endif
+    if (sound_){
+         int oldVol = Mix_PlayChannel(channel, sound_, loops);
+    }
 }
 
 void Sound::quit(){

@@ -88,10 +88,10 @@ namespace Game {
             heartTimer_ = rand()%200 + 900 - (timeElapsed - heartTimer_);
             if (isClosest && distToVamp <= MAX_SOUND_DISTANCE){
                 //close enough; play sound
-                double distance = 1.0 * distToVamp / MAX_SOUND_DISTANCE;
+                double distance = max(min(1.0 * (distToVamp-30) / (MAX_SOUND_DISTANCE-30), 1.0), 0.0);
 
 
-                //double volume = 1 - pow(distance, 0.25);
+                double volume = 1 - pow(distance, 0.25);
 
                 //double invDist = 1 - distance;
                 //double volume = invDist * invDist; volume *= volume;
@@ -100,12 +100,12 @@ namespace Game {
 
                 //double volume = 1.0 / (x+.1) - .1
 
-                double volume = 1 - distance;
+                //double volume = 1 - distance;
 
 
-                heartbeat->changeVolume(volume);
-                heartbeat->play();
-                //debug("Playing sound; volume=", volume);
+                heartbeat->changeVolume(min<int>(volume*MIX_MAX_VOLUME, MIX_MAX_VOLUME));
+                heartbeat->play(-1, 0);
+                debug("Playing sound; volume=", volume*MIX_MAX_VOLUME);
             }
         }else
             heartTimer_ -= timeElapsed;
