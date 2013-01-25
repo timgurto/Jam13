@@ -31,6 +31,10 @@ public:
 
    Sound &operator=(const Sound &rhs);
 
+   //change volume, directly (0 - MIX_MAX_VOLUME) or by double
+   void changeVolume(int volume);
+   void changeVolume(double volumeLevel);
+
    //play the sound
    void play(int channel = -1, int loops = 0) const;
 

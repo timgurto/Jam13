@@ -33,6 +33,16 @@ Sound &Sound::operator=(const Sound &rhs){
    return *this;
 }
 
+//change volume, directly (0 - MIX_MAX_VOLUME) or by double
+void Sound::changeVolume(int volume){
+    Mix_VolumeChunk(sound_, volume);
+}
+
+void Sound::changeVolume(double volumeLevel){
+    int volume = int(volumeLevel * MIX_MAX_VOLUME + 0.5);
+    changeVolume(volume);
+}
+
 void Sound::play(int channel, int loops) const{
 #ifndef NO_ART
    if (!DEBUG)
