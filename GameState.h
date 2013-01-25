@@ -9,6 +9,8 @@
 #include "Entity.h"
 #include "Vampire.h"
 
+#include "SDL_mixer.h"
+
 namespace Game {
 
 class Person;
@@ -23,6 +25,7 @@ struct GameState{
 
    void init();
 
+   void update(double delta);
    void draw() const;
 
    Vampire vampire;
@@ -30,6 +33,9 @@ struct GameState{
    const size_t numPeople;
    typedef std::vector<Person*> PersonList;
    PersonList personList;
+
+   Mix_Music* music;
+   Mix_Music* beat;
 };
 
 } // namespace Game

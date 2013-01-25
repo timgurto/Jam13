@@ -4,6 +4,7 @@
 #define PERSON_H
 
 #include "Entity.h"
+#include "Heart.h"
 
 namespace Game {
 
@@ -16,10 +17,12 @@ namespace Game {
 
         virtual Surface *image() const;
 
+		Heart heart;
     public:
 
-		Person(Point startPos);
+		Person(Point startPos, Mix_Music* beat);
 
+		virtual void update(double delta);
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 
 	};
