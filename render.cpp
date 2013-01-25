@@ -12,6 +12,7 @@
 #include "util.h"
 #include "misc.h"
 #include "Vampire.h"
+#include "Person.h"
 
 namespace Game {
 
@@ -25,8 +26,11 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
    screenBuf.fill();
 
 
-   state.vampire.draw();
-   state.draw();
+    state.vampire.draw();
+    state.draw();
+
+    ITERATE(GameState::PersonList::const_iterator, state.personList, it)
+        it->draw();
 
 
    debug.display();

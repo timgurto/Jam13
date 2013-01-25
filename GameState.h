@@ -23,18 +23,14 @@ struct GameState{
    GameState();
    ~GameState();
 
-   void init();
-
    void draw() const;
 
    Vampire vampire;
 
-   const size_t numPeople;
-   typedef std::vector<Person*> PersonList;
+   typedef std::vector<Person> PersonList;
    PersonList personList;
 
-   Mix_Music* music;
-   Mix_Chunk* beat;
+   Sound heartbeat;
 };
 
 } // namespace Game

@@ -26,13 +26,9 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
     
 	const Location& vampLoc = state.vampire.getLoc();
     ITERATE(GameState::PersonList::iterator, state.personList, it) {
-		
-		Person* p = *it;
-		assert(p);
-		const Location& personLoc = p->getLoc();
 
-		pixels_t distToVamp = distance(personLoc, vampLoc);
-        p->update(delta, distToVamp);
+		pixels_t distToVamp = distance(it->getLoc(), vampLoc);
+        it->update(delta, distToVamp);
 	}
 }
 

@@ -4,7 +4,6 @@
 #define PERSON_H
 
 #include "Entity.h"
-#include "Heart.h"
 
 namespace Game {
 
@@ -17,8 +16,6 @@ namespace Game {
 
         virtual Surface *image() const;
 
-		Heart heart;
-
         timer_t ambleTimer_;
         bool ambling_;
         static const timer_t MAX_AMBLE_TIMER;
@@ -28,7 +25,7 @@ namespace Game {
 
     public:
 
-		Person(Point startPos, Mix_Chunk* beat);
+		Person(Point startPos);
 
 		virtual void update(double delta, pixels_t distToVamp);
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
