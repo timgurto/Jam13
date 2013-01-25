@@ -20,7 +20,7 @@ namespace Game {
 		Heart heart;
     public:
 
-		Person(Point startPos, Mix_Music* beat);
+		Person(Point startPos, Mix_Chunk* beat);
 
 		virtual void update(double delta);
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;

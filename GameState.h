@@ -35,7 +35,7 @@ struct GameState{
    PersonList personList;
 
    Mix_Music* music;
-   Mix_Music* beat;
+   Mix_Chunk* beat;
 };
 
 } // namespace Game

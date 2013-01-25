@@ -5,7 +5,7 @@
 
 namespace Game {
 
-	Person::Person(Point startPos, Mix_Music* beat) :
+	Person::Person(Point startPos, Mix_Chunk* beat) :
 		Entity(),
 		heart(beat) {
 		loc_ = startPos;

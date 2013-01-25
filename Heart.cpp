@@ -8,12 +8,18 @@ namespace Game {
 
 	extern Debug debug;
 
-	Heart::Heart(Mix_Music* b) :
+	size_t Heart::nextId = AMBIENT_CHANNEL + 1;
+
+	Heart::Heart(Mix_Chunk* b) :
+		id(nextId),
 		beat(b),
 		playing(false),
-		pauseTime(3.0),
+		pauseTime(20.0),
 		currPauseTime(0.0) {
+
+		++nextId;
 	}
+
 	Heart::~Heart() {
 	}
 
@@ -24,9 +30,13 @@ namespace Game {
 			return;
 		}
 
+		if (id > 1) {
+			return;
+		}
+
 		// Start next beat playing?
 		bool start = false;
-		playing = Mix_PlayingMusic();
+		playing = Mix_Playing(id) == 1 ? true : false;
 		if (!playing) {
 			currPauseTime += delta;
 
@@ -38,11 +48,18 @@ namespace Game {
 		}
 
 		if (start) {
-			int success = Mix_PlayMusic(beat, 1);
+			int success = Mix_PlayChannel(id, beat, 1) == 1 ? true : false;
+			debug("play");
 			if (success == -1) {
 				debug("Could not play heartbeat");
 			}
 			playing = true;
+
+			// The volume to use from 0 to MIX_MAX_VOLUME(128).
+			/*success = Mix_VolumeChunk(beat, MIX_MAX_VOLUME) == 1 ? true : false;
+			if (success == -1) {
+				debug("Could not set heartbeat volume");
+			}*/
 		}
 
 		// Music volume, from 0 to MIX_MAX_VOLUME(128).

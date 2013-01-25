@@ -11,13 +11,15 @@ namespace Game {
 
     class Heart {
 	public:
-		Heart(Mix_Music* b);
+		static size_t nextId;
+		Heart(Mix_Chunk* b);
 		~Heart();
 		void update(double delta);
 	private:
-		Mix_Music* beat;
+		Mix_Chunk* beat;
 		bool playing;
 
+		const size_t id;
 		const double pauseTime;
 		double currPauseTime;
 	};
