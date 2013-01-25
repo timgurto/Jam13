@@ -78,7 +78,7 @@ public:
       ss << a << b << c << d;
       add(ss.str());
    }
-#if !defined(__APPLE__) && !defined(__MINGW32__)
+#ifdef WIN32
    template<>
    void operator()<std::string>(std::string s){
       add(s);

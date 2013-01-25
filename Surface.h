@@ -30,13 +30,13 @@ class Surface{
    //whether this surface is the screen buffer;
    bool isScreen_;
 
-   //Keeps track of allocated surfaces
-   static int surfacesLoaded_;
-
    //whether there is a screen buffer
    static int screensSet_;
 
 public:
+
+   //Keeps track of allocated surfaces
+   static int surfacesLoaded_;
 
    //file
    Surface(const std::string fileName, bool alpha = false);

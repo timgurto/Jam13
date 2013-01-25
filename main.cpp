@@ -121,7 +121,7 @@ int main(int argc, char **argv){
 
    }
 
-   screenBuf.fini();
+   //screenBuf.fini();
 
    //Quit
    //TTF_Quit() happens at debug dtor

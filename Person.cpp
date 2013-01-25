@@ -43,8 +43,6 @@ namespace Game {
 
     void Person::update(double delta, pixels_t distToVamp){
 
-		heart.update(delta);
-
         //ambling timer
         timer_t timeElapsed = delta * DELTA_MODIFIER;
         if (ambleTimer_ <= timeElapsed){
