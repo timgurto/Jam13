@@ -23,6 +23,7 @@ extern Debug debug;
 GameState::GameState():
 loop(true),
 outcome(IN_PROGRESS),
+vampire(Location(400, 300)),
 numPeople(10),
 music(0),
 beat(0)

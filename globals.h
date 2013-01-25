@@ -28,6 +28,9 @@ const int DELTA_MODIFIER = 40;
 
 const double PI = 3.14159265358979323846;
 
+const double SQRT2 = 1.414213562;
+const double INV_SQRT2 = 0.707106781;
+
 //bits per pixel
 const int SCREEN_BPP = 32;
 

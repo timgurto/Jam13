@@ -226,6 +226,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Person.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Point.h"
 				>
 			</File>
@@ -307,6 +311,10 @@
 			</File>
 			<File
 				RelativePath=".\misc.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Person.cpp"
 				>
 			</File>
 			<File
