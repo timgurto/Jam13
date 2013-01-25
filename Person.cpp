@@ -10,11 +10,11 @@ namespace Game {
 	}
 
     SDL_Rect Person::drawRect() const{
-        return makeRect(-5, -5, 5, 5);
+        return makeRect(-3, -3, 6, 6);
     }
 
     SDL_Rect Person::collisionRect() const{
-        return makeRect(-5, -5, 5, 5);
+        return makeRect(-3, -3, 6, 6);
     }
 
     Surface *Person::image() const{
