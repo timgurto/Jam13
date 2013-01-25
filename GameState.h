@@ -25,7 +25,6 @@ struct GameState{
 
    void init();
 
-   void update(double delta);
    void draw() const;
 
    Vampire vampire;
@@ -35,7 +34,7 @@ struct GameState{
    PersonList personList;
 
    Mix_Music* music;
-   Mix_Music* beat;
+   Mix_Chunk* beat;
 };
 
 } // namespace Game

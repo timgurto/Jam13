@@ -30,16 +30,23 @@ beat(0)
 {}
 
 GameState::~GameState() {
-	if (music) {
-		Mix_FreeMusic(music);
-	}
+
+	// Stop all channels
+	Mix_HaltChannel(-1);
+	
 	while (!personList.empty()) {
 		Person* p = personList.back();
 		personList.pop_back();
 		safe_delete(p);
 	}
+
 	if (beat) {
-		Mix_FreeMusic(beat);
+		Mix_FreeChunk(beat);
+	}
+
+	
+	if (music) {
+		Mix_FreeMusic(music);
 	}
 }
 
@@ -47,10 +54,13 @@ GameState::~GameState() {
 void GameState::init() {
 
 	// - Sounds
+	// Channels
+	int Mix_AllocateChannels(MAX_CHANNELS);
+
 	// Ambient
 		
 	// load the MP3 file "music.mp3" to play as music
-	/*music = Mix_LoadMUS("Sounds/wolfram.ambient.31.1793131581.mid");
+	/*music = Mix_LoadMUS( (SOUND_PATH + "wolfram.ambient.31.1793131581.mid").c_str() );
 	if(!music) {
 		debug("Could not load ambient music: ", Mix_GetError());
 	}
@@ -68,13 +78,11 @@ void GameState::init() {
 		if (success == -1) {
 			debug("Could not set music volume");
 		}
-
 	}*/
 
 	// Heart
-		
 	// load the MP3 file "music.mp3" to play as music
-	Mix_Music* beat = Mix_LoadMUS("Sounds/beat1.wav");
+	beat = Mix_LoadWAV( (SOUND_PATH + "beat1.wav").c_str() );
 	if(!beat) {
 		debug("Could not load heartbeat: ", Mix_GetError());
 	}
@@ -86,16 +94,6 @@ void GameState::init() {
 	for (size_t i = 0; i < numPeople; ++i) {
 		const Point pos(rand() % screenRes.x, rand() % screenRes.y);
 		personList[i] = new Person(pos, beat);
-	}
-	
-}
-
-void GameState::update(double delta) {
-	PersonList::iterator itr;
-	for (itr = personList.begin(); itr != personList.end(); ++itr) {
-		Person* p = *itr;
-		assert(p);
-		p->update(delta);
 	}
 }
 

@@ -5,11 +5,11 @@
 
 namespace Game {
 
-    const timer_t Person::MAX_AMBLE_TIMER = 4000;
+	const timer_t Person::MAX_AMBLE_TIMER = 4000;
     const double Person::AMBLE_CHANCE = 0.3;
     const double Person::SPEED = 1;
 
-	Person::Person(Point startPos, Mix_Music *beat) :
+	Person::Person(Point startPos, Mix_Chunk *beat) :
     Entity(),
     heart(beat),
     ambling_(1.0*rand()/RAND_MAX < AMBLE_CHANCE),
@@ -33,6 +33,7 @@ namespace Game {
     void Person::draw(Point offset, Surface &surface) const{
         SDL_Rect rect = drawRect();
         SDL_Color color = ambling_ ? WHITE : BLUE;
+		if (heart.getId() == 1) { color = GREEN; }
         surface.fill(color,
 			&makeRect(loc_.x-rect.x-offset.x,
 				loc_.y-rect.y-offset.y,
@@ -40,7 +41,7 @@ namespace Game {
 				rect.h));
     }
 
-    void Person::update(double delta){
+    void Person::update(double delta, pixels_t distToVamp){
 
 		heart.update(delta);
 
@@ -72,7 +73,7 @@ namespace Game {
             }
         }
 
-
+		heart.update(delta, distToVamp);
     }
 
 } //namespace Game

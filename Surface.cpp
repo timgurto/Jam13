@@ -110,6 +110,10 @@ isScreen_(false){
 }
 
 Surface::~Surface(){
+	fini();
+}
+
+void Surface::fini() {
    if (surface_){
       if (isScreen_)
          --screensSet_;
@@ -161,7 +165,7 @@ void Surface::init(){}
 
 //needs to be called once, in main or wherever
 void Surface::quit(){
-   assert(surfacesLoaded_ == 0);
+   assert((screensSet_ + surfacesLoaded_) == 0);
 }
 
 //load a surface from an image file

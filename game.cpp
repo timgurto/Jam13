@@ -52,7 +52,6 @@ unsigned gameMode(Screen &/*screen*/, const void * /*data*/){
 
    timer_t oldTicks = SDL_GetTicks();
 
-   srand(1);
    state.init();
    while (state.loop){
 
