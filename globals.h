@@ -86,7 +86,7 @@ const int CREDITS_X_OFFSET = 0;
 const SDL_Color CREDITS_HEADING_COLOR = WHITE;
 
 // Sound channels
-const size_t MAX_CHANNELS = 16;
+const size_t MAX_CHANNELS = 11;
 const size_t AMBIENT_CHANNEL = 0;
 
 enum GameOutcome{

@@ -55,8 +55,6 @@ public:
    
    ~Surface();
 
-   void fini();
-
    Surface &operator=(const Surface &rhs);
    operator bool() const;
    SDL_Surface *operator->();

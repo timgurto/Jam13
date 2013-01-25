@@ -110,20 +110,17 @@ isScreen_(false){
 }
 
 Surface::~Surface(){
-	/*fini();*/
-}
-
-/*void Surface::fini() {
    if (surface_){
-      if (isScreen_)
+      if (isScreen_) {
          --screensSet_;
+	  }
       else{
          SDL_FreeSurface(surface_);
-         surface_ = 0;
+		 surface_ = 0;
          --surfacesLoaded_;
       }
    }
-}*/
+}
 
 Surface &Surface::operator=(const Surface &rhs){
    if (this == &rhs)

@@ -121,10 +121,9 @@ int main(int argc, char **argv){
 
    }
 
-   //screenBuf.fini();
-
    //Quit
    //TTF_Quit() happens at debug dtor
+
    Mix_CloseAudio();
    SDL_Quit();
    Surface::quit();
