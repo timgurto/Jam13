@@ -59,7 +59,11 @@ enum ButtonID{
 int main(int argc, char **argv){
 
    //seed random generator
+#ifdef DEBUG
+	srand(1);
+#else
    srand(unsigned(time(0)));
+#endif
 
    //SDL initialization
    int sdlInit(SDL_Init(SDL_INIT_VIDEO));
@@ -116,6 +120,8 @@ int main(int argc, char **argv){
          while (game() == RESTART);
 
    }
+
+   screenBuf.fini();
 
    //Quit
    //TTF_Quit() happens at debug dtor

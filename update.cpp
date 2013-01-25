@@ -12,6 +12,7 @@
 #include "MessageBox.h"
 #include "Screen.h"
 #include "GameState.h"
+#include "Person.h"
 
 namespace Game {
 
@@ -19,15 +20,20 @@ extern Debug debug;
 
 void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
+	handleEvents(state, fpsDisplay);
+
     state.vampire.update(delta);
+    
+	const Location& vampLoc = state.vampire.getLoc();
+    ITERATE(GameState::PersonList::iterator, state.personList, it) {
+		
+		Person* p = *it;
+		assert(p);
+		const Location& personLoc = p->getLoc();
 
-
-
-
-
-    handleEvents(state, fpsDisplay);
-
-	state.update(delta);
+		pixels_t distToVamp = distance(personLoc, vampLoc);
+        p->update(delta, distToVamp);
+	}
 }
 
 void handleEvents(GameState &state, MessageBox &fpsDisplay){

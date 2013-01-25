@@ -25,7 +25,6 @@ struct GameState{
 
    void init();
 
-   void update(double delta);
    void draw() const;
 
    Vampire vampire;

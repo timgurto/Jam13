@@ -18,11 +18,19 @@ namespace Game {
         virtual Surface *image() const;
 
 		Heart heart;
+
+        timer_t ambleTimer_;
+        bool ambling_;
+        static const timer_t MAX_AMBLE_TIMER;
+        static const double AMBLE_CHANCE;
+        static const double SPEED;
+        int direction_;
+
     public:
 
 		Person(Point startPos, Mix_Chunk* beat);
 
-		virtual void update(double delta);
+		virtual void update(double delta, pixels_t distToVamp);
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 
 	};

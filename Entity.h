@@ -30,7 +30,6 @@ namespace Game {
       bool collidesWithEntity(const Entity &rhs) const;
       bool collidesWithPoint(const Point &rhs) const;
 
-	  virtual void update(double delta) {}
       virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 
       //comparison, for sorting/sets/maps.  Compares y co-ordinate of location.

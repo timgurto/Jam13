@@ -30,16 +30,23 @@ beat(0)
 {}
 
 GameState::~GameState() {
-	if (music) {
-		Mix_FreeMusic(music);
-	}
+
+	// Stop all channels
+	Mix_HaltChannel(-1);
+	
 	while (!personList.empty()) {
 		Person* p = personList.back();
 		personList.pop_back();
 		safe_delete(p);
 	}
+
 	if (beat) {
 		Mix_FreeChunk(beat);
+	}
+
+	
+	if (music) {
+		Mix_FreeMusic(music);
 	}
 }
 
@@ -90,18 +97,8 @@ void GameState::init() {
 	}
 }
 
-void GameState::update(double delta) {
-	PersonList::iterator itr;
-	for (itr = personList.begin(); itr != personList.end(); ++itr) {
-		Person* p = *itr;
-		assert(p);
-		p->update(delta);
-	}
-}
-
 void GameState::draw() const {
-	PersonList::const_iterator itr;
-	for (itr = personList.begin(); itr != personList.end(); ++itr) {
+    ITERATE(PersonList::const_iterator, personList, itr){
 		const Person* p = *itr;
 		assert(p);
 		p->draw();

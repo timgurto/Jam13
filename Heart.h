@@ -14,7 +14,8 @@ namespace Game {
 		static size_t nextId;
 		Heart(Mix_Chunk* b);
 		~Heart();
-		void update(double delta);
+		void update(double delta, pixels_t distToVamp);
+		size_t getId() const;
 	private:
 		Mix_Chunk* beat;
 		bool playing;
