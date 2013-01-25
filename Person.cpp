@@ -11,7 +11,7 @@ namespace Game {
 
 	Person::Person(Point startPos, Mix_Music *beat) :
     Entity(),
-    heart(beat)
+    heart(beat),
     ambling_(1.0*rand()/RAND_MAX < AMBLE_CHANCE),
     ambleTimer_(rand()%MAX_AMBLE_TIMER),
     direction_(rand()%4){
@@ -30,10 +30,6 @@ namespace Game {
         return 0;
     }
 
-	void Person::update(double delta) {
-		heart.update(delta);
-	}
-
     void Person::draw(Point offset, Surface &surface) const{
         SDL_Rect rect = drawRect();
         SDL_Color color = ambling_ ? WHITE : BLUE;
@@ -45,6 +41,8 @@ namespace Game {
     }
 
     void Person::update(double delta){
+
+		heart.update(delta);
 
         //ambling timer
         timer_t timeElapsed = delta * DELTA_MODIFIER;

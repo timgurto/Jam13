@@ -33,8 +33,6 @@ namespace Game {
 		virtual void update(double delta);
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 
-        void update(double delta);
-
 	};
 
 } //namespace Game

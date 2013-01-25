@@ -210,6 +210,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Heart.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Location.h"
 				>
 			</File>
@@ -295,6 +299,10 @@
 			</File>
 			<File
 				RelativePath=".\GameState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Heart.cpp"
 				>
 			</File>
 			<File
