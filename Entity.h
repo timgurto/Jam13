@@ -13,6 +13,7 @@ namespace Game {
    //Inheritable class for in-game objects which have a separate collision box and draw-rectangle.
    class Entity{
 
+   protected:
       Location loc_;
 
       virtual SDL_Rect drawRect() const = 0; //returns the hardcoded draw rectangle; x and y are an offset
