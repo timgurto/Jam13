@@ -125,6 +125,7 @@
     <ClInclude Include="types.h" />
     <ClInclude Include="update.h" />
     <ClInclude Include="util.h" />
+    <ClInclude Include="Vampire.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Debug.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="update.cpp" />
     <ClCompile Include="util.cpp" />
+    <ClCompile Include="Vampire.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
