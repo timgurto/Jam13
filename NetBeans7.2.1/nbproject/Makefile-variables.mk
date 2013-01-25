@@ -6,22 +6,38 @@
 CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
-# Debug configuration
-CND_PLATFORM_Debug=GNU-MacOSX
-CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-MacOSX
-CND_ARTIFACT_NAME_Debug=netbeans7.2.1
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-MacOSX/netbeans7.2.1
-CND_PACKAGE_DIR_Debug=dist/Debug/GNU-MacOSX/package
-CND_PACKAGE_NAME_Debug=netbeans7.2.1.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-MacOSX/package/netbeans7.2.1.tar
-# Release configuration
-CND_PLATFORM_Release=GNU-MacOSX
-CND_ARTIFACT_DIR_Release=dist/Release/GNU-MacOSX
-CND_ARTIFACT_NAME_Release=netbeans7.2.1
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-MacOSX/netbeans7.2.1
-CND_PACKAGE_DIR_Release=dist/Release/GNU-MacOSX/package
-CND_PACKAGE_NAME_Release=netbeans7.2.1.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-MacOSX/package/netbeans7.2.1.tar
+# Mac-Debug configuration
+CND_PLATFORM_Mac-Debug=MinGW_1-Windows
+CND_ARTIFACT_DIR_Mac-Debug=dist/Mac-Debug/MinGW_1-Windows
+CND_ARTIFACT_NAME_Mac-Debug=netbeans7.2.1
+CND_ARTIFACT_PATH_Mac-Debug=dist/Mac-Debug/MinGW_1-Windows/netbeans7.2.1
+CND_PACKAGE_DIR_Mac-Debug=dist/Mac-Debug/MinGW_1-Windows/package
+CND_PACKAGE_NAME_Mac-Debug=netbeans7.2.1.tar
+CND_PACKAGE_PATH_Mac-Debug=dist/Mac-Debug/MinGW_1-Windows/package/netbeans7.2.1.tar
+# Mac-Release configuration
+CND_PLATFORM_Mac-Release=MinGW_1-Windows
+CND_ARTIFACT_DIR_Mac-Release=dist/Mac-Release/MinGW_1-Windows
+CND_ARTIFACT_NAME_Mac-Release=netbeans7.2.1
+CND_ARTIFACT_PATH_Mac-Release=dist/Mac-Release/MinGW_1-Windows/netbeans7.2.1
+CND_PACKAGE_DIR_Mac-Release=dist/Mac-Release/MinGW_1-Windows/package
+CND_PACKAGE_NAME_Mac-Release=netbeans7.2.1.tar
+CND_PACKAGE_PATH_Mac-Release=dist/Mac-Release/MinGW_1-Windows/package/netbeans7.2.1.tar
+# Win-Debug configuration
+CND_PLATFORM_Win-Debug=MinGW_1-Windows
+CND_ARTIFACT_DIR_Win-Debug=dist/Win-Debug/MinGW_1-Windows
+CND_ARTIFACT_NAME_Win-Debug=netbeans7.2.1
+CND_ARTIFACT_PATH_Win-Debug=dist/Win-Debug/MinGW_1-Windows/netbeans7.2.1
+CND_PACKAGE_DIR_Win-Debug=dist/Win-Debug/MinGW_1-Windows/package
+CND_PACKAGE_NAME_Win-Debug=netbeans7.2.1.tar
+CND_PACKAGE_PATH_Win-Debug=dist/Win-Debug/MinGW_1-Windows/package/netbeans7.2.1.tar
+# Win-Release configuration
+CND_PLATFORM_Win-Release=MinGW_1-Windows
+CND_ARTIFACT_DIR_Win-Release=dist/Win-Release/MinGW_1-Windows
+CND_ARTIFACT_NAME_Win-Release=netbeans7.2.1
+CND_ARTIFACT_PATH_Win-Release=dist/Win-Release/MinGW_1-Windows/netbeans7.2.1
+CND_PACKAGE_DIR_Win-Release=dist/Win-Release/MinGW_1-Windows/package
+CND_PACKAGE_NAME_Win-Release=netbeans7.2.1.tar
+CND_PACKAGE_PATH_Win-Release=dist/Win-Release/MinGW_1-Windows/package/netbeans7.2.1.tar
 #
 # include compiler specific variables
 #

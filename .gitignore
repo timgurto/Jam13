@@ -1,6 +1,11 @@
 *.app
 *.sdf
 *.suo
+*.opensdf
+*.vcxproj.user
+Debug/*
+Release/*
+ipch/*
 NetBeans6.9.1/build/*
 NetBeans6.9.1/dist/*
 NetBeans6.9.1/nbproject/private/*

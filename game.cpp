@@ -1,6 +1,7 @@
 // (C) 2009-2011 Tim Gurto
 
 #include <cassert>
+#include <cstdlib>
 #include <map>
 #include <string>
 #include <fstream>
@@ -50,6 +51,9 @@ unsigned gameMode(Screen &/*screen*/, const void * /*data*/){
       debug("Unhandled event: ", int(event.type));
 
    timer_t oldTicks = SDL_GetTicks();
+
+   srand(1);
+   state.init();
    while (state.loop){
 
       //time stuff

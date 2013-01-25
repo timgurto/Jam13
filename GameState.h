@@ -11,15 +11,25 @@
 
 namespace Game {
 
+class Person;
+
 struct GameState{
 
    bool loop; //whether or not to continue the game loop
    GameOutcome outcome; //the game's outcome/current status
 
    GameState();
+   ~GameState();
+
+   void init();
+
+   void draw() const;
 
    Vampire vampire;
 
+   const size_t numPeople;
+   typedef std::vector<Person*> PersonList;
+   PersonList personList;
 };
 
 } // namespace Game

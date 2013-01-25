@@ -107,6 +107,10 @@ Point midpoint(SDL_Rect rect);
 
 long long abs(long long a);
 
+#define safe_delete(ptr) { delete ptr; ptr = NULL; }
+
+#define safe_delete_array(ptr) { delete [] ptr; ptr = NULL; }
+
 } // namespace Game
 
 #endif

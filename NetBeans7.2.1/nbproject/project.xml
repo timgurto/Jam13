@@ -4,7 +4,7 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>Jam13</name>
-            <c-extensions>m</c-extensions>
+            <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
@@ -14,11 +14,19 @@
             </sourceRootList>
             <confList>
                 <confElem>
-                    <name>Debug</name>
+                    <name>Mac-Debug</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Release</name>
+                    <name>Mac-Release</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Win-Debug</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Win-Release</name>
                     <type>1</type>
                 </confElem>
             </confList>

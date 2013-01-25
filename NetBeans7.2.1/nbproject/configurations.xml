@@ -37,7 +37,6 @@
       <itemPath>../Location.cpp</itemPath>
       <itemPath>../MessageBox.cpp</itemPath>
       <itemPath>../Point.cpp</itemPath>
-      <itemPath>../SDLMain.m</itemPath>
       <itemPath>../Screen.cpp</itemPath>
       <itemPath>../ScreenElement.cpp</itemPath>
       <itemPath>../Sound.cpp</itemPath>
@@ -66,7 +65,7 @@
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="Mac-Debug" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
@@ -84,7 +83,7 @@
           <preprocessorList>
             <Elem>DEBUG</Elem>
           </preprocessorList>
-          <warningLevel>3</warningLevel>
+          <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
           <architecture>1</architecture>
@@ -98,14 +97,14 @@
           <preprocessorList>
             <Elem>DEBUG</Elem>
           </preprocessorList>
-          <warningLevel>3</warningLevel>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
           <commandLine>-framework Cocoa -framework SDL -framework SDL_image -framework SDL_mixer -framework SDL_ttf</commandLine>
         </linkerTool>
       </compileType>
     </conf>
-    <conf name="Release" type="1">
+    <conf name="Mac-Release" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
@@ -125,7 +124,7 @@
             <Elem>NDEBUG</Elem>
             <Elem>RELEASE</Elem>
           </preprocessorList>
-          <warningLevel>3</warningLevel>
+          <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
@@ -141,7 +140,7 @@
             <Elem>NDEBUG</Elem>
             <Elem>RELEASE</Elem>
           </preprocessorList>
-          <warningLevel>3</warningLevel>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -151,6 +150,92 @@
         </asmTool>
         <linkerTool>
           <commandLine>-framework Cocoa -framework SDL -framework SDL_image -framework SDL_mixer -framework SDL_ttf</commandLine>
+        </linkerTool>
+      </compileType>
+    </conf>
+    <conf name="Win-Debug" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <architecture>1</architecture>
+          <incDir>
+            <pElem>../../SDL-devel-1.2.15-VC/SDL-1.2.15/include</pElem>
+            <pElem>../../SDL_image-devel-1.2.12-VC/SDL_image-1.2.12/include</pElem>
+            <pElem>../../SDL_mixer-devel-1.2.12-VC/SDL_mixer-1.2.12/include</pElem>
+            <pElem>../../SDL_ttf-devel-2.0.11-VC/SDL_ttf-2.0.11/include</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <architecture>1</architecture>
+          <incDir>
+            <pElem>../../SDL-devel-1.2.15-VC/SDL-1.2.15/include</pElem>
+            <pElem>../../SDL_image-devel-1.2.12-VC/SDL_image-1.2.12/include</pElem>
+            <pElem>../../SDL_mixer-devel-1.2.12-VC/SDL_mixer-1.2.12/include</pElem>
+            <pElem>../../SDL_ttf-devel-2.0.11-VC/SDL_ttf-2.0.11/include</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../../SDL-devel-1.2.15-VC/SDL-1.2.15/lib</pElem>
+            <pElem>../../SDL_image-devel-1.2.12-VC/SDL_image-1.2.12/lib</pElem>
+            <pElem>../../SDL_mixer-devel-1.2.12-VC/SDL_mixer-1.2.12/lib</pElem>
+            <pElem>../../SDL_ttf-devel-2.0.11-VC/SDL_ttf-2.0.11/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibFileItem>../../SDL_ttf-devel-2.0.11-VC/SDL_ttf-2.0.11/lib/x86/SDL_ttf.lib</linkerLibFileItem>
+            <linkerLibFileItem>../../SDL_image-devel-1.2.12-VC/SDL_image-1.2.12/lib/x86/SDL_image.lib</linkerLibFileItem>
+            <linkerLibFileItem>../../SDL_mixer-devel-1.2.12-VC/SDL_mixer-1.2.12/lib/x86/SDL_mixer.lib</linkerLibFileItem>
+            <linkerLibFileItem>../../SDL-devel-1.2.15-VC/SDL-1.2.15/lib/x86/SDLmain.lib</linkerLibFileItem>
+            <linkerLibFileItem>../../SDL-devel-1.2.15-VC/SDL-1.2.15/lib/x86/SDL.lib</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+    </conf>
+    <conf name="Win-Release" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <architecture>1</architecture>
+          <incDir>
+            <pElem>../../SDL-devel-1.2.15-VC/SDL-1.2.15/include</pElem>
+            <pElem>../../SDL_image-devel-1.2.12-VC/SDL_image-1.2.12/include</pElem>
+            <pElem>../../SDL_mixer-devel-1.2.12-VC/SDL_mixer-1.2.12/include</pElem>
+            <pElem>../../SDL_ttf-devel-2.0.11-VC/SDL_ttf-2.0.11/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>NDEBUG</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <architecture>1</architecture>
+          <incDir>
+            <pElem>../../SDL-devel-1.2.15-VC/SDL-1.2.15/include</pElem>
+            <pElem>../../SDL_image-devel-1.2.12-VC/SDL_image-1.2.12/include</pElem>
+            <pElem>../../SDL_mixer-devel-1.2.12-VC/SDL_mixer-1.2.12/include</pElem>
+            <pElem>../../SDL_ttf-devel-2.0.11-VC/SDL_ttf-2.0.11/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>NDEBUG</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../../SDL-devel-1.2.15-VC/SDL-1.2.15/lib</pElem>
+            <pElem>../../SDL_image-devel-1.2.12-VC/SDL_image-1.2.12/lib</pElem>
+            <pElem>../../SDL_mixer-devel-1.2.12-VC/SDL_mixer-1.2.12/lib</pElem>
+            <pElem>../../SDL_ttf-devel-2.0.11-VC/SDL_ttf-2.0.11/lib</pElem>
+          </linkerAddLib>
+          <commandLine>SDL SDLmain SDL_image SDL_ttf SDL_mixer</commandLine>
         </linkerTool>
       </compileType>
     </conf>

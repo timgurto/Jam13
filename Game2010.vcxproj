@@ -48,6 +48,8 @@
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\jacqueline.hawkins\ggj13\SDL_image-devel-1.2.12-VC\SDL_image-1.2.12\include;C:\Users\jacqueline.hawkins\ggj13\SDL_mixer-devel-1.2.12-VC\SDL_mixer-1.2.12\include;C:\Users\jacqueline.hawkins\ggj13\SDL_ttf-devel-2.0.11-VC\SDL_ttf-2.0.11\include;C:\Users\jacqueline.hawkins\ggj13\SDL-devel-1.2.15-VC\SDL-1.2.15\include;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\jacqueline.hawkins\ggj13\SDL_image-devel-1.2.12-VC\SDL_image-1.2.12\lib\x86;C:\Users\jacqueline.hawkins\ggj13\SDL_mixer-devel-1.2.12-VC\SDL_mixer-1.2.12\lib\x86;C:\Users\jacqueline.hawkins\ggj13\SDL_ttf-devel-2.0.11-VC\SDL_ttf-2.0.11\lib\x86;C:\Users\jacqueline.hawkins\ggj13\SDL-devel-1.2.15-VC\SDL-1.2.15\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -114,6 +116,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="MessageBox.h" />
     <ClInclude Include="misc.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="render.h" />
     <ClInclude Include="Screen.h" />
@@ -123,6 +126,7 @@
     <ClInclude Include="types.h" />
     <ClInclude Include="update.h" />
     <ClInclude Include="util.h" />
+    <ClInclude Include="Vampire.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Debug.cpp" />
@@ -133,6 +137,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageBox.cpp" />
     <ClCompile Include="misc.cpp" />
+    <ClCompile Include="Person.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="render.cpp" />
     <ClCompile Include="Screen.cpp" />
@@ -141,6 +146,7 @@
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="update.cpp" />
     <ClCompile Include="util.cpp" />
+    <ClCompile Include="Vampire.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
