@@ -5,7 +5,7 @@
 
 namespace Game {
 
-    const double Vampire::SPEED = 10;
+    const double Vampire::SPEED = 3;
 
     Vampire::Vampire(const Location &loc){    
         loc_ = loc;

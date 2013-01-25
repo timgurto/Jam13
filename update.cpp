@@ -12,6 +12,7 @@
 #include "MessageBox.h"
 #include "Screen.h"
 #include "GameState.h"
+#include "Person.h"
 
 namespace Game {
 
@@ -20,7 +21,9 @@ extern Debug debug;
 void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
     state.vampire.update(delta);
-
+    
+    ITERATE(GameState::PersonList::iterator, state.personList, it)
+        (*it)->update(delta);
 
 
 
