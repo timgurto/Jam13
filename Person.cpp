@@ -5,7 +5,9 @@
 
 namespace Game {
 
-	Person::Person(Point startPos) : Entity() {
+	Person::Person(Point startPos, Mix_Music* beat) :
+		Entity(),
+		heart(beat) {
 		loc_ = startPos;
 	}
 
@@ -20,6 +22,10 @@ namespace Game {
     Surface *Person::image() const{
         return 0;
     }
+
+	void Person::update(double delta) {
+		heart.update(delta);
+	}
 
     void Person::draw(Point offset, Surface &surface) const{
         SDL_Rect rect = drawRect();

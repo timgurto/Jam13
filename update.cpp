@@ -20,6 +20,8 @@ extern Debug debug;
 void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
     handleEvents(state, fpsDisplay);
+
+	state.update(delta);
 }
 
 void handleEvents(GameState &state, MessageBox &fpsDisplay){
