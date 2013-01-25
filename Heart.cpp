@@ -1,5 +1,6 @@
 // (C) 2013 Tim Gurto
 
+#include <cassert>
 #include "Heart.h"
 #include "Debug.h"
 #include "util.h"
@@ -17,6 +18,7 @@ namespace Game {
 		pauseTime(20.0),
 		currPauseTime(0.0) {
 
+		assert( id < (MAX_CHANNELS + 1) );
 		++nextId;
 	}
 

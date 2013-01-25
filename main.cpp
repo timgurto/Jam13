@@ -125,6 +125,7 @@ int main(int argc, char **argv){
 
    //Quit
    //TTF_Quit() happens at debug dtor
+
    Mix_CloseAudio();
    SDL_Quit();
    Surface::quit();

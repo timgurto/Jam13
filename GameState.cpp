@@ -24,7 +24,7 @@ GameState::GameState():
 loop(true),
 outcome(IN_PROGRESS),
 vampire(Location(400, 300)),
-numPeople(10),
+numPeople(MAX_CHANNELS),
 music(0),
 beat(0)
 {}
@@ -42,11 +42,13 @@ GameState::~GameState() {
 
 	if (beat) {
 		Mix_FreeChunk(beat);
+		beat = 0;
 	}
 
 	
 	if (music) {
 		Mix_FreeMusic(music);
+		music = 0;
 	}
 }
 

@@ -115,10 +115,13 @@ Surface::~Surface(){
 
 void Surface::fini() {
    if (surface_){
-      if (isScreen_)
+      if (isScreen_) {
+		  surface_ = 0;
          --screensSet_;
+	  }
       else{
          SDL_FreeSurface(surface_);
+		 surface_ = 0;
          --surfacesLoaded_;
       }
    }
