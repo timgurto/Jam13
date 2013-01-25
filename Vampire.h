@@ -15,9 +15,15 @@ namespace Game {
 
         virtual Surface *image() const;
 
+        static const double SPEED;
+
     public:
 
+        Vampire(const Location &loc);
+
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
+
+        void update(double delta);
 
 	};
 

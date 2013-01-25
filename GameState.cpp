@@ -12,6 +12,9 @@ namespace Game {
 
 GameState::GameState():
 loop(true),
-outcome(IN_PROGRESS){}
+outcome(IN_PROGRESS),
+
+vampire(Location(400, 300))
+{}
 
 } // namespace Game

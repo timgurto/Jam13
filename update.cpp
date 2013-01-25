@@ -19,6 +19,12 @@ extern Debug debug;
 
 void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
+    state.vampire.update(delta);
+
+
+
+
+
     handleEvents(state, fpsDisplay);
 }
 
