@@ -218,6 +218,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Map.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MessageBox.h"
 				>
 			</File>
@@ -303,6 +307,10 @@
 			</File>
 			<File
 				RelativePath=".\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Map.cpp"
 				>
 			</File>
 			<File

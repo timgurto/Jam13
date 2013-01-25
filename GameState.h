@@ -8,6 +8,7 @@
 #include "Sound.h"
 #include "Entity.h"
 #include "Vampire.h"
+#include "Map.h"
 
 #include "SDL_mixer.h"
 
@@ -23,14 +24,15 @@ struct GameState{
    GameState();
    ~GameState();
 
-   void draw() const;
-
    Vampire vampire;
 
    typedef std::vector<Person> PersonList;
    PersonList personList;
 
    Sound heartbeat;
+
+   Location offset;
+   Map map;
 };
 
 } // namespace Game

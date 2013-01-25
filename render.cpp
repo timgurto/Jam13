@@ -25,9 +25,9 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
 
    screenBuf.fill();
 
+    state.map.draw();
 
     state.vampire.draw();
-    state.draw();
 
     if (isKeyPressed(SDLK_SPACE))
         ITERATE(GameState::PersonList::const_iterator, state.personList, it)

@@ -59,6 +59,9 @@ unsigned gameMode(Screen &/*screen*/, const void * /*data*/){
       timer_t delta = newTicks - oldTicks;
       oldTicks = newTicks;
 
+      if (delta > 500)
+          continue;
+
       double deltaMod = 1.0 * delta / DELTA_MODIFIER;
       
       double fps = delta == 0 ? 0 : 1000 / delta;
