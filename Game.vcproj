@@ -259,6 +259,10 @@
 				RelativePath=".\util.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Vampire.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

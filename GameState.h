@@ -6,6 +6,7 @@
 #include <fstream>
 #include "Surface.h"
 #include "Sound.h"
+#include "Entity.h"
 
 namespace Game {
 
