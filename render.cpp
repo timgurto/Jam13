@@ -26,6 +26,7 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
 
 
    state.vampire.draw();
+   state.draw();
 
 
    debug.display();

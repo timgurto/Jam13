@@ -116,6 +116,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="MessageBox.h" />
     <ClInclude Include="misc.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="render.h" />
     <ClInclude Include="Screen.h" />
@@ -136,6 +137,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageBox.cpp" />
     <ClCompile Include="misc.cpp" />
+    <ClCompile Include="Person.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="render.cpp" />
     <ClCompile Include="Screen.cpp" />
