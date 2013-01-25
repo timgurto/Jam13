@@ -100,8 +100,7 @@ void GameState::update(double delta) {
 }
 
 void GameState::draw() const {
-	PersonList::const_iterator itr;
-	for (itr = personList.begin(); itr != personList.end(); ++itr) {
+    ITERATE(PersonList::const_iterator, personList, itr){
 		const Person* p = *itr;
 		assert(p);
 		p->draw();
