@@ -24,17 +24,21 @@ GameState::GameState():
 loop(true),
 outcome(IN_PROGRESS),
 
-vampire(Location(400, 300)){
+vampire(Location(400, 300)),
+
+heartbeat(SOUND_PATH + "beat1.wav"){
 
     // Populate people
-    for (int i = 0; i != 10; ++i)
+    for (int i = 0; i != 3; ++i)
         personList.push_back(Person(Point(rand()%800, rand()%600)));
 
-    
+    Person::heartbeat = &heartbeat;
 
 }
 
 GameState::~GameState() {
+
+    Person::heartbeat = 0;
 
 	// Stop all channels
 	Mix_HaltChannel(-1);

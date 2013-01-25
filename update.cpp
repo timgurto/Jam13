@@ -3,6 +3,7 @@
 #include <cassert>
 #include <sstream>
 #include <ctime>
+#include <map>
 #include "update.h"
 #include "game.h"
 #include "util.h"
@@ -24,10 +25,28 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
     state.vampire.update(delta);
     
-	const Location& vampLoc = state.vampire.getLoc();
+    //determine the closest persons, so that their hearts are heard
+    typedef std::multimap<pixels_t, Person *> closestPersons_t;
+    closestPersons_t closestPersons;
+    const Location& vampLoc = state.vampire.getLoc();
+    ITERATE(GameState::PersonList::iterator, state.personList, it){
+        it->isClosest = false;
+        closestPersons.insert(std::pair<pixels_t, Person *>(distance(it->getLoc(), vampLoc), &*it));
+    }
+
+    int i = 0;
+    ITERATE(closestPersons_t::iterator, closestPersons, it){
+        if (i != Person::MAX_HEARTBEATS){
+            (it->second)->isClosest = true;
+            ++i;
+        }
+    }
+	
     ITERATE(GameState::PersonList::iterator, state.personList, it) {
 
-		pixels_t distToVamp = distance(it->getLoc(), vampLoc);
+        
+
+	    pixels_t distToVamp = distance(it->getLoc(), vampLoc);
         it->update(delta, distToVamp);
 	}
 }

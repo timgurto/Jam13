@@ -2,19 +2,31 @@
 
 #include "Person.h"
 #include "util.h"
+#include "Debug.h"
+#include <cmath>
 
 namespace Game {
 
-	const timer_t Person::MAX_AMBLE_TIMER = 4000;
+    extern Debug debug;
+
+	const timer_t Person::MAX_AMBLE_TIMER = 3000;
     const double Person::AMBLE_CHANCE = 0.3;
-    const double Person::SPEED = 1;
+    const double Person::SPEED = .4;
+    Sound *Person::heartbeat;
+
+    const pixels_t Person::MAX_SOUND_DISTANCE = 300;
+
+    const int Person::MAX_HEARTBEATS = 1;
 
 	Person::Person(Point startPos) :
     Entity(),
     /*heart(beat),*/
     ambling_(1.0*rand()/RAND_MAX < AMBLE_CHANCE),
     ambleTimer_(rand()%MAX_AMBLE_TIMER),
-    direction_(rand()%4){
+    direction_(rand()%4),
+    
+    heartTimer_(rand()%200 + 900){
+
         loc_ = startPos;
     }
 
@@ -42,15 +54,15 @@ namespace Game {
 
     void Person::update(double delta, pixels_t distToVamp){
 
-        //ambling timer
         timer_t timeElapsed = delta * DELTA_MODIFIER;
+
+        //ambling timer
         if (ambleTimer_ <= timeElapsed){
-            ambleTimer_ = rand() % MAX_AMBLE_TIMER;
+            ambleTimer_ = rand() % MAX_AMBLE_TIMER - (timeElapsed - ambleTimer_);
             ambling_ = 1.0*rand()/RAND_MAX < AMBLE_CHANCE;
             direction_ = rand() % 4;
-        }else{
+        }else
             ambleTimer_ -= timeElapsed;
-        }
 
         //ambling
         if (ambling_){
@@ -69,6 +81,34 @@ namespace Game {
                 loc_.y += distance;
             }
         }
+
+        
+        //heartbeat timer
+        if (heartTimer_ <= timeElapsed){
+            heartTimer_ = rand()%200 + 900 - (timeElapsed - heartTimer_);
+            if (isClosest && distToVamp <= MAX_SOUND_DISTANCE){
+                //close enough; play sound
+                double distance = 1.0 * distToVamp / MAX_SOUND_DISTANCE;
+
+
+                //double volume = 1 - pow(distance, 0.25);
+
+                //double invDist = 1 - distance;
+                //double volume = invDist * invDist; volume *= volume;
+
+                //double volume = (1-distance) * (1-distance);
+
+                //double volume = 1.0 / (x+.1) - .1
+
+                double volume = 1 - distance;
+
+
+                heartbeat->changeVolume(volume);
+                heartbeat->play();
+                //debug("Playing sound; volume=", volume);
+            }
+        }else
+            heartTimer_ -= timeElapsed;
     }
 
 } //namespace Game

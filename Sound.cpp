@@ -45,7 +45,7 @@ void Sound::changeVolume(double volumeLevel){
 
 void Sound::play(int channel, int loops) const{
 #ifndef NO_ART
-   if (!DEBUG)
+   /*if (!DEBUG)*/
       if (sound_)
          Mix_PlayChannel(channel, sound_, loops);
 #endif
