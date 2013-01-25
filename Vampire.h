@@ -8,9 +8,17 @@
 namespace Game {
 
     class Vampire : public Entity{
-    virtual SDL_Rect drawRect() const = 0; //returns the hardcoded draw rectangle; x and y are an offset
-    virtual SDL_Rect collisionRect() const = 0; //returns the hardcoded collision rectangle; x and y are an offset
-    virtual Surface *image() const = 0;
+
+        virtual SDL_Rect drawRect() const;
+
+        virtual SDL_Rect collisionRect() const;
+
+        virtual Surface *image() const;
+
+    public:
+
+        virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
+
 	};
 
 } //namespace Game
