@@ -48,6 +48,8 @@
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\jacqueline.hawkins\ggj13\SDL_image-devel-1.2.12-VC\SDL_image-1.2.12\include;C:\Users\jacqueline.hawkins\ggj13\SDL_mixer-devel-1.2.12-VC\SDL_mixer-1.2.12\include;C:\Users\jacqueline.hawkins\ggj13\SDL_ttf-devel-2.0.11-VC\SDL_ttf-2.0.11\include;C:\Users\jacqueline.hawkins\ggj13\SDL-devel-1.2.15-VC\SDL-1.2.15\include;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\jacqueline.hawkins\ggj13\SDL_image-devel-1.2.12-VC\SDL_image-1.2.12\lib\x86;C:\Users\jacqueline.hawkins\ggj13\SDL_mixer-devel-1.2.12-VC\SDL_mixer-1.2.12\lib\x86;C:\Users\jacqueline.hawkins\ggj13\SDL_ttf-devel-2.0.11-VC\SDL_ttf-2.0.11\lib\x86;C:\Users\jacqueline.hawkins\ggj13\SDL-devel-1.2.15-VC\SDL-1.2.15\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

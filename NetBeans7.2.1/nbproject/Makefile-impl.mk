@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=NetBeans7.2.1
 
 # Active Configuration
-DEFAULTCONF=Debug
+DEFAULTCONF=Mac-Debug
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release 
+ALLCONFS=Mac-Debug Mac-Release Win-Debug Win-Release 
 
 
 # build

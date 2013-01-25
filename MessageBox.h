@@ -65,7 +65,7 @@ public:
       ss << a << b << c << d;
       message_ = ss.str();
    }
-#ifdef WIN32
+#if !defined(__APPLE__) && !defined(__MINGW32__)
    template<>
    void operator()<std::string>(std::string s){
       message_ = s;
