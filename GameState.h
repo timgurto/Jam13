@@ -30,8 +30,6 @@ struct GameState{
    GameState();
    ~GameState();
 
-   void soundScream();
-
    Vampire vampire;
 
    Sound heartbeat;
@@ -64,7 +62,16 @@ struct GameState{
 
 
 private:
-	Sound scream;
+
+	Sound ahBreathSound;
+	Sound deathBonesSound;
+	Sound deathBonesScreamSound;
+	Sound deathScream;
+	Sound evilSound;
+	Sound miss1Sound;
+	Sound miss2Sound;
+	//Sound slashSound;
+
    PersonList* currPersonList;
    PersonList personList1;
    PersonList personList2;

@@ -8,15 +8,23 @@
 
 namespace Game {
 
+	class Sound;
+
     //'Death' class: an animation and corpse-image combo.
     struct Death{
         Surface image;
+		Sound* sound;
         size_t frames;
         size_t columns;
         Point dim;
         Point offset;
 
-        Death(std::string imagePath, size_t framesArg, size_t columnsArg, Point dimArg, Point offsetArg);
+        Death(const std::string& imagePath,
+			Sound* soundPtr,
+			size_t framesArg,
+			size_t columnsArg,
+			const Point& dimArg,
+			const Point& offsetArg);
     };
 
 } //namespace Game

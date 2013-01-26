@@ -14,7 +14,8 @@ namespace Game {
 	AOEAttack::AOEAttack() :
 		Entity(),
 		attackingTimer_(0),
-		sound_(SOUND_PATH + "boom1.wav"),
+		missSound1_(SOUND_PATH + "Miss.wav"),
+		missSound2_(SOUND_PATH + "Miss2.wav"),
 		attacking_(false),
 		attackHitSomething_(false),
 		attackSucceeded_(false),
@@ -116,7 +117,7 @@ namespace Game {
 		loc_ = loc;
 		attacking_ = true;
 		attackingTimer_ = getAttackingTime();
-		sound_.play(-1, 0);
+		//sound_.play(-1, 0);
 		//debug("die!");
 	}
 
@@ -133,6 +134,16 @@ namespace Game {
 	}
 
 	bool AOEAttack::attackFailed() const {
+		// TODO put in better spot
+		if (attackMissed_) {
+			const int choice = rand() % 2;
+			if (choice == 0) {
+				missSound1_.play(-1, 0);
+			}
+			else {
+				missSound2_.play(-1, 0);
+			}
+		}
 		return attackMissed_;
 	}
 
