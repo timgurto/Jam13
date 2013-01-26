@@ -42,9 +42,9 @@ map(offset){
 
     Person::heartbeat = &heartbeat;
 
-    map.tileSize = Point(40, 40);
+    map.tileSize = Point(80, 80);
     std::string TILES_PATH = IMAGE_PATH + "Tiles/";
-    map.baseProportion = 0.9;
+    map.baseProportion = 0.93;
     map.tiles.push_back(TILES_PATH + "Grass.png"); //Important: first [0] is the base tile
     map.tiles.push_back(TILES_PATH + "Brick.png");
     map.tiles.push_back(TILES_PATH + "Brick2.png");
