@@ -9,11 +9,24 @@ namespace Game {
 
 	class BatAttack : public AOEAttack{
 
+        timer_t frameTime;
+
+        Surface image;
+
 	public:
 		virtual SDLKey getKey() const;
 		//virtual Sound& getSound() const;
 
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
+
+        virtual void update(double delta);
+
+        size_t frame;
+        static const size_t FRAMES;
+        static const size_t COLUMNS;
+        static const Point DIM;
+
+        BatAttack();
 
 	protected:
 		virtual timer_t getAttackingTime() const;

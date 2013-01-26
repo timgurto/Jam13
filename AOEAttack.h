@@ -21,9 +21,6 @@ namespace Game {
 		// Player wants to activate attack
 		bool active_;
 
-		// Attack is in progress
-		bool attacking_;
-
 		// Time for the attack to run
 		timer_t attackingTimer_;
 
@@ -57,6 +54,10 @@ namespace Game {
 		//virtual Sound& getSound() const = 0;
 
 	protected:
+
+		// Attack is in progress
+		bool attacking_;
+
 		virtual timer_t getAttackingTime() const = 0;
 		virtual timer_t getCooldownTime() const = 0;
 		virtual pixels_t getRadius() const = 0;
