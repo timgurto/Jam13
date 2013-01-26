@@ -24,14 +24,21 @@ outcome(IN_PROGRESS),
 
 vampire(Location(400, 300)),
 
+currPersonList(&personList1),
+
 heartbeat(SOUND_PATH + "beat1.wav"),
 offset(0, 0),
 
 map(offset){
 
     // Populate people
-    for (int i = 0; i != 3; ++i)
-        personList.push_back(Person(Point(rand()%800, rand()%600)));
+	const size_t maxPeople = MAX_CHANNELS;
+	const size_t numPeople = 3;
+	personList1.reserve(numPeople);
+	personList2.reserve(numPeople);
+    for (int i = 0; i != numPeople; ++i) {
+        personList1.push_back(new Person(Point(rand()%800, rand()%600)));
+	}
 
     Person::heartbeat = &heartbeat;
 
@@ -65,12 +72,43 @@ GameState::~GameState() {
 	// Stop all channels
 	Mix_HaltChannel(-1);
 	
-	/*while (!personList.empty()) {
-		Person* p = personList.back();
-		personList.pop_back();
+	GameState::PersonList& currList = getPersonList();
+	while (!currList.empty()) {
+		Person* p = currList.back();
+		currList.pop_back();
 		safe_delete(p);
-	}*/
+	}
 
+}
+
+const GameState::PersonList& GameState::getPersonList() const
+{
+	assert(currPersonList);
+	return *currPersonList;
+}
+
+GameState::PersonList& GameState::getPersonList()
+{
+	assert(currPersonList);
+	return *currPersonList;
+}
+
+GameState::PersonList& GameState::getTmpList()
+{
+	assert(currPersonList);
+	if (currPersonList == &personList1) {
+		return personList2;
+	}
+	else {
+		return personList1;
+	}
+}
+
+void GameState::swapPersonLists() {
+	assert(currPersonList);
+	GameState::PersonList& tmp = getTmpList();
+	currPersonList->clear();
+	currPersonList = &tmp;
 }
 
 } // namespace Game

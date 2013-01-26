@@ -29,9 +29,12 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
     typedef std::multimap<pixels_t, Person *> closestPersons_t;
     closestPersons_t closestPersons;
     const Location& vampLoc = state.vampire.getLoc();
-    ITERATE(GameState::PersonList::iterator, state.personList, it){
-        it->isClosest = false;
-        closestPersons.insert(std::pair<pixels_t, Person *>(distance(it->getLoc(), vampLoc), &*it));
+    ITERATE(GameState::PersonList::iterator, state.getPersonList(), it){
+		Person* p = *it;
+		assert(p);
+        p->isClosest = false;
+        closestPersons.insert(std::pair<pixels_t, Person *>(
+			distance(p->getLoc(), vampLoc), p));
     }
 
     int i = 0;
@@ -42,13 +45,18 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
         }
     }
 	
-    ITERATE(GameState::PersonList::iterator, state.personList, it) {
-
-        
-
-	    pixels_t distToVamp = distance(it->getLoc(), vampLoc);
-        it->update(delta, distToVamp);
+	GameState::PersonList& personList = state.getPersonList();
+	GameState::PersonList& stillAliveList = state.getTmpList();
+    ITERATE(GameState::PersonList::iterator, personList, it) {
+		Person* p = *it;
+		assert(p);
+	    pixels_t distToVamp = distance(p->getLoc(), vampLoc);
+        p->update(delta, distToVamp);
+		if (!p->isDead()) {
+			stillAliveList.push_back(p);
+		}
 	}
+	state.swapPersonLists();
 }
 
 void handleEvents(GameState &state, MessageBox &fpsDisplay){

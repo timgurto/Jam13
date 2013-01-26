@@ -26,13 +26,21 @@ struct GameState{
 
    Vampire vampire;
 
-   typedef std::vector<Person> PersonList;
-   PersonList personList;
-
    Sound heartbeat;
 
    Location offset;
    Map map;
+
+   typedef std::vector<Person*> PersonList;
+   const PersonList& getPersonList() const;
+   PersonList& getPersonList();
+   PersonList& getTmpList();
+   void swapPersonLists();
+
+private:
+   PersonList* currPersonList;
+   PersonList personList1;
+   PersonList personList2;
 };
 
 } // namespace Game

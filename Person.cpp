@@ -18,6 +18,8 @@ namespace Game {
 
     const int Person::MAX_HEARTBEATS = 1;
 
+	const int Person::MAX_LIFE = 1;
+
 	Person::Person(Point startPos) :
     Entity(),
     /*heart(beat),*/
@@ -25,7 +27,9 @@ namespace Game {
     ambleTimer_(rand()%MAX_AMBLE_TIMER),
     direction_(rand()%4),
     
-    heartTimer_(rand()%200 + 900){
+    heartTimer_(rand()%200 + 900),
+	
+	life_(MAX_LIFE) {
 
         loc_ = startPos;
     }
@@ -110,5 +114,16 @@ namespace Game {
         }else
             heartTimer_ -= timeElapsed;
     }
+
+	void Person::hit(int hitLife) {
+		life_ = std::max(0, life_ - hitLife);
+	}
+
+	bool Person::isDead() const {
+		if (life_ <= 0) {
+			return true;
+		}
+		return false;
+	}
 
 } //namespace Game

@@ -29,6 +29,9 @@ namespace Game {
         static const pixels_t MAX_SOUND_DISTANCE;
         //double stress_; //maybe bool would be better.  Determines heartrate.
 
+		// Life
+		static const int MAX_LIFE;
+		int life_;
 
     public:
         static Sound *heartbeat;
@@ -40,6 +43,9 @@ namespace Game {
 		virtual void update(double delta, pixels_t distToVamp);
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 
+		// Get's hit - remove life
+		void hit(int hitLife);
+		bool isDead() const;
 	};
 
 } //namespace Game
