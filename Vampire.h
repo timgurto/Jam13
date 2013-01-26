@@ -21,6 +21,10 @@ namespace Game {
             DIR_H
         };
 
+        enum VampireState{
+            IDLE,
+        };
+
         virtual SDL_Rect drawRect() const;
 
         virtual SDL_Rect collisionRect() const;
@@ -34,6 +38,17 @@ namespace Game {
             *idleF,
             *idleG,
             *idleH;
+
+        const static size_t
+            idleColumns,
+            idleFrames,
+            walkingColumns,
+            walkingFrames;
+
+        timer_t frameTime; //time until next frame.  Resets at 42ms (~24f/s)
+        size_t frame; //current frame
+
+        VampireState state;
 
     public:
 

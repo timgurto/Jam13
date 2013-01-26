@@ -110,7 +110,7 @@ namespace Game {
 
                 heartbeat->changeVolume(min<int>(volume*MIX_MAX_VOLUME, MIX_MAX_VOLUME));
                 heartbeat->play(-1, 0);
-                debug("Playing sound; volume=", volume*MIX_MAX_VOLUME);
+                //debug("Playing sound; volume=", volume*MIX_MAX_VOLUME);
             }
         }else
             heartTimer_ -= timeElapsed;

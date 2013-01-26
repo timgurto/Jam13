@@ -12,8 +12,16 @@ namespace Game {
     const Surface *Vampire::idleG = 0;
     const Surface *Vampire::idleH = 0;
 
+    const size_t Vampire::idleColumns = 16;
+    const size_t Vampire::idleFrames = 65;
+    const size_t Vampire::walkingColumns = 8;
+    const size_t Vampire::walkingFrames = 30;
+
     Vampire::Vampire(const Location &loc) :
-    dir(DIR_F){    
+    dir(DIR_F),
+    frameTime(rand()%42),
+    state(IDLE),
+    frame(rand()%idleFrames){    
         loc_ = loc;
     }
 
@@ -52,7 +60,15 @@ namespace Game {
         }
 
 		assert(image);
-        image->draw(screenBuf, &getDrawRect(offset), &makeRect(0, 0, 128, 128));
+        size_t col = 0, row = 0;
+        if (state == IDLE){
+            row = frame / idleColumns;
+            col = frame % idleColumns;
+        }
+        SDL_Rect srcRect;
+        srcRect.w = srcRect.h = 128;
+        
+        image->draw(screenBuf, &getDrawRect(offset), &makeRect(col * 128, row * 128, 128, 128));
 
 		// Entity debug
 		Entity::draw(offset, surface);
@@ -115,6 +131,17 @@ namespace Game {
 		else {
 			aoeAttack.deactivate();
 		}
+
+        //animation
+        timer_t timeElapsed = delta * DELTA_MODIFIER;
+        if (timeElapsed >= frameTime){
+            frameTime = 42 - (timeElapsed - frameTime);
+            ++frame;
+            if (state == IDLE && frame >= idleFrames /*||
+                state == asdf && ...*/)
+                frame = 0;
+        }else
+            frameTime -= timeElapsed;
     }
 
     void Vampire::updateDirection(Direction newDir){
