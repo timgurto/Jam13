@@ -4,6 +4,7 @@
 #include "util.h"
 #include "Debug.h"
 #include "Person.h"
+#include "util.h"
 #include <algorithm>
 #include <cmath>
 
@@ -19,11 +20,16 @@ namespace Game {
 	Environment::Environment(double startingHealth, double maxHealth) :
 		countdownTimer_(COUNTDOWN_TIME),
 		healthBar_(startingHealth, maxHealth),
-        sunBar(IMAGE_PATH + "SunBar/BlackWhite.png", true),
-        sunBarColor(IMAGE_PATH + "SunBar/ColourBar.png", true),
+        sunBar(IMAGE_PATH + "Time/BlackWhite.png", true),
+        sunBarColor(IMAGE_PATH + "Time/ColourBar.png", true),
         sunBarLoc(0, 600-107),
         sunBarDim(800, 107){
 
+        overlay[0] = Surface(IMAGE_PATH + "Time/1.png", true);
+        overlay[1] = Surface(IMAGE_PATH + "Time/2.png", true);
+        overlay[2] = Surface(IMAGE_PATH + "Time/3.png", true);
+        overlay[3] = Surface(IMAGE_PATH + "Time/4.png", true);
+        overlay[4] = Surface(IMAGE_PATH + "Time/5.png", true);
     }
 
 
@@ -50,10 +56,17 @@ namespace Game {
 
 	void Environment::draw(Point offset, Surface &surface) const
 	{
+        //overlay
+        double progress = 1.0 * (COUNTDOWN_TIME - countdownTimer_) / COUNTDOWN_TIME;
+        size_t overlayIndex = progress * 5;
+        if (overlayIndex == 5)
+            overlayIndex = 4;
+        overlay[overlayIndex].draw();
+
+        //blood bar
 		healthBar_.draw(offset, surface);
 
-        double progress = 1.0 * (COUNTDOWN_TIME - countdownTimer_) / COUNTDOWN_TIME;
-
+        //sun bar
         SDL_Rect srcRect;
         srcRect.x = 0;
         srcRect.y = 0;

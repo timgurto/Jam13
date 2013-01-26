@@ -45,7 +45,6 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
 		}
 	}
 
-    state.overlay.draw();
 	state.environment.draw(Point(), screenBuf);
 
    debug.display();

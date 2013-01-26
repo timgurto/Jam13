@@ -40,8 +40,6 @@ struct GameState{
    Map map;
    Environment environment;
 
-   Surface overlay;
-
    typedef std::vector<Person*> PersonList;
    const PersonList& getPersonList() const;
    PersonList& getPersonList();

@@ -44,7 +44,6 @@ miss2Sound(SOUND_PATH + "Miss2.wav"),
 //slashSound(SOUND_PATH + "Slash_Sound_Effects_and_Music_006220237_prev.mp3"),
 
 environment(vampire.getTotalBlood(), Vampire::MAX_HEALTH),
-overlay(IMAGE_PATH + "Overlay.png", true),
 
 shakingTime(0),
 shakingMagnitude(0){
