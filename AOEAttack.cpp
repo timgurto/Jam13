@@ -110,7 +110,7 @@ namespace Game {
             if (isBatAttack())
                 state->shakeScreen(250, 10);
             else
-                state->shakeScreen(400, 25);
+                state->shakeScreen(400, 35);
 			if (hitSoundPtr_) {
 				hitSoundPtr_->play(-1, 0);
 			}
