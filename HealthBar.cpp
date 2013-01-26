@@ -55,7 +55,7 @@ namespace Game {
 	// Outline
 	SDL_Rect HealthBar::outlineRect() const{
 		const pixels_t width = getMaxWidth() + (OUTLINE_THICKNESS * 2);
-		const pixels_t height = HEIGHT + (OUTLINE_THICKNESS * 2);
+		const pixels_t height = HEIGHT + (OUTLINE_THICKNESS);
         return makeRect(0, 0, width, height);
     }
 
