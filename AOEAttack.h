@@ -72,6 +72,8 @@ namespace Game {
 		// Set to true if the attack failed to hit anything after it is finished
 		bool attackMissed_;
 
+		Sound* hitSoundPtr_;
+
 		virtual timer_t getAttackingTime() const = 0;
 		virtual pixels_t getRadius() const = 0;
 	};

@@ -11,6 +11,11 @@ namespace Game {
 
     extern Debug debug;
 
+	SmallAttack::SmallAttack() : sound(SOUND_PATH + "Ahhhh Breath.wav")
+	{
+		hitSoundPtr_ = &sound;
+	}
+
 	// Small
 	timer_t SmallAttack::getAttackingTime() const {
 		return 500;

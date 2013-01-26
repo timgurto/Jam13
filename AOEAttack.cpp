@@ -22,7 +22,8 @@ namespace Game {
 		attacking_(false),
 		attackHitSomething_(false),
 		attackSucceeded_(false),
-		attackMissed_(false) {
+		attackMissed_(false),
+		hitSoundPtr_(0) {
 
     }
 
@@ -110,6 +111,9 @@ namespace Game {
                 state->shakeScreen(250, 10);
             else
                 state->shakeScreen(400, 25);
+			if (hitSoundPtr_) {
+				hitSoundPtr_->play(-1, 0);
+			}
 
 			// Mark that we hit something for scoring when attack ends
 			attackHitSomething_ = true;
