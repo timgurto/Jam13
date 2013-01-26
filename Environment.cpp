@@ -26,7 +26,9 @@ namespace Game {
         sunBar(IMAGE_PATH + "Time/BlackWhite.png", true),
         sunBarColor(IMAGE_PATH + "Time/ColourBar.png", true),
         sunBarLoc(0, 600-107),
-        sunBarDim(800, 107){
+        sunBarDim(800, 107),
+        wisp(IMAGE_PATH + "wisp.png", true),
+        wispTimer(rand()){
 
         overlay[0] = Surface(IMAGE_PATH + "Time/1.png", true);
         overlay[1] = Surface(IMAGE_PATH + "Time/2.png", true);
@@ -38,6 +40,8 @@ namespace Game {
 
     void Environment::update(double delta){
 		const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER);
+
+        wispTimer += timeElapsed;
 		
 		// Tick time for cooldown
 		if (countdownTimer_ > 0) {
@@ -63,6 +67,17 @@ namespace Game {
 
 	void Environment::draw(Point offset, Surface &surface) const
 	{
+        //wisp
+        pixels_t xMap = state->map.mapSize.x * state->map.tileSize.x;
+        pixels_t yMap = state->map.mapSize.y * state->map.tileSize.y;
+        pixels_t xMargin = 1430; //(wisp->w - xMap) / 2;
+        pixels_t yMargin = 215; //(wisp->h - yMap) / 2;
+
+        SDL_Rect drawRect;
+        drawRect.x = -xMargin + (xMargin * cos(wispTimer/6000)) - state->offset.x;
+        drawRect.y = -yMargin + (yMargin * sin(wispTimer/6000)) - state->offset.y;
+        wisp.draw(screenBuf, &drawRect);
+
         //overlay
         double progress = 1.0 * (COUNTDOWN_TIME - countdownTimer_) / COUNTDOWN_TIME;
         size_t overlayIndex = progress * 5;

@@ -3,6 +3,7 @@
 #include "Map.h"
 #include "Location.h"
 #include <SDL.h>
+#include "util.h"
 
 namespace Game {
 
@@ -20,6 +21,9 @@ namespace Game {
             drawRect.x = row * tileSize.x - offset.x;
             drawRect.y = col * tileSize.y - offset.y;
             tiles[data[i]].draw(screenBuf, &drawRect);
+            //if (DEBUG)
+            //    if (col == 0 || row == 0 || col == mapSize.x-1 || row == mapSize.y-1)
+            //        screenBuf.box(WHITE, &makeRect(drawRect.x+1, drawRect.y+1, tileSize.x-2, tileSize.y-2));
         }
     }
 

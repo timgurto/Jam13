@@ -10,6 +10,7 @@
 namespace Game {
 
 	class Person;
+    class GameState;
 
     class Vampire : public Entity{
 
@@ -76,6 +77,8 @@ namespace Game {
 		timer_t cooldownTimer_;
 
     public:
+
+        static GameState *gameState;
 
 		static const double MAX_HEALTH;
 

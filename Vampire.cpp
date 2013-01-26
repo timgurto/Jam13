@@ -4,10 +4,13 @@
 #include "Vampire.h"
 #include "util.h"
 #include "Debug.h"
+#include "GameState.h"
 
 namespace Game {
 
     extern Debug debug;
+
+    GameState *Vampire::gameState = 0;
 
     const double Vampire::SPEED = 3;
 	const double Vampire::MAX_HEALTH = 10;
@@ -198,6 +201,18 @@ namespace Game {
             loc_.x += distance;
             lastLeftRight = DIR_R;
         }
+
+        if (loc_.x < gameState->leftBound)
+            loc_.x = gameState->leftBound;
+        if (loc_.x > gameState->rightBound)
+            loc_.x = gameState->rightBound;
+        if (loc_.y < gameState->topBound)
+            loc_.y = gameState->topBound;
+        if (loc_.y > gameState->bottomBound)
+            loc_.y = gameState->bottomBound;
+
+
+        //debug(loc_.x, ",", loc_.y);
 
         VampireState oldState = state;
         if (state != ATTACKING)

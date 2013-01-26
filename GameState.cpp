@@ -16,6 +16,7 @@
 #include "AOEAttack.h"
 #include "Environment.h"
 #include "Blood.h"
+#include "Vampire.h"
 
 namespace Game {
 
@@ -25,7 +26,7 @@ GameState::GameState():
 loop(true),
 outcome(IN_PROGRESS),
 
-vampire(Location(400, 300)),
+vampire(Location(1000, 1000)),
 
 currPersonList(&personList1),
 
@@ -53,14 +54,15 @@ shakingMagnitude(0){
     Person::state = this;
     AOEAttack::state = this;
     Environment::state = this;
+    Vampire::gameState = this;
 
     // Populate people
 	const size_t maxPeople = MAX_CHANNELS;
-	const size_t numPeople = 6;
+	const size_t numPeople = 60;
 	personList1.reserve(numPeople);
 	personList2.reserve(numPeople);
     for (int i = 0; i != numPeople; ++i) {
-        personList1.push_back(new Person(Point(rand()%800, rand()%600)));
+        personList1.push_back(new Person(Point(rand()%1800 + 100, rand()%1800 + 100)));
 	}
 
     map.tileSize = Point(40, 40);
@@ -80,8 +82,14 @@ shakingMagnitude(0){
     map.tiles.push_back(TILES_PATH + "Tombstone.png");
     map.tiles.push_back(TILES_PATH + "Tombstone2.png");
 
-    map.mapSize = Point(30, 20);
+    map.mapSize = Point(50, 50);
     map.randomize();
+
+    size_t marginSize = 10; //ensures invisible borders
+    leftBound = marginSize * map.tileSize.x;
+    topBound = marginSize * map.tileSize.y;
+    rightBound = (map.mapSize.x - marginSize) * map.tileSize.x;
+    bottomBound = (map.mapSize.y - marginSize) * map.tileSize.y;
 
     std::string VAMPIRE_PATH = IMAGE_PATH + "Vampire/";
     idleE = Surface(VAMPIRE_PATH + "idleE.png", true);
