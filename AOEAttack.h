@@ -18,9 +18,6 @@ namespace Game {
 
         virtual Surface *image() const;
 
-		// Player wants to activate attack
-		bool active_;
-
 		// Time for the attack to run
 		timer_t attackingTimer_;
 
@@ -36,6 +33,11 @@ namespace Game {
 
     public:
 		AOEAttack();
+
+        virtual bool isBatAttack();
+
+		// Player wants to activate attack
+		bool active_;
 
 		virtual void update(double delta);
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;

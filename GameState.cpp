@@ -75,6 +75,11 @@ scream(SOUND_PATH + "death1.wav") {
     movingG = Surface(VAMPIRE_PATH + "movingG.png", true);
     movingH = Surface(VAMPIRE_PATH + "movingH.png", true);
     Vampire::setMovingImages(&movingE, &movingF, &movingG, &movingH);
+    attackingE = Surface(VAMPIRE_PATH + "attackingE.png", true);
+    attackingF = Surface(VAMPIRE_PATH + "attackingF.png", true);
+    attackingG = Surface(VAMPIRE_PATH + "attackingG.png", true);
+    attackingH = Surface(VAMPIRE_PATH + "attackingH.png", true);
+    Vampire::setAttackingImages(&attackingE, &attackingF, &attackingG, &attackingH);
 
 }
 

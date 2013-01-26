@@ -15,7 +15,7 @@ namespace Game {
 		virtual SDLKey getKey() const;
 		//virtual Sound& getSound() const;
 
-        //virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
+        virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 
 	protected:
 		virtual timer_t getAttackingTime() const;

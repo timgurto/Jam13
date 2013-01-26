@@ -2,8 +2,12 @@
 
 #include "BatAttack.h"
 #include "Point.h"
+#include "Debug.h"
+#include "util.h"
 
 namespace Game {
+
+extern Debug debug;
 
     const size_t BatAttack::FRAMES = 20;
 
@@ -48,7 +52,7 @@ namespace Game {
         srcRect.y = row * DIM.y;
         srcRect.w = DIM.x;
         srcRect.h = DIM.y;
-        
+
         image.draw(screenBuf, &drawRect, &srcRect);
     }
 
@@ -58,15 +62,19 @@ namespace Game {
         if (attacking_){
             //update frame
             timer_t timeElapsed = delta * DELTA_MODIFIER;
-
+debug(frameTime);
             if (timeElapsed > frameTime){
                 ++frame;
                 if (frame >= FRAMES)
                     frame = 0;
-                frameTime = 42 - (timeElapsed - frameTime);
+                frameTime = max<int>(42 - (timeElapsed - frameTime), 0);
             }else
                 frameTime -= timeElapsed;
         }
+    }
+
+    bool BatAttack::isBatAttack(){
+       return true;
     }
 
 } //namespace Game

@@ -9,9 +9,9 @@ namespace Game {
 
 	class BatAttack : public AOEAttack{
 
-        timer_t frameTime;
+        int frameTime;
 
-        Surface image;
+        mutable Surface image;
 
 	public:
 		virtual SDLKey getKey() const;
@@ -27,6 +27,8 @@ namespace Game {
         static const Point DIM;
 
         BatAttack();
+
+        virtual bool isBatAttack();
 
 	protected:
 		virtual timer_t getAttackingTime() const;

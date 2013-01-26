@@ -2,8 +2,11 @@
 #include <cassert>
 #include "Vampire.h"
 #include "util.h"
+#include "Debug.h"
 
 namespace Game {
+
+    extern Debug debug;
 
     const double Vampire::SPEED = 3;
 
@@ -15,11 +18,17 @@ namespace Game {
     const Surface *Vampire::movingF = 0;
     const Surface *Vampire::movingG = 0;
     const Surface *Vampire::movingH = 0;
+    const Surface *Vampire::attackingE = 0;
+    const Surface *Vampire::attackingF = 0;
+    const Surface *Vampire::attackingG = 0;
+    const Surface *Vampire::attackingH = 0;
 
     const size_t Vampire::idleColumns = 16;
     const size_t Vampire::idleFrames = 65;
     const size_t Vampire::movingColumns = 8;
     const size_t Vampire::movingFrames = 30;
+    const size_t Vampire::attackingColumns = 4;
+    const size_t Vampire::attackingFrames = 15;
 
     Vampire::Vampire(const Location &loc) :
     dir(DIR_F),
@@ -53,32 +62,63 @@ namespace Game {
 
 		// Vampire sprite
         const Surface *image = 0;
-        if (state == IDLE || state == MOVING){
-            bool moving = (state == MOVING);
-            switch (dir){
-            case DIR_E:
-                image = moving ? movingE : idleE;
-                break;
-            case DIR_F:
-                image = moving ? movingF : idleF;
-                break;
-            case DIR_G:
-                image = moving ? movingG : idleG;
-                break;
-            case DIR_H:
-                image = moving ? movingH : idleH;
-                break;
+        switch (dir){
+        case DIR_E:
+            switch (state){
+            case IDLE:
+                image = idleE; break;
+            case MOVING:
+                image = movingE; break;
+            case ATTACKING:
+                image = attackingE; break;
             }
+            break;
+        case DIR_F:
+            switch (state){
+            case IDLE:
+                image = idleF; break;
+            case MOVING:
+                image = movingF; break;
+            case ATTACKING:
+                image = attackingF; break;
+            }
+            break;
+        case DIR_G:
+            switch (state){
+            case IDLE:
+                image = idleG; break;
+            case MOVING:
+                image = movingG; break;
+            case ATTACKING:
+                image = attackingG; break;
+            }
+            break;
+        case DIR_H:
+            switch (state){
+            case IDLE:
+                image = idleH; break;
+            case MOVING:
+                image = movingH; break;
+            case ATTACKING:
+                image = attackingH; break;
+            }
+            break;
         }
 
 		assert(image);
         size_t col = 0, row = 0;
-        if (state == IDLE){
+        switch (state){
+        case IDLE:
             row = frame / idleColumns;
             col = frame % idleColumns;
-        }else if (state == MOVING){
+            break;
+        case MOVING:
             row = frame / movingColumns;
             col = frame % movingColumns;
+            break;
+        case ATTACKING:
+            row = frame / attackingColumns;
+            col = frame % attackingColumns;
         }
         SDL_Rect srcRect;
         srcRect.w = srcRect.h = 128;
@@ -123,7 +163,8 @@ namespace Game {
         }
 
         VampireState oldState = state;
-        state = MOVING;
+        if (state != ATTACKING)
+            state = MOVING;
         if (up && right)
             updateDirection(DIR_E);
         else if (down && right)
@@ -141,7 +182,8 @@ namespace Game {
         else if (right)
             updateDirection(DIR_R);
         else
-            state = IDLE;
+            if (state != ATTACKING)
+                state = IDLE;
 
         if (state != oldState){
             if (state == IDLE)
@@ -160,8 +202,13 @@ namespace Game {
             frameTime = 42 - (timeElapsed - frameTime);
             ++frame;
             if (state == IDLE && frame >= idleFrames ||
-                state == MOVING && frame >= movingFrames)
+                state == MOVING && frame >= movingFrames ||
+                state == ATTACKING && frame >= attackingFrames){
                 frame = 0;
+                if (state == ATTACKING)
+                    state = MOVING;
+            }
+                
         }else
             frameTime -= timeElapsed;
     }
@@ -196,7 +243,15 @@ namespace Game {
 	void Vampire::updateAttack(AOEAttack& attack, double delta) {
 		attack.update(delta);
 		if (isKeyPressed(attack.getKey())) {
-			attack.activate(loc_);
+            if (!attack.active_){
+			    attack.activate(loc_);
+                if (!attack.isBatAttack() && state != ATTACKING){
+                    debug("resetting combat animation");
+                    frame = 0;
+                    state = ATTACKING;
+                    frameTime = 42;
+                }
+            }
 		}
 		else {
 			attack.deactivate();
@@ -212,24 +267,30 @@ namespace Game {
                                 const Surface *f,
                                 const Surface *g,
                                 const Surface *h){
-        {
-            idleE = e;
-            idleF = f;
-            idleG = g;
-            idleH = h;
-        };
+        idleE = e;
+        idleF = f;
+        idleG = g;
+        idleH = h;
     }
 
     void Vampire::setMovingImages(const Surface *e,
                                   const Surface *f,
                                   const Surface *g,
                                   const Surface *h){
-        {
-            movingE = e;
-            movingF = f;
-            movingG = g;
-            movingH = h;
-        };
+        movingE = e;
+        movingF = f;
+        movingG = g;
+        movingH = h;
+    }
+
+    void Vampire::setAttackingImages(const Surface *e,
+                                     const Surface *f,
+                                     const Surface *g,
+                                     const Surface *h){
+        attackingE = e;
+        attackingF = f;
+        attackingG = g;
+        attackingH = h;
     }
 
     SDL_Rect Vampire::getDrawRect(Point offset) const{
