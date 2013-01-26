@@ -110,6 +110,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AOEAttack.h" />
+    <ClInclude Include="Death.h" />
     <ClInclude Include="SmallAttack.h" />
     <ClInclude Include="BatAttack.h" />
     <ClInclude Include="Debug.h" />
@@ -135,9 +136,11 @@
     <ClInclude Include="update.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Vampire.h" />
+    <ClInclude Include="Victim.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AOEAttack.cpp" />
+    <ClCompile Include="Death.cpp" />
     <ClCompile Include="SmallAttack.cpp" />
     <ClCompile Include="BatAttack.cpp" />
     <ClCompile Include="Debug.cpp" />
@@ -161,6 +164,7 @@
     <ClCompile Include="update.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="Vampire.cpp" />
+    <ClCompile Include="Victim.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
