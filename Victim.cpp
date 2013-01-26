@@ -1,7 +1,9 @@
 // (C) 2013 Tim Gurto
 
+#include <cassert>
 #include "Victim.h"
 #include "Death.h"
+#include "Sound.h"
 #include "util.h"
 
 namespace Game {
@@ -13,7 +15,12 @@ namespace Game {
     death(deathArg),
     frame(0),
     frameTime(42),
-    dead(false){}
+    dead(false)
+	{
+		assert(death);
+		assert(death->sound);
+		death->sound->play(-1, 0);
+	}
 
     void Victim::draw(bool aboveVampire, Point offset) const{
         //if (aboveVampire && (loc.y > vampY)

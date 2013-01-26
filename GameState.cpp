@@ -33,7 +33,14 @@ heartTimer(rand()%200 + 900),
 
 map(offset),
 
-scream(SOUND_PATH + "death1.wav"),
+ahBreathSound(SOUND_PATH + "Ahhhh Breath.wav"),
+deathBonesSound(SOUND_PATH + "DeathBones.wav"),
+deathBonesScreamSound(SOUND_PATH + "DeathBonesScream.wav"),
+deathScream(SOUND_PATH + "DeathScream.wav"),
+evilSound(SOUND_PATH + "EVIL.WAV"),
+miss1Sound(SOUND_PATH + "Miss.wav"),
+miss2Sound(SOUND_PATH + "Miss2.wav"),
+//slashSound(SOUND_PATH + "Slash_Sound_Effects_and_Music_006220237_prev.mp3"),
 
 environment(vampire.getTotalBlood(), Vampire::MAX_HEALTH),
 overlay(IMAGE_PATH + "Overlay.png", true),
@@ -92,24 +99,24 @@ shakingMagnitude(0){
     std::string deathsPath = IMAGE_PATH + "Death/";
 
    batDeaths.push_back(Death
-       (deathsPath + "batkill.png", 20, 8, Point(128, 128), Point(33, 106)));
+       (deathsPath + "batkill.png", &deathScream, 20, 8, Point(128, 128), Point(33, 106)));
    batDeaths.push_back(Death
-       (deathsPath + "batkill2.png", 20, 8, Point(128, 128), Point(90, 106)));
+       (deathsPath + "batkill2.png", &deathScream, 20, 8, Point(128, 128), Point(90, 106)));
 
    closeDeaths.push_back(Death
-       (deathsPath + "farmer_fall.png", 40, 8, Point(128, 128), Point(34, 106)));
+       (deathsPath + "farmer_fall.png", &deathScream, 40, 8, Point(128, 128), Point(34, 106)));
    closeDeaths.push_back(Death
-       (deathsPath + "farmer_fall2.png", 40, 8, Point(128, 128), Point(91, 106)));
+       (deathsPath + "farmer_fall2.png", &deathScream, 40, 8, Point(128, 128), Point(91, 106)));
    closeDeaths.push_back(Death
-       (deathsPath + "gibletman.png", 41, 8, Point(256, 128), Point(125, 106)));
+       (deathsPath + "gibletman.png", &deathScream, 41, 8, Point(256, 128), Point(125, 106)));
    closeDeaths.push_back(Death
-       (deathsPath + "skeleton.png", 40, 8, Point(128, 128), Point(59, 106)));
+       (deathsPath + "skeleton.png", &deathBonesSound, 40, 8, Point(128, 128), Point(59, 106)));
    closeDeaths.push_back(Death
-       (deathsPath + "skeleton_blow_up.png", 40, 5, Point(384, 128), Point(29, 106)));
+       (deathsPath + "skeleton_blow_up.png", &deathBonesScreamSound, 40, 5, Point(384, 128), Point(29, 106)));
    closeDeaths.push_back(Death
-       (deathsPath + "skeleton_blow_up2.png", 40, 5, Point(384, 128), Point(352, 106)));
+       (deathsPath + "skeleton_blow_up2.png", &deathBonesScreamSound, 40, 5, Point(384, 128), Point(352, 106)));
    closeDeaths.push_back(Death
-       (deathsPath + "skeleton2.png", 40, 8, Point(128, 128), Point(68, 106)));
+       (deathsPath + "skeleton2.png", &deathBonesSound, 40, 8, Point(128, 128), Point(68, 106)));
 
    // Health bar
    const std::string HEALTH_PATH = IMAGE_PATH + "HealthBar/";
@@ -133,10 +140,6 @@ GameState::~GameState() {
 		safe_delete(p);
 	}
 
-}
-
-void GameState::soundScream() {
-	scream.play(-1, 0);
 }
 
 const GameState::PersonList& GameState::getPersonList() const

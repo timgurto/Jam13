@@ -22,7 +22,8 @@ namespace Game {
 		timer_t attackingTimer_;
 
 		// Boom
-		Sound sound_;
+		Sound missSound1_;
+		Sound missSound2_;
 
     public:
 		AOEAttack();

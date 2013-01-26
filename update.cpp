@@ -90,7 +90,6 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 			stillAliveList.push_back(p);
 		}
 		else {
-			state.soundScream();
 			safe_delete(p);
 		}
 	}
