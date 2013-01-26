@@ -13,7 +13,7 @@ namespace Game {
 		// Time until game ends
 		timer_t countdownTimer_;
 
-        Surface sunBar;
+        Surface sunBar, sunBarColor;
         static const size_t SUN_BAR_FRAMES;
         static const size_t SUN_BAR_COLUMNS;
         Point sunBarLoc;
