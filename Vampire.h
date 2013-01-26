@@ -104,19 +104,27 @@ namespace Game {
                                        const Surface *g,
                                        const Surface *h);
 
-        virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
+		void updateDirection(Direction newDir);
 
+        virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
         void update(double delta);
 
-        Direction lastUpDown;
+		bool checkInputForAttacks();
+		void hitAttacks(Person& p);
+		void scoreAttacks();
+
+		bool attackSucceeded() const;
+		void playAttackSuccess();
+		void playAttackFail();
+
+		Direction lastUpDown;
         Direction lastLeftRight;
         Direction dir;
-        void updateDirection(Direction newDir);
-
-		void applyAttacks(Person& p);
 
 	private:
-		void updateAttack(AOEAttack& attack, double delta);
+		bool checkInputForAttack(AOEAttack& attack);
+		void scoreAttack(AOEAttack& attack);
+		bool attackHitSomething_;
 	};
 
 } //namespace Game

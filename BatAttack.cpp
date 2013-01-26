@@ -22,7 +22,6 @@ extern Debug debug;
     frame(0),
     frameTime(0)
 	{
-		hitSoundPtr_ = &sound;
 	}
 
 	timer_t BatAttack::getAttackingTime() const {
@@ -41,9 +40,14 @@ extern Debug debug;
 		return SDLK_x;
 	}
 
+	const Sound& BatAttack::getHitSound() const {
+		return sound;
+	}
+
     void BatAttack::draw(Point offset, Surface &surface) const{
-        if (!attacking_)
+        if (!isAnimationPlaying()) {
             return;
+		}
 
 		if (DEBUG) {
 			AOEAttack::draw(offset, surface);
@@ -66,23 +70,35 @@ extern Debug debug;
     }
 
     void BatAttack::update(double delta){
+
+		if (!isAnimationPlaying()){
+			return;
+		}
+
         AOEAttack::update(delta);
 
-        if (attacking_){
-            //update frame
-            const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
-			//debug("frameTime ", frameTime);
-			//assert(frameTime > 0);
-			// FIXME negative frame time?
-            if ((int)timeElapsed > frameTime){
-                ++frame;
-                if (frame >= FRAMES)
-                    frame = 0;
-                frameTime = max<int>(42 - (timeElapsed - frameTime), 0);
-            }else
-                frameTime -= timeElapsed;
+        //update frame
+        const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
+		assert(frameTime >= 0);
+        if (static_cast<int>(timeElapsed) > frameTime){
+            ++frame;
+            if (frame >= FRAMES)
+                frame = 0;
+            frameTime = max<int>(42 - (timeElapsed - frameTime), 0);
+        }
+		else {
+            frameTime = max<int>(frameTime - timeElapsed, 0);
         }
     }
+
+	void BatAttack::play(const Location& loc) {
+		frameTime = 42;
+		AOEAttack::play(loc);
+	}
+
+	bool BatAttack::isAnimationPlaying() const {
+		return frameTime > 0;
+	}
 
     bool BatAttack::isBatAttack() const{
        return true;

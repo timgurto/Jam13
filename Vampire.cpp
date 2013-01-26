@@ -241,9 +241,9 @@ namespace Game {
 			//debug("cooldown ", cooldownTimer_);
 		}
 
-		// Check for key press and update attacks that are attacking
-		updateAttack(smallAttack, delta);
-		updateAttack(batAttack, delta);
+		// Update attack animations etc
+		smallAttack.update(delta);
+		batAttack.update(delta);
 
         //animation
         if (timeElapsed >= frameTime){
@@ -259,7 +259,7 @@ namespace Game {
                 
         }
 		else {
-            frameTime -= timeElapsed;
+            frameTime = max<int>(frameTime - timeElapsed, 0);
 		}
     }
 
@@ -290,72 +290,100 @@ namespace Game {
         }
     }
 
-	// Check for key press and update attacks that are attacking
-	void Vampire::updateAttack(AOEAttack& attack, double delta) {
+	bool Vampire::checkInputForAttacks() {
 
-		// Update attack animations etc
-		attack.update(delta);
-
-		// Block input while attacking
 		// Block input while cooling down
-		if (attack.isAttacking() || (cooldownTimer_ > 0)) {
-			// Do nothing
+		if (cooldownTimer_ > 0) {
+			return false;
 		}
 
-		// Not attacking
-		else {
+		// Block input while animations finish
+		if (state == ATTACKING) {
+			return false;
+		}
 
-			// Add up score if attack just finished
-			double suckedBlood = 0;
-			if (attack.attackSucceeded()) {
-				suckedBlood += attack.getSuccessBonus();
-				attack.resetAttackState();
-			}
-			else if (attack.attackFailed()) {
-				suckedBlood += attack.getFailureCost();
-				attack.resetAttackState();
-			}
-			// There was a change
-			if (fabs(suckedBlood) > 0.0) {
-				totalBlood_ += suckedBlood;
+		// Check input
+		bool attacking = false;
+		attacking |= checkInputForAttack(smallAttack);
+		attacking |= checkInputForAttack(batAttack);
+		return attacking;
+	}
 
-				// Died from blood loss
-				if (isDead()) {
-					return;
-				}
-			}
+	// Check for key press and update attacks that are attacking
+	bool Vampire::checkInputForAttack(AOEAttack& attack) {
 
-			// Process input
-			if (isKeyPressed(attack.getKey())) {
+		bool result = false;
 
-				assert(!attack.isAttacking());
+		// Process input
+		if (isKeyPressed(attack.getKey())) {
 
-				// Attack
-				attack.activateFromPlayerInput(loc_);
+			assert(!attack.isPlaying());
 
-				// Set cooldown timer
-				cooldownTimer_ = attack.getCooldownTime();
+			result = true;
 
-				// Update animation state for small attack
-				// because vampire animates whild doing the attack
-				if (!attack.isBatAttack() && state != ATTACKING){
-					debug("resetting combat animation");
-					frame = 0;
-					state = ATTACKING;
-					frameTime = 42;
-				}
+			// Start attack playing
+			attack.play(loc_);
+
+			// Set cooldown timer on ourself
+			cooldownTimer_ = attack.getCooldownTime();
+
+			// Reset animation state for small attack
+			// because vampire animates whild doing the attack
+			if (!attack.isBatAttack() && (state != ATTACKING)) {
+				debug("resetting combat animation");
+				frame = 0;
+				state = ATTACKING;
+				frameTime = 42;
 			}
 		}
+
+		return result;
 	}
 
 	// Applies attack to player and check if it hit
 	// Does not apply if not attacking
-	void Vampire::applyAttacks(Person& p) {
-		if (smallAttack.isAttacking()) {
+	void Vampire::hitAttacks(Person& p) {
+		if (cooldownTimer_ > 0) {
+			return;
+		}
+		if (smallAttack.isPlaying()) {
 			smallAttack(p);
 		}
-		else if (batAttack.isAttacking()) {
+		else if (batAttack.isPlaying()) {
 			batAttack(p);
+		}
+	}
+
+	void Vampire::scoreAttacks() {
+		scoreAttack(smallAttack);
+		scoreAttack(batAttack);
+	}
+
+	void Vampire::scoreAttack(AOEAttack& attack) {
+		// Not playing, skip
+		if (!attack.isPlaying()) {
+			return;
+		}
+
+		// Add up score if attack just finished
+		double suckedBlood = 0;
+		if (attack.attackSucceeded()) {
+			suckedBlood += attack.getSuccessBonus();
+			attack.playAttackSuccess();
+		}
+		else {
+			suckedBlood += attack.getFailureCost();
+			attack.playAttackFail();
+		}
+
+		// There was a change
+		if (fabs(suckedBlood) > 0.0) {
+			totalBlood_ += suckedBlood;
+
+			// Died from blood loss
+			if (isDead()) {
+				return;
+			}
 		}
 	}
 

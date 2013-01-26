@@ -14,11 +14,9 @@ namespace Game {
 	public:
 		SmallAttack();
 
+		virtual bool isAnimationPlaying() const;
 		virtual SDLKey getKey() const;
-		//virtual Sound& getSound() const;
-
-        virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
-
+		virtual const Sound& getHitSound() const;
 		virtual timer_t getCooldownTime() const;
 		virtual int getFailureCost() const;
 		virtual int getSuccessBonus() const;

@@ -29,7 +29,12 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
     ITERATE(victims_t::iterator, state.victims, it)
         it->update(timeElapsed);
 
+	// Update vampire
     state.vampire.update(delta);
+
+	// Check for attacks
+	// Do after update so as to not miss the first frame of attack animation
+	const bool attackThisFrame = state.vampire.checkInputForAttacks();
 
     Victim::vampY = static_cast<pixels_t>(state.vampire.getLoc().y + 0.5);
 
@@ -78,14 +83,27 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
     }else
         state.heartTimer -= timeElapsed;
 	
+	// Update state on list of people
 	GameState::PersonList& personList = state.getPersonList();
 	GameState::PersonList& stillAliveList = state.getTmpList();
     ITERATE(GameState::PersonList::iterator, personList, it) {
+
+		// Get person
 		Person* p = *it;
 		assert(p);
-	    pixels_t distToVamp = distance(p->getLoc(), vampLoc);
+
+		// Apply attacks to person
+		if (attackThisFrame) {
+			state.vampire.hitAttacks(*p);
+		}
+
+		// Get distance to vampire
+	    const pixels_t distToVamp = distance(p->getLoc(), vampLoc);
+
+		// Update with fear
         p->update(delta, distToVamp);
-		state.vampire.applyAttacks(*p);
+		
+		// Check if dead
 		if (!p->isDead()) {
 			stillAliveList.push_back(p);
 		}
@@ -95,8 +113,18 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 	}
 	state.swapPersonLists();
 
-	state.environment.healthBar_.setHealth(state.vampire.getTotalBlood());
+	// Animate health bar
 	state.environment.healthBar_.update(delta);
+
+	// Score attacks
+	// after animating health bar so as to not miss the first frame
+	if (attackThisFrame) {
+		// Calculate health
+		state.vampire.scoreAttacks();
+
+		// Update health bar
+		state.environment.healthBar_.setHealth(state.vampire.getTotalBlood());
+	}
 
 	// Check for win
 	/*if (state.isAllDead()) {
