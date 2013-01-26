@@ -44,7 +44,7 @@ scream(SOUND_PATH + "death1.wav") {
 
     Person::heartbeat = &heartbeat;
 
-    map.tileSize = Point(80, 80);
+    map.tileSize = Point(40, 40);
     std::string TILES_PATH = IMAGE_PATH + "Tiles/";
     map.baseProportion = 0.93;
     map.tiles.push_back(TILES_PATH + "Grass.png"); //Important: first [0] is the base tile

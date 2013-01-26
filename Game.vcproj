@@ -190,6 +190,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\AOEAttack.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Debug.h"
 				>
 			</File>
@@ -285,6 +289,10 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\AOEAttack.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\Debug.cpp"
 				>
