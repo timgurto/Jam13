@@ -17,6 +17,7 @@ namespace Game {
 
 	AOEAttack::AOEAttack() :
 		Entity(),
+		attackingTimer_(0),
 		missSound1_(SOUND_PATH + "Miss.wav"),
 		missSound2_(SOUND_PATH + "Miss2.wav"),
 		playing_(false),
@@ -36,7 +37,7 @@ namespace Game {
     }
 
     void AOEAttack::draw(Point offset, Surface &surface) const{
-		if (!playing_) {
+		if (!isAnimationPlaying()) {
 			return;
 		}
         SDL_Rect rect = drawRect();
@@ -51,7 +52,22 @@ namespace Game {
 
 	// Animate attack
     void AOEAttack::update(double delta) {
-		// Do nothing
+
+		// Tick time for attack
+		if (attackingTimer_ > 0) {
+			const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
+
+			// Prevent underflow
+			if (attackingTimer_ < timeElapsed) {
+				// Clamp to 0
+				attackingTimer_ = 0;
+			}
+			else {
+				// Subtract time
+				const timer_t dt = attackingTimer_ - timeElapsed;
+				attackingTimer_ = std::max<timer_t>(0, dt);
+			}
+		}
     }
 
 	// Hit attack with person
@@ -90,6 +106,7 @@ namespace Game {
 		getHitSound().play(-1, 0);
 
 		playing_ = false;
+		attackHitSomething_ = false;
 	}
 
 	void AOEAttack::playAttackFail() {
@@ -104,6 +121,7 @@ namespace Game {
 		}
 
 		playing_ = false;
+		attackHitSomething_ = false;
 	}
 
 	void AOEAttack::operator()(Person& person) {
@@ -112,9 +130,11 @@ namespace Game {
 
 	void AOEAttack::play(const Location& loc) {
 		if (playing_) { return; }
+		if (isAnimationPlaying()) { return; }
  		
 		loc_ = loc;
 		playing_ = true;
+		attackingTimer_ = getAttackingTime();
 	}
 
     bool AOEAttack::isBatAttack() const{
@@ -123,6 +143,10 @@ namespace Game {
 
 	bool AOEAttack::isPlaying() const {
 		return playing_;
+	}
+
+	bool AOEAttack::isAnimationPlaying() const {
+		return attackingTimer_ > 0;
 	}
 
 } //namespace Game

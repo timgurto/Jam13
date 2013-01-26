@@ -42,7 +42,7 @@ namespace Game {
 		bool isPlaying() const;
 
 		// Attack has been played but animation is finishing
-		virtual bool isAnimationPlaying() const = 0;
+		bool isAnimationPlaying() const;
 
 		virtual SDLKey getKey() const = 0;
 		virtual const Sound& getHitSound() const = 0;
@@ -53,6 +53,9 @@ namespace Game {
 	protected:
 		virtual timer_t getAttackingTime() const = 0;
 		virtual pixels_t getRadius() const = 0;
+
+		// Time for the attack to run
+		timer_t attackingTimer_;
 
 		bool playing_;
 		bool attackHitSomething_;

@@ -343,9 +343,6 @@ namespace Game {
 	// Applies attack to player and check if it hit
 	// Does not apply if not attacking
 	void Vampire::hitAttacks(Person& p) {
-		if (cooldownTimer_ > 0) {
-			return;
-		}
 		if (smallAttack.isPlaying()) {
 			smallAttack(p);
 		}

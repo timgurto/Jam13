@@ -14,7 +14,6 @@ namespace Game {
 	public:
 		SmallAttack();
 
-		virtual bool isAnimationPlaying() const;
 		virtual SDLKey getKey() const;
 		virtual const Sound& getHitSound() const;
 		virtual timer_t getCooldownTime() const;

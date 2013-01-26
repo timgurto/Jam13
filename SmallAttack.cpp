@@ -15,10 +15,6 @@ namespace Game {
 	{
 	}
 
-	bool SmallAttack::isAnimationPlaying() const {
-		return false;
-	}
-
 	timer_t SmallAttack::getAttackingTime() const {
 		return 500;
 	}

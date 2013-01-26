@@ -91,15 +91,6 @@ extern Debug debug;
         }
     }
 
-	void BatAttack::play(const Location& loc) {
-		frameTime = 42;
-		AOEAttack::play(loc);
-	}
-
-	bool BatAttack::isAnimationPlaying() const {
-		return frameTime > 0;
-	}
-
     bool BatAttack::isBatAttack() const{
        return true;
     }
