@@ -15,10 +15,8 @@ namespace Game {
 		SmallAttack();
 
 		virtual SDLKey getKey() const;
-		//virtual Sound& getSound() const;
-
-        virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
-
+		virtual int getJoyButton() const;
+		virtual const Sound& getHitSound() const;
 		virtual timer_t getCooldownTime() const;
 		virtual int getFailureCost() const;
 		virtual int getSuccessBonus() const;

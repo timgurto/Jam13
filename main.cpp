@@ -17,6 +17,7 @@
 #include "game.h"
 #include "globals.h"
 #include "Debug.h"
+#include "Joystick.h"
 #include "Screen.h"
 #include "Surface.h"
 #include "Point.h"
@@ -43,6 +44,9 @@ namespace Game {
 
 //global screen buffer
 Surface screenBuf; //uninitialized
+
+// global joystick
+Joystick joystick;
 
 //general debug messages
 Debug debug(YELLOW, 0, 0, 59);
@@ -87,6 +91,8 @@ int main(int argc, char **argv){
     {
         debug(SDL_JoystickName(i));
     }
+
+	joystick.enable();
    
    {//new scope for surfaces
 
@@ -131,8 +137,8 @@ int main(int argc, char **argv){
    }
 
    //Quit
+   joystick.disable();
    //TTF_Quit() happens at debug dtor
-
    Mix_CloseAudio();
    SDL_Quit();
    Surface::quit();

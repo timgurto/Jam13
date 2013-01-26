@@ -11,7 +11,7 @@ namespace Game {
 	class HealthBar : public Entity{
 	public:
 
-		HealthBar(double startingHealth, double maxHealth);
+		HealthBar(double startingPercent);
 
 		pixels_t getHeight() const;
 
@@ -24,8 +24,8 @@ namespace Game {
 
         virtual Surface *image() const;
 
-		double getHealth() const;
-		void setHealth(double health);
+		double getPercent() const;
+		void setPercent(double p);
 
 		void update(double delta);
 		virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
@@ -39,6 +39,8 @@ namespace Game {
 		const double MAX_HEALTH;
 		double fillPercent_;
 		double fillingPercent_;
+
+		timer_t timeToHighlightHealthJump_;
 
 		pixels_t getMaxWidth() const;
 		pixels_t getFillWidth() const;

@@ -13,10 +13,8 @@ namespace Game {
 
 	SmallAttack::SmallAttack() : sound(SOUND_PATH + "Ahhhh Breath.wav")
 	{
-		hitSoundPtr_ = &sound;
 	}
 
-	// Small
 	timer_t SmallAttack::getAttackingTime() const {
 		return 500;
 	}
@@ -33,13 +31,13 @@ namespace Game {
 		return SDLK_z;
 	}
 
-    void SmallAttack::draw(Point offset, Surface &surface) const{
-        // Nothing - vampire animates instead
+	int SmallAttack::getJoyButton() const {
+		return 0; // A
+	}
 
-		if (DEBUG) {
-			AOEAttack::draw(offset, surface);
-		}
-    }
+	const Sound& SmallAttack::getHitSound() const {
+		return sound;
+	}
 
 	int SmallAttack::getFailureCost() const {
 		return -1;

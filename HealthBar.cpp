@@ -2,19 +2,21 @@
 
 #include <cassert>
 #include <cmath>
+#include "Debug.h"
 #include "HealthBar.h"
 #include "Screen.h"
 #include "util.h"
 
 namespace Game {
 
+	extern Debug debug;
 	const pixels_t OUTLINE_THICKNESS = 1;
-	const double FILLING_SPEED = 0.001;
 
-	HealthBar::HealthBar(double startingHealth, double maxHealth) : Entity(),
-		MAX_HEALTH(maxHealth),
-		fillPercent_(startingHealth / MAX_HEALTH),
-		fillingPercent_(0.0)
+	HealthBar::HealthBar(double startingPercent) : Entity(),
+		MAX_HEALTH(100),
+		fillPercent_(startingPercent),
+		fillingPercent_(0.0),
+		timeToHighlightHealthJump_(0)
 	{
 		loc_.x = 5;
 		loc_.y = 3;
@@ -24,27 +26,25 @@ namespace Game {
 		return fullBar.getDim().y;
 	}
 
-	double HealthBar::getHealth() const {
-		const double h = fillPercent_ * MAX_HEALTH;
-		assert( h >= 0 );
-		return h;
+	double HealthBar::getPercent() const {
+		return fillPercent_ + fillingPercent_;
 	}
 
 	// Set health
 	// Health bar is animated with changes
-	void HealthBar::setHealth(double health) {
+	void HealthBar::setPercent(double p) {
 
 		// Get difference between bar's current health and desired health
-		const double diff = health - getHealth();
+		const double diff = p - getPercent();
 
 		// No change - return
 		if (fabs(diff) < 0.00001) {
 			return;
 		}
+		timeToHighlightHealthJump_ = 1000;
 
 		// Calculate amount we are filling
-		const double percent = diff / MAX_HEALTH;
-		fillingPercent_ = max(-1.0, min(percent, 1.0));
+		fillingPercent_ = fillingPercent_ + max(-1.0, min(diff, 1.0));
 		assert(fillingPercent_ <= 1.0);
 		assert(fillingPercent_ >= -1.0);
 	}
@@ -104,15 +104,45 @@ namespace Game {
 
 	void HealthBar::update(double delta) {
 
-		// Use std for double
-		if (fabs(fillingPercent_) > 0.0) {
-			const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
+		const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
 
-			const double fillDelta = fillingPercent_ * timeElapsed * FILLING_SPEED;
+		// Pause bar for 1s before moving
+		if (timeToHighlightHealthJump_ > 0) {
+
+			// Prevent underflow
+			if (timeToHighlightHealthJump_ < timeElapsed) {
+				// Clamp to 0
+				timeToHighlightHealthJump_ = 0;
+			}
+			else {
+				// Subtract time
+				timeToHighlightHealthJump_ -= timeElapsed;
+			}
+		}
+
+		// Use std for double
+		else if (fabs(fillingPercent_) > 0.0) {
+
+			const double FILLING_SPEED = pow(3, 1.0-fillingPercent_) * 0.005;
+			//debug("FILLING_SPEED ", FILLING_SPEED);
+
+			double fillDelta = fillingPercent_ * timeElapsed * FILLING_SPEED;
+			//debug("fillDelta1 ", fillDelta);
+			if ((fillPercent_ + fillDelta) > 1.0) {
+				fillDelta = fillingPercent_;
+			}
+			else if ((fillPercent_ + fillDelta) < 0.0) {
+				fillDelta = fillingPercent_;
+			}
+			//debug("fillDelta2 ", fillDelta);
+
 			fillPercent_ += fillDelta;
-			fillPercent_ = max(0.0, min(fillPercent_, 1.0));
+			assert(fillPercent_ >= 0.0);
+			assert(fillPercent_ <= 1.0);
+
 			fillingPercent_ -= fillDelta;
-			fillingPercent_ = max(-1.0, min(fillingPercent_, 1.0));
+			assert(fillingPercent_ >= -1.0);
+			assert(fillingPercent_ <= 1.0);
 		}
 	}
 
@@ -120,31 +150,25 @@ namespace Game {
 
 		// Fill square
 		{
-			const SDL_Color fillColour = RED;
 			SDL_Rect rect = fillRect();
 			rect.x += static_cast<Sint16>(loc_.x + 0.5);
 			rect.y += static_cast<Sint16>(loc_.y + 0.5);
-			//surface.fill(fillColour, &rect);
 			fullBar.draw(surface, &rect, &rect);
 		}
 
 		// Filling square
 		if (fillingPercent_ > 0)
 		{
-			const SDL_Color fillingColour = YELLOW;
 			SDL_Rect rect = fillingRect();
 			rect.x += static_cast<Sint16>(loc_.x + getFillWidth() + 0.5);
 			rect.y += static_cast<Sint16>(loc_.y + 0.5);
-			//surface.fill(fillingColour, &rect);
 			positiveFillingBar.draw(surface, &rect, &rect);
 		}
 		else if (fillingPercent_ < 0)
 		{
-			const SDL_Color fillingColour = BLUE;
 			SDL_Rect rect = fillingRect();
-			rect.x += static_cast<Sint16>(loc_.x + getFillWidth() + 0.5);
+			rect.x += static_cast<Sint16>(loc_.x + getFillWidth() - getFillingWidth() + 0.5);
 			rect.y += static_cast<Sint16>(loc_.y + 0.5);
-			//surface.fill(fillingColour, &rect);
 			negativeFillingBar.draw(surface, &rect, &rect);
 		}
 
@@ -154,7 +178,6 @@ namespace Game {
 			SDL_Rect rect = outlineRect();
 			rect.x += static_cast<Sint16>(loc_.x - OUTLINE_THICKNESS + 0.5);
 			rect.y += static_cast<Sint16>(loc_.y - OUTLINE_THICKNESS + 0.5);
-			//surface.box(outlineColour, &rect, OUTLINE_THICKNESS);
 			outlineBar.draw(surface, &rect, &rect);
 		}
 	}

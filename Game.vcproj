@@ -234,6 +234,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Joystick.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Location.h"
 				>
 			</File>
@@ -355,6 +359,10 @@
 			</File>
 			<File
 				RelativePath=".\HealthBar.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Joystick.cpp"
 				>
 			</File>
 			<File

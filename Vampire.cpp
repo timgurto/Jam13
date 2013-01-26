@@ -1,6 +1,7 @@
 // (C) 2013 Tim Gurto
 #include <cassert>
 #include <cmath>
+#include "Joystick.h"
 #include "Vampire.h"
 #include "util.h"
 #include "Debug.h"
@@ -8,6 +9,7 @@
 
 namespace Game {
 
+	extern Joystick joystick;
     extern Debug debug;
 
     GameState *Vampire::gameState = 0;
@@ -60,6 +62,10 @@ namespace Game {
 
 	double Vampire::getTotalBlood() const {
 		return totalBlood_;
+	}
+
+	double Vampire::getBloodPercent() const {
+		return (totalBlood_ / MAX_HEALTH);
 	}
 
 	bool Vampire::isDead() const {
@@ -187,37 +193,80 @@ namespace Game {
 
         if (state != BURNING){
 
+
+		    VampireState oldState = state;
+
             //movement through arrow keys
-            bool
-                up =    isKeyPressed(SDLK_UP),
-                down =  isKeyPressed(SDLK_DOWN),
-                left =  isKeyPressed(SDLK_LEFT),
-                right = isKeyPressed(SDLK_RIGHT);
+		    bool up = false;
+		    bool down = false;
+		    bool left = false;
+		    bool right = false;
+		    double distance = 0.0;
+		    {
+			    up |= isKeyPressed(SDLK_UP);
+			    down |= isKeyPressed(SDLK_DOWN);
+			    left |= isKeyPressed(SDLK_LEFT);
+			    right |= isKeyPressed(SDLK_RIGHT);
 
-            if (up && down)
-                up = down = false;
-            if (left && right)
-                left = right = false;
+			    if (up && down)
+				    up = down = false;
+			    if (left && right)
+				    left = right = false;
 
-            double distance = delta * SPEED;
-            if ((up || down) && (left || right))
-                //diagonal movement
-                distance *= INV_SQRT2; //for each of the two directions
+			    distance = delta * SPEED;
+			    if ((up || down) && (left || right))
+				    //diagonal movement
+				    distance *= INV_SQRT2; //for each of the two directions
 
-            if (up){
-                loc_.y -= distance;
-                lastUpDown = DIR_U;
-            }else if (down){
-                loc_.y += distance;
-                lastUpDown = DIR_D;
-            }
-            if (left){
-                loc_.x -= distance;
-                lastLeftRight = DIR_L;
-            }else if (right){
-                loc_.x += distance;
-                lastLeftRight = DIR_R;
-            }
+			    if (up){
+				    loc_.y -= distance;
+				    lastUpDown = DIR_U;
+			    }else if (down){
+				    loc_.y += distance;
+				    lastUpDown = DIR_D;
+			    }
+			    if (left){
+				    loc_.x -= distance;
+				    lastLeftRight = DIR_L;
+			    }else if (right){
+				    loc_.x += distance;
+				    lastLeftRight = DIR_R;
+			    }
+		    }
+
+		    // Movement through joystick
+		    if (joystick.enabled())
+		    {
+			    const double JOY_SPEED = 0.55;
+			    const double distanceX = delta * joystick.getLeftRightAxis() * JOY_SPEED;
+			    const double distanceY = delta * joystick.getUpDownAxis() * JOY_SPEED;
+
+			    up |= distanceY < 0;
+			    down |= distanceY > 0;
+			    left |= distanceX < 0;
+			    right |= distanceX > 0;
+
+			    const double dx = distanceX * delta * JOY_SPEED;
+			    const double dy = distanceY * delta * JOY_SPEED;
+
+			    if (up){
+				    loc_.y += dy;
+				    lastUpDown = DIR_U;
+			    }
+			    if (down){
+				    loc_.y += dy;
+				    lastUpDown = DIR_D;
+			    }
+			    if (left){
+				    loc_.x += dx;
+				    lastLeftRight = DIR_L;
+			    }
+			    if (right){
+				    loc_.x += dx;
+				    lastLeftRight = DIR_R;
+			    }
+		    }
+
 
             if (loc_.x < gameState->leftBound)
                 loc_.x = gameState->leftBound;
@@ -228,31 +277,29 @@ namespace Game {
             if (loc_.y > gameState->bottomBound)
                 loc_.y = gameState->bottomBound;
 
+		    if (state != ATTACKING)
+			    state = MOVING;
+		    if (up && right)
+			    updateDirection(DIR_E);
+		    else if (down && right)
+			    updateDirection(DIR_F);
+		    else if (down && left)
+			    updateDirection(DIR_G);
+		    else if (up && left)
+			    updateDirection(DIR_H);
+		    else if (up)
+			    updateDirection(DIR_U);
+		    else if (down)
+			    updateDirection(DIR_D);
+		    else if (left)
+			    updateDirection(DIR_L);
+		    else if (right)
+			    updateDirection(DIR_R);
+		    else
+			    if (state != ATTACKING)
+				    state = IDLE;
 
             //debug(loc_.x, ",", loc_.y);
-
-            VampireState oldState = state;
-            if (state != ATTACKING)
-                state = MOVING;
-            if (up && right)
-                updateDirection(DIR_E);
-            else if (down && right)
-                updateDirection(DIR_F);
-            else if (down && left)
-                updateDirection(DIR_G);
-            else if (up && left)
-                updateDirection(DIR_H);
-            else if (up)
-                updateDirection(DIR_U);
-            else if (down)
-                updateDirection(DIR_D);
-            else if (left)
-                updateDirection(DIR_L);
-            else if (right)
-                updateDirection(DIR_R);
-            else
-                if (state != ATTACKING)
-                    state = IDLE;
 
             if (state != oldState){
                 if (state == IDLE)
@@ -261,24 +308,20 @@ namespace Game {
                     frame = rand() % movingFrames;
             }
 
-		    // Tick time for cooldown
-		    if (cooldownTimer_ > 0) {
-			    // Prevent underflow
-			    if (cooldownTimer_ < timeElapsed) {
-				    // Clamp to 0
-				    cooldownTimer_ = 0;
-			    }
-			    else {
-				    // Subtract time
-				    const timer_t dt = cooldownTimer_ - timeElapsed;
-				    cooldownTimer_ = std::max<timer_t>(0, dt);
-			    }
-			    //debug("cooldown ", cooldownTimer_);
-		    }
-
-		    // Check for key press and update attacks that are attacking
-		    updateAttack(smallAttack, delta);
-		    updateAttack(batAttack, delta);
+	        // Tick time for cooldown
+	        if (cooldownTimer_ > 0) {
+		        // Prevent underflow
+		        if (cooldownTimer_ < timeElapsed) {
+			        // Clamp to 0
+			        cooldownTimer_ = 0;
+		        }
+		        else {
+			        // Subtract time
+			        const timer_t dt = cooldownTimer_ - timeElapsed;
+			        cooldownTimer_ = std::max<timer_t>(0, dt);
+		        }
+		        //debug("cooldown ", cooldownTimer_);
+	        }
         }
 
         //animation
@@ -299,7 +342,7 @@ namespace Game {
                 
         }
 		else {
-            frameTime -= timeElapsed;
+            frameTime = max<int>(frameTime - timeElapsed, 0);
 		}
     }
 
@@ -330,72 +373,98 @@ namespace Game {
         }
     }
 
-	// Check for key press and update attacks that are attacking
-	void Vampire::updateAttack(AOEAttack& attack, double delta) {
+	bool Vampire::checkInputForAttacks() {
 
-		// Update attack animations etc
-		attack.update(delta);
-
-		// Block input while attacking
 		// Block input while cooling down
-		if (attack.isAttacking() || (cooldownTimer_ > 0)) {
-			// Do nothing
+		if (cooldownTimer_ > 0) {
+			return false;
 		}
 
-		// Not attacking
-		else {
+		// Block input while animations finish
+		if (state == ATTACKING) {
+			return false;
+		}
 
-			// Add up score if attack just finished
-			double suckedBlood = 0;
-			if (attack.attackSucceeded()) {
-				suckedBlood += attack.getSuccessBonus();
-				attack.resetAttackState();
-			}
-			else if (attack.attackFailed()) {
-				suckedBlood += attack.getFailureCost();
-				attack.resetAttackState();
-			}
-			// There was a change
-			if (fabs(suckedBlood) > 0.0) {
-				totalBlood_ += suckedBlood;
+		// Check input
+		bool attacking = false;
+		attacking |= checkInputForAttack(smallAttack);
+		attacking |= checkInputForAttack(batAttack);
+		return attacking;
+	}
 
-				// Died from blood loss
-				if (isDead()) {
-					return;
-				}
-			}
+	// Check for key press and update attacks that are attacking
+	bool Vampire::checkInputForAttack(AOEAttack& attack) {
 
-			// Process input
-			if (isKeyPressed(attack.getKey())) {
+		bool result = false;
 
-				assert(!attack.isAttacking());
+		// Process input
+		if (isKeyPressed(attack.getKey()) ||
+			joystick.isPressed(attack.getJoyButton())) {
 
-				// Attack
-				attack.activateFromPlayerInput(loc_);
+			assert(!attack.isPlaying());
 
-				// Set cooldown timer
-				cooldownTimer_ = attack.getCooldownTime();
+			result = true;
 
-				// Update animation state for small attack
-				// because vampire animates whild doing the attack
-				if (!attack.isBatAttack() && state != ATTACKING){
-					debug("resetting combat animation");
-					frame = 0;
-					state = ATTACKING;
-					frameTime = 42;
-				}
+			// Start attack playing
+			attack.play(loc_);
+
+			// Set cooldown timer on ourself
+			cooldownTimer_ = attack.getCooldownTime();
+
+			// Reset animation state for small attack
+			// because vampire animates whild doing the attack
+			if (!attack.isBatAttack() && (state != ATTACKING)) {
+				debug("resetting combat animation");
+				frame = 0;
+				state = ATTACKING;
+				frameTime = 42;
 			}
 		}
+
+		return result;
 	}
 
 	// Applies attack to player and check if it hit
 	// Does not apply if not attacking
-	void Vampire::applyAttacks(Person& p) {
-		if (smallAttack.isAttacking()) {
+	void Vampire::hitAttacks(Person& p) {
+		if (smallAttack.isPlaying()) {
 			smallAttack(p);
 		}
-		else if (batAttack.isAttacking()) {
+		else if (batAttack.isPlaying()) {
 			batAttack(p);
+		}
+	}
+
+	void Vampire::scoreAttacks() {
+		scoreAttack(smallAttack);
+		scoreAttack(batAttack);
+	}
+
+	void Vampire::scoreAttack(AOEAttack& attack) {
+		// Not playing, skip
+		if (!attack.isPlaying()) {
+			return;
+		}
+
+		// Add up score if attack just finished
+		double suckedBlood = 0;
+		if (attack.attackSucceeded()) {
+			suckedBlood += attack.getSuccessBonus() * attack.getNumHit();
+			attack.playAttackSuccess();
+		}
+		else {
+			suckedBlood += attack.getFailureCost();
+			attack.playAttackFail();
+		}
+
+		// There was a change
+		if (fabs(suckedBlood) > 0.0) {
+			totalBlood_ += suckedBlood;
+
+			// Died from blood loss
+			if (isDead()) {
+				return;
+			}
 		}
 	}
 

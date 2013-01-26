@@ -6,6 +6,7 @@
 #include "Person.h"
 #include "GameState.h"
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 
 namespace Game {
@@ -19,12 +20,8 @@ namespace Game {
 		attackingTimer_(0),
 		missSound1_(SOUND_PATH + "Miss.wav"),
 		missSound2_(SOUND_PATH + "Miss2.wav"),
-		attacking_(false),
-		attackHitSomething_(false),
-		attackSucceeded_(false),
-		attackMissed_(false),
-		hitSoundPtr_(0) {
-
+		playing_(false),
+		numHit_(0) {
     }
 
     SDL_Rect AOEAttack::drawRect() const{
@@ -40,7 +37,7 @@ namespace Game {
     }
 
     void AOEAttack::draw(Point offset, Surface &surface) const{
-		if (!attacking_) {
+		if (!isAnimationPlaying()) {
 			return;
 		}
         SDL_Rect rect = drawRect();
@@ -54,12 +51,12 @@ namespace Game {
     }
 
 	// Animate attack
-	// When attack finishes, mark if it failed or succeeded
-    void AOEAttack::update(double delta){
-		const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER);
+    void AOEAttack::update(double delta) {
 
 		// Tick time for attack
-		if (attacking_ && (attackingTimer_ > 0)) {
+		if (attackingTimer_ > 0) {
+			const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
+
 			// Prevent underflow
 			if (attackingTimer_ < timeElapsed) {
 				// Clamp to 0
@@ -67,33 +64,15 @@ namespace Game {
 			}
 			else {
 				// Subtract time
-				const timer_t dt = attackingTimer_ - timeElapsed;
-				attackingTimer_ = std::max<timer_t>(0, dt);
-			}
-			//debug("attacking ", attackingTimer_);
-
-			// Attack has finished
-			if (attackingTimer_ == 0) {
-				attacking_ = false;
-
-				// Check if attack hit anything
-				// Apply a punishment for missing
-				if (!attackHitSomething_) {
-					attackMissed_ = true;
-					attackSucceeded_ = false;
-				}
-				else {
-					attackSucceeded_ = true;
-					attackMissed_ = false;
-				}
-				attackHitSomething_ = false;
+				attackingTimer_ -= timeElapsed;
 			}
 		}
     }
 
-	void AOEAttack::attack(Person& person) {
+	// Hit attack with person
+	void AOEAttack::hitAttacks(Person& person) {
 		
-		if (!attacking_) {
+		if (!isPlaying()) {
 			return;
 		}
 
@@ -101,70 +80,76 @@ namespace Game {
 		const pixels_t dist = distance(person.getLoc(), this->getLoc());
 		if (dist <= getRadius())
 		{
-			// kill
+			// Kill person
 			const int power = Person::MAX_LIFE;
-            debug("Hit: ", isBatAttack() ? "Bat attack!" : "Normal attack!");
+			debug("Hit: ", isBatAttack() ? "Bat attack!" : "Normal attack!");
 			person.hit(power, isBatAttack());
 
-            //shake screen
-            if (isBatAttack())
-                state->shakeScreen(250, 10);
-            else
-                state->shakeScreen(400, 35);
-			if (hitSoundPtr_) {
-				hitSoundPtr_->play(-1, 0);
-			}
-
 			// Mark that we hit something for scoring when attack ends
-			attackHitSomething_ = true;
+			++numHit_;
 		}
 	}
 
-	void AOEAttack::operator()(Person& person) {
-		attack(person);
+	bool AOEAttack::attackSucceeded() const {
+		return numHit_ > 0;
 	}
 
-	void AOEAttack::activateFromPlayerInput(const Location& loc) {
-		if (attacking_) { return; }
+	size_t AOEAttack::getNumHit() const {
+		return numHit_;
+	}
+
+	void AOEAttack::playAttackSuccess() {
+		
+        //shake screen
+        if (isBatAttack())
+            state->shakeScreen(250, 10);
+        else
+            state->shakeScreen(400, 35);
+
+		getHitSound().play(-1, 0);
+
+		playing_ = false;
+		numHit_ = 0;
+	}
+
+	void AOEAttack::playAttackFail() {
+		assert(!attackSucceeded());
+
+		const int choice = rand() % 2;
+		if (choice == 0) {
+			missSound1_.play(-1, 0);
+		}
+		else {
+			missSound2_.play(-1, 0);
+		}
+
+		playing_ = false;
+		numHit_ = 0;
+	}
+
+	void AOEAttack::operator()(Person& person) {
+		hitAttacks(person);
+	}
+
+	void AOEAttack::play(const Location& loc) {
+		if (playing_) { return; }
+		if (isAnimationPlaying()) { return; }
  		
 		loc_ = loc;
-		attacking_ = true;
+		playing_ = true;
 		attackingTimer_ = getAttackingTime();
-		//sound_.play(-1, 0);
-		//debug("die!");
 	}
 
     bool AOEAttack::isBatAttack() const{
         return false;
     }
 
-	bool AOEAttack::isAttacking() const {
-		return attacking_;
+	bool AOEAttack::isPlaying() const {
+		return playing_;
 	}
 
-	bool AOEAttack::attackSucceeded() const {
-		return attackSucceeded_;
-	}
-
-	bool AOEAttack::attackFailed() const {
-		// TODO put in better spot
-		if (attackMissed_) {
-			const int choice = rand() % 2;
-			if (choice == 0) {
-				missSound1_.play(-1, 0);
-			}
-			else {
-				missSound2_.play(-1, 0);
-			}
-		}
-		return attackMissed_;
-	}
-
-	void AOEAttack::resetAttackState() {
-		attacking_ = false;
-		attackHitSomething_ = false;
-		attackSucceeded_ = false;
-		attackMissed_ = false;
+	bool AOEAttack::isAnimationPlaying() const {
+		return attackingTimer_ > 0;
 	}
 
 } //namespace Game

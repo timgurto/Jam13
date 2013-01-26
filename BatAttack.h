@@ -8,37 +8,33 @@
 namespace Game {
 
 	class BatAttack : public AOEAttack{
-
-        int frameTime;
-
-        mutable Surface image;
-
-		Sound sound;
-
 	public:
-		virtual SDLKey getKey() const;
-		//virtual Sound& getSound() const;
+		BatAttack();
 
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
-
         virtual void update(double delta);
-
-        size_t frame;
-        static const size_t FRAMES;
-        static const size_t COLUMNS;
-        static const Point DIM;
-
-        BatAttack();
 
         virtual bool isBatAttack() const;
 
+		virtual SDLKey getKey() const;
+		virtual int getJoyButton() const;
+		virtual const Sound& getHitSound() const;
 		virtual timer_t getCooldownTime() const;
 		virtual int getFailureCost() const;
 		virtual int getSuccessBonus() const;
 
+        static const size_t FRAMES;
+        static const size_t COLUMNS;
+        static const Point DIM;
+
 	protected:
 		virtual timer_t getAttackingTime() const;
 		virtual pixels_t getRadius() const;
+	private:
+		mutable Surface image;
+		Sound sound;
+		size_t frame;
+        int frameTime;
 	};
 
 } //namespace Game

@@ -110,6 +110,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AOEAttack.h" />
+    <ClInclude Include="Blood.h" />
     <ClInclude Include="Death.h" />
     <ClInclude Include="Joystick.h" />
     <ClInclude Include="SmallAttack.h" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AOEAttack.cpp" />
+    <ClCompile Include="Blood.cpp" />
     <ClCompile Include="Death.cpp" />
     <ClCompile Include="Joystick.cpp" />
     <ClCompile Include="SmallAttack.cpp" />
