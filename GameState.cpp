@@ -31,7 +31,7 @@ offset(0, 0),
 
 map(offset),
 
-scream(SOUND_PATH + "boom1.wav") {
+scream(SOUND_PATH + "death1.wav") {
 
     // Populate people
 	const size_t maxPeople = MAX_CHANNELS;

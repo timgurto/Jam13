@@ -12,7 +12,8 @@ namespace Game {
 
 	AOEAttack::AOEAttack() :
 		Entity(),
-		active_(false) {
+		active_(false),
+		sound_(SOUND_PATH + "boom1.wav") {
 
     }
 
@@ -61,6 +62,7 @@ namespace Game {
 	void AOEAttack::activate(const Location& loc) {
 		loc_ = loc;
 		active_ = true;
+		sound_.play(-1, 0);
 	}
 
 	void AOEAttack::deactivate() {

@@ -19,6 +19,7 @@ namespace Game {
         virtual Surface *image() const;
 
 		bool active_;
+		Sound sound_;
 
     public:
 		AOEAttack();
