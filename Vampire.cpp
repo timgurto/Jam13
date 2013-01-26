@@ -300,7 +300,7 @@ namespace Game {
 		else {
 
 			// Add up score if attack just finished
-			int suckedBlood = 0;
+			double suckedBlood = 0;
 			if (attack.attackSucceeded()) {
 				suckedBlood += attack.getSuccessBonus();
 				attack.resetAttackState();
@@ -310,8 +310,13 @@ namespace Game {
 				attack.resetAttackState();
 			}
 			// There was a change
-			if (abs(suckedBlood) > 0) {
+			if (std::abs(suckedBlood) > 0.0) {
 				totalBlood_ += suckedBlood;
+
+				// Died from blood loss
+				if (isDead()) {
+					return;
+				}
 			}
 
 			// Process input

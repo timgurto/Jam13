@@ -30,7 +30,6 @@ namespace Game {
 	private:
 		double fillPercent_;
 		double fillingPercent_;
-		double lastSetHealth_;
 
 		pixels_t getMaxWidth() const;
 		pixels_t getFillWidth() const;
