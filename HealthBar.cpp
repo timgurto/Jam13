@@ -15,7 +15,7 @@ namespace Game {
 	HealthBar::HealthBar(double startingHealth) : Entity(),
 		fillPercent_(startingHealth / MAX_HEALTH),
 		fillingPercent_(0.0),
-		lastSetHealth_(0)
+		lastSetHealth_(startingHealth)
 	{
 		loc_.x = 5;
 		loc_.y = 3;
