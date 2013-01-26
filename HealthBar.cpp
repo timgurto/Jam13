@@ -1,6 +1,7 @@
 // (C) 2013 Tim Gurto
 
 #include <cassert>
+#include <cmath>
 #include "HealthBar.h"
 #include "Screen.h"
 #include "util.h"
@@ -34,7 +35,7 @@ namespace Game {
 		const double diff = health - getHealth();
 
 		// No change - return
-		if (std::abs(diff) < 0.00001) {
+		if (fabs(diff) < 0.00001) {
 			return;
 		}
 
@@ -70,7 +71,7 @@ namespace Game {
 		assert(fillingPercent_ >= -1.0);
 		assert(fillingPercent_ <= 1.0);
 		const double diff = fillingPercent_ * getMaxWidth();
-		return static_cast<pixels_t>(std::abs(diff) + 0.5);
+		return static_cast<pixels_t>(fabs(diff) + 0.5);
 	}
 
 	// Outline
@@ -101,7 +102,7 @@ namespace Game {
 	void HealthBar::update(double delta) {
 
 		// Use std for double
-		if (std::abs(fillingPercent_) > 0.0) {
+		if (fabs(fillingPercent_) > 0.0) {
 			const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
 
 			const double fillDelta = fillingPercent_ * timeElapsed * FILLING_SPEED;

@@ -1,5 +1,6 @@
 // (C) 2013 Tim Gurto
 #include <cassert>
+#include <cmath>
 #include "Vampire.h"
 #include "util.h"
 #include "Debug.h"
@@ -315,7 +316,7 @@ namespace Game {
 				attack.resetAttackState();
 			}
 			// There was a change
-			if (std::abs(suckedBlood) > 0.0) {
+			if (fabs(suckedBlood) > 0.0) {
 				totalBlood_ += suckedBlood;
 
 				// Died from blood loss
