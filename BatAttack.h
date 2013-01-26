@@ -30,12 +30,13 @@ namespace Game {
 
         virtual bool isBatAttack();
 
-	protected:
-		virtual timer_t getAttackingTime() const;
 		virtual timer_t getCooldownTime() const;
-		virtual pixels_t getRadius() const;
 		virtual int getFailureCost() const;
 		virtual int getSuccessBonus() const;
+
+	protected:
+		virtual timer_t getAttackingTime() const;
+		virtual pixels_t getRadius() const;
 	};
 
 } //namespace Game

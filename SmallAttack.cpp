@@ -30,6 +30,10 @@ namespace Game {
 
     void SmallAttack::draw(Point offset, Surface &surface) const{
         // Nothing - vampire animates instead
+
+		if (DEBUG) {
+			AOEAttack::draw(offset, surface);
+		}
     }
 
 	int SmallAttack::getFailureCost() const {

@@ -13,12 +13,9 @@ namespace Game {
 
 	AOEAttack::AOEAttack() :
 		Entity(),
-		active_(false),
 		attacking_(false),
 		attackingTimer_(0),
-		cooldownTimer_(0),
 		sound_(SOUND_PATH + "boom1.wav"),
-		blood_(0),
 		attackHitSomething_(false) {
 
     }
@@ -49,6 +46,8 @@ namespace Game {
 		Entity::draw(offset, surface);
     }
 
+	// Animate attack
+	// When attack finishes, mark if it failed or succeeded
     void AOEAttack::update(double delta){
 		const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER);
 
@@ -73,31 +72,21 @@ namespace Game {
 				// Check if attack hit anything
 				// Apply a punishment for missing
 				if (!attackHitSomething_) {
-					blood_ += getFailureCost();
+					attackMissed_ = true;
+					attackSucceeded_ = false;
+				}
+				else {
+					attackSucceeded_ = true;
+					attackMissed_ = false;
 				}
 				attackHitSomething_ = false;
 			}
-		}
-		
-		// Tick time for cooldown
-		if (cooldownTimer_ > 0) {
-			// Prevent underflow
-			if (cooldownTimer_ < timeElapsed) {
-				// Clamp to 0
-				cooldownTimer_ = 0;
-			}
-			else {
-				// Subtract time
-				const timer_t dt = cooldownTimer_ - timeElapsed;
-				cooldownTimer_ = std::max<timer_t>(0, dt);
-			}
-			debug("cooldown ", cooldownTimer_);
 		}
     }
 
 	void AOEAttack::attack(Person& person) {
 		
-		if (!active_) {
+		if (!attacking_) {
 			return;
 		}
 
@@ -109,42 +98,23 @@ namespace Game {
 			const int power = Person::MAX_LIFE;
 			person.hit(power);
 
-			// add to score
-			blood_ += getSuccessBonus();
-
-			// Mark that we hit something and so don't take a punishment
+			// Mark that we hit something for scoring when attack ends
 			attackHitSomething_ = true;
 		}
-	}
-
-	int AOEAttack::getBlood() const {
-		return blood_;
-	}
-	void AOEAttack::resetBlood() {
-		blood_ = 0;
 	}
 
 	void AOEAttack::operator()(Person& person) {
 		attack(person);
 	}
 
-	void AOEAttack::activate(const Location& loc) {
-		if (active_) { return; }
+	void AOEAttack::activateFromPlayerInput(const Location& loc) {
 		if (attacking_) { return; }
- 		if (cooldownTimer_ > 0) {
-			return;
-		}
+ 		
 		loc_ = loc;
-		active_ = true;
 		attacking_ = true;
 		attackingTimer_ = getAttackingTime();
-		cooldownTimer_ = getCooldownTime();
 		sound_.play(-1, 0);
 		debug("die!");
-	}
-
-	void AOEAttack::deactivate() {
-		active_ = false;
 	}
 
     bool AOEAttack::isBatAttack() const{

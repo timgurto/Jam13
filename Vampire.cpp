@@ -37,12 +37,17 @@ namespace Game {
     frameTime(rand()%42),
     state(IDLE),
     frame(rand()%idleFrames),
-	totalBlood_(START_BLOOD){    
+	totalBlood_(START_BLOOD),
+	cooldownTimer_(0) {    
         loc_ = loc;
     }
 
-	int Vampire::getTotalBlood() const {
+	double Vampire::getTotalBlood() const {
 		return totalBlood_;
+	}
+
+	bool Vampire::isDead() const {
+		return getTotalBlood() <= 0;
 	}
 
     SDL_Rect Vampire::drawRect() const{
@@ -199,24 +204,27 @@ namespace Game {
                 frame = rand() % movingFrames;
         }
 
-		// Killing
+		// Tick time for cooldown
+		const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER);
+		if (cooldownTimer_ > 0) {
+			// Prevent underflow
+			if (cooldownTimer_ < timeElapsed) {
+				// Clamp to 0
+				cooldownTimer_ = 0;
+			}
+			else {
+				// Subtract time
+				const timer_t dt = cooldownTimer_ - timeElapsed;
+				cooldownTimer_ = std::max<timer_t>(0, dt);
+			}
+			debug("cooldown ", cooldownTimer_);
+		}
+
+		// Check for key press and update attacks that are attacking
 		updateAttack(smallAttack, delta);
 		updateAttack(batAttack, delta);
 
-		// Add up sucked blood and used blood
-		// Blood will be sucked next frame when the person is hit?
-		int suckedBlood = 0;
-		suckedBlood += smallAttack.getBlood();
-		suckedBlood += batAttack.getBlood();
-		// There was a change
-		if (abs(suckedBlood) > 0) {
-			smallAttack.resetBlood();
-			batAttack.resetBlood();
-			totalBlood_ += suckedBlood;
-		}
-
         //animation
-        timer_t timeElapsed = delta * DELTA_MODIFIER;
         if (timeElapsed >= frameTime){
             frameTime = 42 - (timeElapsed - frameTime);
             ++frame;
@@ -228,8 +236,10 @@ namespace Game {
                     state = MOVING;
             }
                 
-        }else
+        }
+		else {
             frameTime -= timeElapsed;
+		}
     }
 
     void Vampire::updateDirection(Direction newDir){
@@ -261,28 +271,66 @@ namespace Game {
 
 	// Check for key press and update attacks that are attacking
 	void Vampire::updateAttack(AOEAttack& attack, double delta) {
+
+		// Update attack animations etc
 		attack.update(delta);
-		if (isKeyPressed(attack.getKey())) {
-            if (!attack.active_){
-			    attack.activate(loc_);
-                if (!attack.isBatAttack() && state != ATTACKING){
-                    debug("resetting combat animation");
-                    frame = 0;
-                    state = ATTACKING;
-                    frameTime = 42;
-                }
-            }
+
+		// Block input while attacking
+		// Block input while cooling down
+		if (attack.isAttacking() || (cooldownTimer_ > 0)) {
+			// Do nothing
 		}
+
+		// Not attacking
 		else {
-			attack.deactivate();
+
+			// Add up score if attack just finished
+			int suckedBlood = 0;
+			if (attack.attackSucceeded()) {
+				suckedBlood += attack.getSuccessBonus();
+				attack.resetAttackState();
+			}
+			else if (attack.attackFailed()) {
+				suckedBlood += attack.getFailureCost();
+				attack.resetAttackState();
+			}
+			// There was a change
+			if (abs(suckedBlood) > 0) {
+				totalBlood_ += suckedBlood;
+			}
+
+			// Process input
+			if (isKeyPressed(attack.getKey())) {
+
+				assert(!attack.isAttacking());
+
+				// Attack
+				attack.activateFromPlayerInput(loc_);
+
+				// Set cooldown timer
+				cooldownTimer_ = attack.getCooldownTime();
+
+				// Update animation state for small attack
+				// because vampire animates whild doing the attack
+				if (!attack.isBatAttack() && state != ATTACKING){
+					debug("resetting combat animation");
+					frame = 0;
+					state = ATTACKING;
+					frameTime = 42;
+				}
+			}
 		}
 	}
 
 	// Applies attack to player and check if it hit
 	// Does not apply if not attacking
 	void Vampire::applyAttacks(Person& p) {
-		smallAttack(p);
-		batAttack(p);
+		if (smallAttack.isAttacking()) {
+			smallAttack(p);
+		}
+		else if (batAttack.isAttacking()) {
+			batAttack(p);
+		}
 	}
 
     void Vampire::setIdleImages(const Surface *e,

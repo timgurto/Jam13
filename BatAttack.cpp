@@ -1,5 +1,6 @@
 // (C) 2013 Tim Gurto
 
+#include <cassert>
 #include "BatAttack.h"
 #include "Point.h"
 #include "Debug.h"
@@ -40,9 +41,13 @@ extern Debug debug;
         if (!attacking_)
             return;
 
+		if (DEBUG) {
+			AOEAttack::draw(offset, surface);
+		}
+
         SDL_Rect drawRect;
-        drawRect.x = loc_.x - DIM.x/2 - offset.x;
-        drawRect.y = loc_.y - DIM.y/2 - offset.y;
+        drawRect.x = static_cast<Sint16>(loc_.x - DIM.x/2 - offset.x + 0.5);
+        drawRect.y = static_cast<Sint16>(loc_.y - DIM.y/2 - offset.y + 0.5);
         
         size_t
             row = frame / COLUMNS,
@@ -61,9 +66,11 @@ extern Debug debug;
 
         if (attacking_){
             //update frame
-            timer_t timeElapsed = delta * DELTA_MODIFIER;
-debug(frameTime);
-            if (timeElapsed > frameTime){
+            const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
+			debug("frameTime ", frameTime);
+			//assert(frameTime > 0);
+			// FIXME negative frame time?
+            if ((int)timeElapsed > frameTime){
                 ++frame;
                 if (frame >= FRAMES)
                     frame = 0;

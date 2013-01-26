@@ -68,13 +68,19 @@ namespace Game {
 		SmallAttack smallAttack;
 		BatAttack batAttack;
 
-		int totalBlood_;
+		// Health of vampire
+		double totalBlood_;
+
+		// Time before you can activate the attack again
+		// counted from the start of the attack activation
+		timer_t cooldownTimer_;
 
     public:
 
         Vampire(const Location &loc);
 
-		int getTotalBlood() const;
+		double getTotalBlood() const;
+		bool isDead() const;
 
         SDL_Rect getDrawRect(Point offset) const;
 

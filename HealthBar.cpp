@@ -10,10 +10,10 @@ namespace Game {
 	const pixels_t HEIGHT = 20;
 	const pixels_t OUTLINE_THICKNESS = 1;
 	const double FILLING_SPEED = 0.001;
-	const size_t MAX_HEALTH = 10;
+	const double MAX_HEALTH = 10;
 
-	HealthBar::HealthBar(size_t startingHealth) : Entity(),
-		fillPercent_(startingHealth / (double)MAX_HEALTH),
+	HealthBar::HealthBar(double startingHealth) : Entity(),
+		fillPercent_(startingHealth / MAX_HEALTH),
 		fillingPercent_(0.0),
 		lastSetHealth_(0)
 	{
@@ -21,24 +21,25 @@ namespace Game {
 		loc_.y = 3;
 	}
 
-	size_t HealthBar::getHealth() const {
-		int h = fillPercent_ * MAX_HEALTH;
+	double HealthBar::getHealth() const {
+		const double h = fillPercent_ * MAX_HEALTH;
 		assert( h >= 0 );
 		return h;
 	}
 
 	// Set health
 	// Health bar is animated with changes
-	void HealthBar::setHealth(int health) {
+	void HealthBar::setHealth(double health) {
 
 		// Only set if changed
-		if (health == lastSetHealth_) {
+		// (comparing doubles ==)
+		if (std::abs(health - lastSetHealth_) > 0.0) {
 			return;
 		}
 		lastSetHealth_ = health;
 
 		// Get difference between bar's current health and desired health
-		const int diff = max<int>(0, health - getHealth());
+		const double diff = max<double>(0.0, health - getHealth());
 
 		// No change - return
 		if (diff == 0) {
@@ -46,7 +47,7 @@ namespace Game {
 		}
 
 		// Calculate amount we are filling
-		const double percent = diff / (double)MAX_HEALTH;
+		const double percent = diff / MAX_HEALTH;
 		fillingPercent_ = percent;
 		assert(fillingPercent_ <= 1.0);
 		assert(fillingPercent_ >= -1.0);

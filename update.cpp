@@ -22,7 +22,7 @@ extern Debug debug;
 
 void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
-    timer_t timeElapsed = delta * DELTA_MODIFIER;
+    timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
 
 	handleEvents(state, fpsDisplay);
 
@@ -50,7 +50,7 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
     if (state.heartTimer <= timeElapsed){
         if (closestPersonDist <= MAX_SOUND_DISTANCE){
             double distance = max(min(1.0 * (closestPersonDist-10) / (MAX_SOUND_DISTANCE-10), 1.0), 0.0);
-            state.heartTimer = distance * 1600 + 350;
+            state.heartTimer = static_cast<timer_t>( distance * 1600 + 350 + 0.5 );
 
 
             double volume = 1 - pow(distance, 0.25);
@@ -65,7 +65,8 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
             //double volume = 1 - distance;
 
 
-            state.heartbeat.changeVolume(min<int>(volume*MIX_MAX_VOLUME, MIX_MAX_VOLUME));
+            state.heartbeat.changeVolume(min<int>(
+				static_cast<int>(volume*MIX_MAX_VOLUME+0.5), MIX_MAX_VOLUME));
             state.heartbeat.play(-1, 0);
         }
         
@@ -103,7 +104,7 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 	else {
 
 		// Check for death
-		if (state.vampire.getTotalBlood() <= 0) {
+		if (state.vampire.isDead()) {
 			// Game over
 			state.outcome = QUIT;
 			state.loop = false;

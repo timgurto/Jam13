@@ -21,25 +21,16 @@ namespace Game {
 		// Time for the attack to run
 		timer_t attackingTimer_;
 
-		// Time before you can activate the attack again
-		// counted from the start of the attack activation
-		timer_t cooldownTimer_;
-
 		// Boom
 		Sound sound_;
-
-		// Blood absorbed
-		int blood_;
 
     public:
 		AOEAttack();
 
         virtual bool isBatAttack() const;
-		int getBlood() const;
-		void resetBlood();
 
 		// Player wants to activate attack
-		bool active_;
+		bool attackKeyIsActive_;
 
 		virtual void update(double delta);
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
@@ -49,13 +40,24 @@ namespace Game {
 		void operator()(Person& person);
 
 		// Start attack
-		void activate(const Location& loc);
-
-		// Stop attack
-		void deactivate();
+		void activateFromPlayerInput(const Location& loc);
 
 		virtual SDLKey getKey() const = 0;
 		//virtual Sound& getSound() const = 0;
+
+		bool isAttacking() const { return attacking_; }
+		bool attackSucceeded() const { return attackSucceeded_; }
+		bool attackFailed() const { return attackMissed_; }
+		void resetAttackState() {
+			attacking_ = false;
+			attackHitSomething_ = false;
+			attackSucceeded_ = false;
+			attackMissed_ = false;
+		}
+
+		virtual timer_t getCooldownTime() const = 0;
+		virtual int getFailureCost() const = 0;
+		virtual int getSuccessBonus() const = 0;
 
 	protected:
 
@@ -65,11 +67,14 @@ namespace Game {
 		// Set to true if the attack hits something while it is attacking
 		bool attackHitSomething_;
 
+		// Set to true after attack has finished if it hit something
+		bool attackSucceeded_;
+
+		// Set to true if the attack failed to hit anything after it is finished
+		bool attackMissed_;
+
 		virtual timer_t getAttackingTime() const = 0;
-		virtual timer_t getCooldownTime() const = 0;
 		virtual pixels_t getRadius() const = 0;
-		virtual int getFailureCost() const = 0;
-		virtual int getSuccessBonus() const = 0;
 	};
 
 } //namespace Game
