@@ -87,7 +87,7 @@ extern Debug debug;
             frameTime = max<int>(42 - (timeElapsed - frameTime), 0);
         }
 		else {
-            frameTime = max<int>(frameTime - timeElapsed, 0);
+            frameTime -= timeElapsed;
         }
     }
 

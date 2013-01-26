@@ -54,6 +54,10 @@ namespace Game {
 		return totalBlood_;
 	}
 
+	double Vampire::getBloodPercent() const {
+		return (totalBlood_ / MAX_HEALTH);
+	}
+
 	bool Vampire::isDead() const {
 		return getTotalBlood() <= 0;
 	}
@@ -365,7 +369,7 @@ namespace Game {
 		// Add up score if attack just finished
 		double suckedBlood = 0;
 		if (attack.attackSucceeded()) {
-			suckedBlood += attack.getSuccessBonus();
+			suckedBlood += attack.getSuccessBonus() * attack.getNumHit();
 			attack.playAttackSuccess();
 		}
 		else {

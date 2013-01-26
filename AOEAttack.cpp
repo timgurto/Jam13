@@ -21,7 +21,7 @@ namespace Game {
 		missSound1_(SOUND_PATH + "Miss.wav"),
 		missSound2_(SOUND_PATH + "Miss2.wav"),
 		playing_(false),
-		attackHitSomething_(false) {
+		numHit_(0) {
     }
 
     SDL_Rect AOEAttack::drawRect() const{
@@ -64,8 +64,7 @@ namespace Game {
 			}
 			else {
 				// Subtract time
-				const timer_t dt = attackingTimer_ - timeElapsed;
-				attackingTimer_ = std::max<timer_t>(0, dt);
+				attackingTimer_ -= timeElapsed;
 			}
 		}
     }
@@ -87,12 +86,16 @@ namespace Game {
 			person.hit(power, isBatAttack());
 
 			// Mark that we hit something for scoring when attack ends
-			attackHitSomething_ = true;
+			++numHit_;
 		}
 	}
 
 	bool AOEAttack::attackSucceeded() const {
-		return attackHitSomething_;
+		return numHit_ > 0;
+	}
+
+	size_t AOEAttack::getNumHit() const {
+		return numHit_;
 	}
 
 	void AOEAttack::playAttackSuccess() {
@@ -106,7 +109,7 @@ namespace Game {
 		getHitSound().play(-1, 0);
 
 		playing_ = false;
-		attackHitSomething_ = false;
+		numHit_ = 0;
 	}
 
 	void AOEAttack::playAttackFail() {
@@ -121,7 +124,7 @@ namespace Game {
 		}
 
 		playing_ = false;
-		attackHitSomething_ = false;
+		numHit_ = 0;
 	}
 
 	void AOEAttack::operator()(Person& person) {

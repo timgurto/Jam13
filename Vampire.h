@@ -82,6 +82,7 @@ namespace Game {
         Vampire(const Location &loc);
 
 		double getTotalBlood() const;
+		double getBloodPercent() const;
 		bool isDead() const;
 		bool isBloodFull() const;
 

@@ -34,6 +34,7 @@ namespace Game {
 		void operator()(Person& person);
 
 		bool attackSucceeded() const;
+		size_t getNumHit() const;
 		void playAttackSuccess();
 		void playAttackFail();
 
@@ -58,7 +59,7 @@ namespace Game {
 		timer_t attackingTimer_;
 
 		bool playing_;
-		bool attackHitSomething_;
+		size_t numHit_;
 
 		Sound missSound1_;
 		Sound missSound2_;

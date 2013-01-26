@@ -123,8 +123,13 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 		state.vampire.scoreAttacks();
 
 		// Update health bar
-		state.environment.healthBar_.setHealth(state.vampire.getTotalBlood());
+		state.environment.healthBar_.setPercent(state.vampire.getBloodPercent());
 	}
+
+	const double h1 = state.vampire.getBloodPercent();
+	const double h2 = state.environment.healthBar_.getPercent();
+	const double diff = h1 - h2;
+	assert( fabs(diff) < 0.01 );
 
 	// Check for win
 	/*if (state.isAllDead()) {

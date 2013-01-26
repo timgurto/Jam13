@@ -20,9 +20,9 @@ namespace Game {
     const size_t Environment::SUN_BAR_FRAMES = 50;
     const size_t Environment::SUN_BAR_COLUMNS = 4;
 
-	Environment::Environment(double startingHealth, double maxHealth) :
+	Environment::Environment(double startingHealthPercent) :
 		countdownTimer_(COUNTDOWN_TIME),
-		healthBar_(startingHealth, maxHealth),
+		healthBar_(startingHealthPercent),
         sunBar(IMAGE_PATH + "Time/BlackWhite.png", true),
         sunBarColor(IMAGE_PATH + "Time/ColourBar.png", true),
         sunBarLoc(0, 600-107),
