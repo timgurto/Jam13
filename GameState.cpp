@@ -63,6 +63,14 @@ scream(SOUND_PATH + "boom1.wav") {
 
     map.mapSize = Point(30, 20);
     map.randomize();
+
+    std::string VAMPIRE_PATH = IMAGE_PATH + "Vampire/";
+    idleE = Surface(VAMPIRE_PATH + "idleE.png", true);
+    idleF = Surface(VAMPIRE_PATH + "idleF.png", true);
+    idleG = Surface(VAMPIRE_PATH + "idleG.png", true);
+    idleH = Surface(VAMPIRE_PATH + "idleH.png", true);
+    Vampire::setIdleImages(&idleE, &idleF, &idleG, &idleH);
+
 }
 
 GameState::~GameState() {

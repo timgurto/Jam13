@@ -45,6 +45,12 @@ private:
    PersonList* currPersonList;
    PersonList personList1;
    PersonList personList2;
+
+   Surface
+       idleE,
+       idleF,
+       idleG,
+       idleH;
 };
 
 } // namespace Game

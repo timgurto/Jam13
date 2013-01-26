@@ -4,11 +4,10 @@
 #define MAP_H
 
 #include "Surface.h"
+#include "Location.h"
 
 #include <SDL.h>
 #include <vector>
-
-#include "Location.h";
 
 namespace Game {
 
