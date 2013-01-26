@@ -195,9 +195,9 @@ void Surface::fill(const SDL_Color color, SDL_Rect *rect){
 
 //fills a part of the surface with color
 void Surface::fill(Uint32 color, SDL_Rect *rect){
-	if (!rect) { return; }
+	/*if (!rect) { return; }
    assert(rect->w > 0);
-   assert(rect->h > 0);
+   assert(rect->h > 0);*/          
    SDL_FillRect(surface_, rect, color);
 }
 
