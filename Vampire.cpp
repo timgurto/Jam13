@@ -322,6 +322,10 @@ namespace Game {
 		        }
 		        //debug("cooldown ", cooldownTimer_);
 	        }
+
+			// Update attack animations etc
+			smallAttack.update(delta);
+			batAttack.update(delta);
         }
 
         //animation

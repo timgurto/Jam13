@@ -140,7 +140,6 @@ namespace Game {
 	private:
 		bool checkInputForAttack(AOEAttack& attack);
 		void scoreAttack(AOEAttack& attack);
-		bool attackHitSomething_;
 	};
 
 } //namespace Game

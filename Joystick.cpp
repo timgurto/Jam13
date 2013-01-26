@@ -135,8 +135,8 @@ void Joystick::processEvents(SDL_Event& event) {
 
 	 // Handle Joystick Button Presses
 	else if (event.type == SDL_JOYBUTTONDOWN) {
-		debug("event.jbutton.button ", (int)event.jbutton.button);
-		debug("event.jbutton.state ", (int)event.jbutton.state);
+		//debug("event.jbutton.button ", (int)event.jbutton.button);
+		//debug("event.jbutton.state ", (int)event.jbutton.state);
 		buttons[(size_t)event.jbutton.button] = (bool)event.jbutton.state;
 	}
 
