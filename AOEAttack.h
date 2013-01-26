@@ -18,12 +18,6 @@ namespace Game {
 
         virtual Surface *image() const;
 
-		// Player wants to activate attack
-		bool active_;
-
-		// Attack is in progress
-		bool attacking_;
-
 		// Time for the attack to run
 		timer_t attackingTimer_;
 
@@ -39,6 +33,11 @@ namespace Game {
 
     public:
 		AOEAttack();
+
+        virtual bool isBatAttack();
+
+		// Player wants to activate attack
+		bool active_;
 
 		virtual void update(double delta);
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
@@ -57,6 +56,10 @@ namespace Game {
 		//virtual Sound& getSound() const = 0;
 
 	protected:
+
+		// Attack is in progress
+		bool attacking_;
+
 		virtual timer_t getAttackingTime() const = 0;
 		virtual timer_t getCooldownTime() const = 0;
 		virtual pixels_t getRadius() const = 0;

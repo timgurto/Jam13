@@ -121,10 +121,16 @@ namespace Game {
 		cooldownTimer_ = getCooldownTime();
 		sound_.play(-1, 0);
 		debug("die!");
+
+
 	}
 
 	void AOEAttack::deactivate() {
 		active_ = false;
 	}
+
+    bool AOEAttack::isBatAttack(){
+        return false;
+    }
 
 } //namespace Game

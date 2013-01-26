@@ -58,7 +58,11 @@ private:
        movingE,
        movingF,
        movingG,
-       movingH;
+       movingH,
+       attackingE,
+       attackingF,
+       attackingG,
+       attackingH;
 };
 
 } // namespace Game

@@ -28,9 +28,9 @@ namespace Game {
 		return SDLK_z;
 	}
 
-    //void SmallAOEAttack::draw(Point offset, Surface &surface) const{
-    //    
-    //}
+    void SmallAOEAttack::draw(Point offset, Surface &surface) const{
+        
+    }
 
 
 } //namespace Game
