@@ -4,9 +4,11 @@
 #define VAMPIRE_H
 
 #include "Entity.h"
-#include "AOEAttack.h"
+#include "AOEAttackVariety.h"
 
 namespace Game {
+
+	class Person;
 
     class Vampire : public Entity{
 
@@ -55,9 +57,10 @@ namespace Game {
 
         VampireState state;
 
-    public:
+		SmallAOEAttack smallAoeAttack;
+		BigAOEAttack bigAoeAttack;
 
-		AOEAttack aoeAttack;
+    public:
 
         Vampire(const Location &loc);
 
@@ -83,6 +86,11 @@ namespace Game {
         Direction lastLeftRight;
         Direction dir;
         void updateDirection(Direction newDir);
+
+		void applyAttacks(Person& p);
+
+	private:
+		void updateAttack(AOEAttack& attack, double delta);
 	};
 
 } //namespace Game

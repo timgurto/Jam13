@@ -77,7 +77,7 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 		assert(p);
 	    pixels_t distToVamp = distance(p->getLoc(), vampLoc);
         p->update(delta, distToVamp);
-		state.vampire.aoeAttack(*p);
+		state.vampire.applyAttacks(*p);
 		if (!p->isDead()) {
 			stillAliveList.push_back(p);
 		}

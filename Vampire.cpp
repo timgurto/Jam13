@@ -44,7 +44,8 @@ namespace Game {
     void Vampire::draw(Point offset, Surface &surface) const{
 
 		// Draw attack under vampire sprite
-		aoeAttack.draw(offset, surface);
+		smallAoeAttack.draw(offset, surface);
+		bigAoeAttack.draw(offset, surface);
 
 		// Red square
         SDL_Rect rect = collisionRect();
@@ -150,13 +151,8 @@ namespace Game {
         }
 
 		// Killing
-		aoeAttack.update(delta);
-		if (isKeyPressed(SDLK_SPACE)) {
-			aoeAttack.activate(loc_);
-		}
-		else {
-			aoeAttack.deactivate();
-		}
+		updateAttack(smallAoeAttack, delta);
+		updateAttack(bigAoeAttack, delta);
 
         //animation
         timer_t timeElapsed = delta * DELTA_MODIFIER;
@@ -196,6 +192,21 @@ namespace Game {
             break;
         }
     }
+
+	void Vampire::updateAttack(AOEAttack& attack, double delta) {
+		attack.update(delta);
+		if (isKeyPressed(attack.getKey())) {
+			attack.activate(loc_);
+		}
+		else {
+			attack.deactivate();
+		}
+	}
+
+	void Vampire::applyAttacks(Person& p) {
+		smallAoeAttack(p);
+		bigAoeAttack(p);
+	}
 
     void Vampire::setIdleImages(const Surface *e,
                                 const Surface *f,

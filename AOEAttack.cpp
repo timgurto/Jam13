@@ -11,27 +11,23 @@ namespace Game {
 
     extern Debug debug;
 
-	const timer_t AOEAttack::ATTACKING_TIME = 500;
-	const timer_t AOEAttack::COOLDOWN_TIME = 1000;
-
 	AOEAttack::AOEAttack() :
 		Entity(),
 		active_(false),
 		attacking_(false),
 		attackingTimer_(0),
 		cooldownTimer_(0),
-		radius_(40),
 		sound_(SOUND_PATH + "boom1.wav"),
 		blood_(0) {
 
     }
 
     SDL_Rect AOEAttack::drawRect() const{
-        return makeRect(-radius_, -radius_, radius_*2, radius_*2);
+        return makeRect(-getRadius(), -getRadius(), getRadius()*2, getRadius()*2);
     }
 
     SDL_Rect AOEAttack::collisionRect() const{
-        return makeRect(-radius_, -radius_, radius_*2, radius_*2);
+        return makeRect(-getRadius(), -getRadius(), getRadius()*2, getRadius()*2);
     }
 
     Surface *AOEAttack::image() const{
@@ -99,7 +95,7 @@ namespace Game {
 
 		// if within radius
 		const pixels_t dist = distance(person.getLoc(), this->getLoc());
-		if (dist <= radius_)
+		if (dist <= getRadius())
 		{
 			// kill
 			const int power = Person::MAX_LIFE;
@@ -121,8 +117,8 @@ namespace Game {
 		loc_ = loc;
 		active_ = true;
 		attacking_ = true;
-		attackingTimer_ = ATTACKING_TIME;
-		cooldownTimer_ = COOLDOWN_TIME;
+		attackingTimer_ = getAttackingTime();
+		cooldownTimer_ = getCooldownTime();
 		sound_.play(-1, 0);
 		debug("die!");
 	}

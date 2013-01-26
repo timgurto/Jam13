@@ -31,9 +31,6 @@ namespace Game {
 		// counted from the start of the attack activation
 		timer_t cooldownTimer_;
 
-		// Circular collision
-		pixels_t radius_;
-
 		// Boom
 		Sound sound_;
 
@@ -41,9 +38,6 @@ namespace Game {
 		int blood_;
 
     public:
-		static const timer_t ATTACKING_TIME;
-		static const timer_t COOLDOWN_TIME;
-
 		AOEAttack();
 
 		virtual void update(double delta);
@@ -58,6 +52,14 @@ namespace Game {
 
 		// Stop attack
 		void deactivate();
+
+		virtual SDLKey getKey() const = 0;
+		//virtual Sound& getSound() const = 0;
+
+	protected:
+		virtual timer_t getAttackingTime() const = 0;
+		virtual timer_t getCooldownTime() const = 0;
+		virtual pixels_t getRadius() const = 0;
 	};
 
 } //namespace Game
