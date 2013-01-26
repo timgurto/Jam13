@@ -1,7 +1,7 @@
 // (C) 2013 Tim Gurto
 
-#ifndef AOE_ATTACK_VARIETY_H
-#define AOE_ATTACK_VARIETY_H
+#ifndef SMALL_ATTACK_H
+#define SMALL_ATTACK_H
 
 #include "AOEAttack.h"
 #include "Sound.h"
@@ -9,7 +9,7 @@
 namespace Game {
 
 	// Small
-    class SmallAOEAttack : public AOEAttack{
+    class SmallAttack : public AOEAttack{
 
 	public:
 		virtual SDLKey getKey() const;
@@ -21,7 +21,8 @@ namespace Game {
 		virtual timer_t getAttackingTime() const;
 		virtual timer_t getCooldownTime() const;
 		virtual pixels_t getRadius() const;
-		
+		virtual int getFailureCost() const;
+		virtual int getSuccessBonus() const;
 	};
 
 

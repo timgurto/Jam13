@@ -4,7 +4,7 @@
 #define VAMPIRE_H
 
 #include "Entity.h"
-#include "AOEAttackVariety.h"
+#include "SmallAttack.h"
 #include "BatAttack.h"
 
 namespace Game {
@@ -65,12 +65,16 @@ namespace Game {
 
         VampireState state;
 
-		SmallAOEAttack smallAoeAttack;
+		SmallAttack smallAttack;
 		BatAttack batAttack;
+
+		int totalBlood_;
 
     public:
 
         Vampire(const Location &loc);
+
+		int getTotalBlood() const;
 
         SDL_Rect getDrawRect(Point offset) const;
 

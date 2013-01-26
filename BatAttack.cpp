@@ -77,4 +77,12 @@ debug(frameTime);
        return true;
     }
 
+	int BatAttack::getFailureCost() const {
+		return -3;
+	}
+
+	int BatAttack::getSuccessBonus() const {
+		return 1;
+	}
+
 } //namespace Game

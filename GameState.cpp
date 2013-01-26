@@ -33,7 +33,8 @@ heartTimer(rand()%200 + 900),
 
 map(offset),
 
-scream(SOUND_PATH + "death1.wav") {
+scream(SOUND_PATH + "death1.wav"),
+environment(vampire.getTotalBlood()) {
 
     // Populate people
 	const size_t maxPeople = MAX_CHANNELS;
@@ -80,7 +81,6 @@ scream(SOUND_PATH + "death1.wav") {
     attackingG = Surface(VAMPIRE_PATH + "attackingG.png", true);
     attackingH = Surface(VAMPIRE_PATH + "attackingH.png", true);
     Vampire::setAttackingImages(&attackingE, &attackingF, &attackingG, &attackingH);
-
 }
 
 GameState::~GameState() {

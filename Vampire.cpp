@@ -30,13 +30,20 @@ namespace Game {
     const size_t Vampire::attackingColumns = 4;
     const size_t Vampire::attackingFrames = 15;
 
+	const int START_BLOOD = 4;
+
     Vampire::Vampire(const Location &loc) :
     dir(DIR_F),
     frameTime(rand()%42),
     state(IDLE),
-    frame(rand()%idleFrames){    
+    frame(rand()%idleFrames),
+	totalBlood_(START_BLOOD){    
         loc_ = loc;
     }
+
+	int Vampire::getTotalBlood() const {
+		return totalBlood_;
+	}
 
     SDL_Rect Vampire::drawRect() const{
         return makeRect(-64, -100, 128, 128);
@@ -53,7 +60,7 @@ namespace Game {
     void Vampire::draw(Point offset, Surface &surface) const{
 
 		// Draw attack under vampire sprite
-		smallAoeAttack.draw(offset, surface);
+		smallAttack.draw(offset, surface);
 		batAttack.draw(offset, surface);
 
 		// Red square
@@ -193,8 +200,20 @@ namespace Game {
         }
 
 		// Killing
-		updateAttack(smallAoeAttack, delta);
+		updateAttack(smallAttack, delta);
 		updateAttack(batAttack, delta);
+
+		// Add up sucked blood and used blood
+		// Blood will be sucked next frame when the person is hit?
+		int suckedBlood = 0;
+		suckedBlood += smallAttack.getBlood();
+		suckedBlood += batAttack.getBlood();
+		// There was a change
+		if (abs(suckedBlood) > 0) {
+			smallAttack.resetBlood();
+			batAttack.resetBlood();
+			totalBlood_ += suckedBlood;
+		}
 
         //animation
         timer_t timeElapsed = delta * DELTA_MODIFIER;
@@ -240,6 +259,7 @@ namespace Game {
         }
     }
 
+	// Check for key press and update attacks that are attacking
 	void Vampire::updateAttack(AOEAttack& attack, double delta) {
 		attack.update(delta);
 		if (isKeyPressed(attack.getKey())) {
@@ -258,8 +278,10 @@ namespace Game {
 		}
 	}
 
+	// Applies attack to player and check if it hit
+	// Does not apply if not attacking
 	void Vampire::applyAttacks(Person& p) {
-		smallAoeAttack(p);
+		smallAttack(p);
 		batAttack(p);
 	}
 

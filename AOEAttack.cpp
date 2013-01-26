@@ -18,7 +18,8 @@ namespace Game {
 		attackingTimer_(0),
 		cooldownTimer_(0),
 		sound_(SOUND_PATH + "boom1.wav"),
-		blood_(0) {
+		blood_(0),
+		attackHitSomething_(false) {
 
     }
 
@@ -68,6 +69,13 @@ namespace Game {
 			// Attack has finished
 			if (attackingTimer_ == 0) {
 				attacking_ = false;
+
+				// Check if attack hit anything
+				// Apply a punishment for missing
+				if (!attackHitSomething_) {
+					blood_ += getFailureCost();
+				}
+				attackHitSomething_ = false;
 			}
 		}
 		
@@ -99,9 +107,21 @@ namespace Game {
 		{
 			// kill
 			const int power = Person::MAX_LIFE;
-			blood_ += power;
 			person.hit(power);
+
+			// add to score
+			blood_ += getSuccessBonus();
+
+			// Mark that we hit something and so don't take a punishment
+			attackHitSomething_ = true;
 		}
+	}
+
+	int AOEAttack::getBlood() const {
+		return blood_;
+	}
+	void AOEAttack::resetBlood() {
+		blood_ = 0;
 	}
 
 	void AOEAttack::operator()(Person& person) {
@@ -121,15 +141,13 @@ namespace Game {
 		cooldownTimer_ = getCooldownTime();
 		sound_.play(-1, 0);
 		debug("die!");
-
-
 	}
 
 	void AOEAttack::deactivate() {
 		active_ = false;
 	}
 
-    bool AOEAttack::isBatAttack(){
+    bool AOEAttack::isBatAttack() const{
         return false;
     }
 

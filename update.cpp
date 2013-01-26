@@ -90,7 +90,7 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 	}
 	state.swapPersonLists();
 
-	state.environment.healthBar_.setHealth(50);
+	state.environment.healthBar_.setHealth(state.vampire.getTotalBlood());
 	state.environment.healthBar_.update(delta);
 
 	// Check for win
@@ -102,13 +102,21 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
 	else {
 
+		// Check for death
+		if (state.vampire.getTotalBlood() <= 0) {
+			// Game over
+			state.outcome = QUIT;
+			state.loop = false;
+			debug("out of health");
+		}
+
 		// Game countdown
 		state.environment.update(delta);
 		if (state.environment.isSunUp()) {
 			// Game over
 			state.outcome = QUIT;
 			state.loop = false;
-			debug("lose");
+			debug("sun came up");
 		}
 
 	}

@@ -34,7 +34,9 @@ namespace Game {
     public:
 		AOEAttack();
 
-        virtual bool isBatAttack();
+        virtual bool isBatAttack() const;
+		int getBlood() const;
+		void resetBlood();
 
 		// Player wants to activate attack
 		bool active_;
@@ -60,9 +62,14 @@ namespace Game {
 		// Attack is in progress
 		bool attacking_;
 
+		// Set to true if the attack hits something while it is attacking
+		bool attackHitSomething_;
+
 		virtual timer_t getAttackingTime() const = 0;
 		virtual timer_t getCooldownTime() const = 0;
 		virtual pixels_t getRadius() const = 0;
+		virtual int getFailureCost() const = 0;
+		virtual int getSuccessBonus() const = 0;
 	};
 
 } //namespace Game

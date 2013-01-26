@@ -9,21 +9,47 @@ namespace Game {
 
 	const pixels_t HEIGHT = 20;
 	const pixels_t OUTLINE_THICKNESS = 1;
-	const double FILLING_SPEED = 0.0001;
-	const size_t MAX_HEALTH = 100;
+	const double FILLING_SPEED = 0.001;
+	const size_t MAX_HEALTH = 10;
 
-	HealthBar::HealthBar() : Entity(),
-		fillPercent_(0.0),
-		fillingPercent_(0.0)
+	HealthBar::HealthBar(size_t startingHealth) : Entity(),
+		fillPercent_(startingHealth / (double)MAX_HEALTH),
+		fillingPercent_(0.0),
+		lastSetHealth_(0)
 	{
 		loc_.x = 5;
 		loc_.y = 3;
 	}
 
-	void HealthBar::setHealth(size_t health) {
-		fillPercent_ = min(health / (double)MAX_HEALTH, 1.0);
-		assert(fillPercent_ >= 0);
-		assert(fillPercent_ <= 1.0);
+	size_t HealthBar::getHealth() const {
+		int h = fillPercent_ * MAX_HEALTH;
+		assert( h >= 0 );
+		return h;
+	}
+
+	// Set health
+	// Health bar is animated with changes
+	void HealthBar::setHealth(int health) {
+
+		// Only set if changed
+		if (health == lastSetHealth_) {
+			return;
+		}
+		lastSetHealth_ = health;
+
+		// Get difference between bar's current health and desired health
+		const int diff = max<int>(0, health - getHealth());
+
+		// No change - return
+		if (diff == 0) {
+			return;
+		}
+
+		// Calculate amount we are filling
+		const double percent = diff / (double)MAX_HEALTH;
+		fillingPercent_ = percent;
+		assert(fillingPercent_ <= 1.0);
+		assert(fillingPercent_ >= -1.0);
 	}
 
 	// Outline
@@ -78,8 +104,17 @@ namespace Game {
     }
 
 	void HealthBar::update(double delta) {
-		const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER);
-		fillingPercent_ = max(0.0, fillingPercent_ - (timeElapsed * FILLING_SPEED));
+
+		// Use std for double
+		if (std::abs(fillingPercent_) > 0.0) {
+			const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER);
+
+			const double fillDelta = fillingPercent_ * timeElapsed * FILLING_SPEED;
+			fillPercent_ += fillDelta;
+			fillPercent_ = max(0.0, min(fillPercent_, 1.0));
+			fillingPercent_ -= fillDelta;
+			fillingPercent_ = max(0.0, min(fillingPercent_, 1.0));
+		}
 	}
 
 	void HealthBar::draw(Point offset, Surface &surface) const {

@@ -10,7 +10,7 @@ namespace Game {
 	class HealthBar : public Entity{
 	public:
 
-		HealthBar();
+		HealthBar(size_t startingHealth);
 
 		virtual SDL_Rect drawRect() const;
         virtual SDL_Rect collisionRect() const;
@@ -21,7 +21,8 @@ namespace Game {
 
         virtual Surface *image() const;
 
-		void setHealth(size_t health);
+		size_t getHealth() const;
+		void setHealth(int health);
 
 		void update(double delta);
 		virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
@@ -29,6 +30,7 @@ namespace Game {
 	private:
 		double fillPercent_;
 		double fillingPercent_;
+		size_t lastSetHealth_;
 
 		pixels_t getMaxWidth() const;
 		pixels_t getFillWidth() const;

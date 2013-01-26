@@ -34,6 +34,8 @@ namespace Game {
 		virtual timer_t getAttackingTime() const;
 		virtual timer_t getCooldownTime() const;
 		virtual pixels_t getRadius() const;
+		virtual int getFailureCost() const;
+		virtual int getSuccessBonus() const;
 	};
 
 } //namespace Game

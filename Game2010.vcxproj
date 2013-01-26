@@ -110,7 +110,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AOEAttack.h" />
-    <ClInclude Include="AOEAttackVariety.h" />
+    <ClInclude Include="SmallAttack.h" />
     <ClInclude Include="BatAttack.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Entity.h" />
@@ -138,7 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AOEAttack.cpp" />
-    <ClCompile Include="AOEAttackVariety.cpp" />
+    <ClCompile Include="SmallAttack.cpp" />
     <ClCompile Include="BatAttack.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Entity.cpp" />
