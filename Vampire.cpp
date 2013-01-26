@@ -125,6 +125,7 @@ namespace Game {
             updateDirection(DIR_R);
 
 		// Killing
+		aoeAttack.update(delta);
 		if (isKeyPressed(SDLK_SPACE)) {
 			aoeAttack.activate(loc_);
 		}

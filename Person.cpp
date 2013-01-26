@@ -118,6 +118,7 @@ namespace Game {
 
 	void Person::hit(int hitLife) {
 		life_ = std::max(0, life_ - hitLife);
+		debug("argh!");
 	}
 
 	bool Person::isDead() const {

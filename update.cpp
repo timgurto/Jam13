@@ -62,6 +62,26 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 		}
 	}
 	state.swapPersonLists();
+
+	// Check for win
+	if (state.isAllDead()) {
+		state.outcome = WON;
+		state.loop = false;
+		debug("win");
+	}
+
+	else {
+
+		// Game countdown
+		state.environment.update(delta);
+		if (state.environment.isSunUp()) {
+			// Game over
+			state.outcome = QUIT;
+			state.loop = false;
+			debug("lose");
+		}
+
+	}
 }
 
 void handleEvents(GameState &state, MessageBox &fpsDisplay){

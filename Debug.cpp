@@ -2,6 +2,13 @@
 
 #ifndef NDEBUG
 
+#ifdef WIN32
+#define NOMINMAX
+#define LEAN_AND_MEAN
+#include <Windows.h>
+#else
+#include <cstdio>
+#endif
 #include <queue>
 #include <cassert>
 
@@ -48,6 +55,12 @@ void Debug::initFont(std::string name, int size){
 }
 
 void Debug::add(std::string message){
+#ifdef WIN32
+	std::string s = message + "\n";
+	OutputDebugString(s.c_str());
+#else
+	printf("%s\n", message.c_str());
+#endif
    messages.push(message);
    if (messages.size() > count_)
       messages.pop();
