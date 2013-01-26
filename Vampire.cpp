@@ -1,6 +1,7 @@
 // (C) 2013 Tim Gurto
 #include <cassert>
 #include <cmath>
+#include "Joystick.h"
 #include "Vampire.h"
 #include "util.h"
 #include "Debug.h"
@@ -8,6 +9,7 @@
 
 namespace Game {
 
+	extern Joystick joystick;
     extern Debug debug;
 
     GameState *Vampire::gameState = 0;
@@ -170,37 +172,79 @@ namespace Game {
     }
 
     void Vampire::update(double delta){
+
+		VampireState oldState = state;
+
         //movement through arrow keys
-        bool
-            up =    isKeyPressed(SDLK_UP),
-            down =  isKeyPressed(SDLK_DOWN),
-            left =  isKeyPressed(SDLK_LEFT),
-            right = isKeyPressed(SDLK_RIGHT);
+		bool up = false;
+		bool down = false;
+		bool left = false;
+		bool right = false;
+		double distance = 0.0;
+		{
+			up |= isKeyPressed(SDLK_UP);
+			down |= isKeyPressed(SDLK_DOWN);
+			left |= isKeyPressed(SDLK_LEFT);
+			right |= isKeyPressed(SDLK_RIGHT);
 
-        if (up && down)
-            up = down = false;
-        if (left && right)
-            left = right = false;
+			if (up && down)
+				up = down = false;
+			if (left && right)
+				left = right = false;
 
-        double distance = delta * SPEED;
-        if ((up || down) && (left || right))
-            //diagonal movement
-            distance *= INV_SQRT2; //for each of the two directions
+			distance = delta * SPEED;
+			if ((up || down) && (left || right))
+				//diagonal movement
+				distance *= INV_SQRT2; //for each of the two directions
 
-        if (up){
-            loc_.y -= distance;
-            lastUpDown = DIR_U;
-        }else if (down){
-            loc_.y += distance;
-            lastUpDown = DIR_D;
-        }
-        if (left){
-            loc_.x -= distance;
-            lastLeftRight = DIR_L;
-        }else if (right){
-            loc_.x += distance;
-            lastLeftRight = DIR_R;
-        }
+			if (up){
+				loc_.y -= distance;
+				lastUpDown = DIR_U;
+			}else if (down){
+				loc_.y += distance;
+				lastUpDown = DIR_D;
+			}
+			if (left){
+				loc_.x -= distance;
+				lastLeftRight = DIR_L;
+			}else if (right){
+				loc_.x += distance;
+				lastLeftRight = DIR_R;
+			}
+		}
+
+		// Movement through joystick
+		if (joystick.enabled())
+		{
+			const double JOY_SPEED = 0.55;
+			const double distanceX = delta * joystick.getLeftRightAxis() * JOY_SPEED;
+			const double distanceY = delta * joystick.getUpDownAxis() * JOY_SPEED;
+
+			up |= distanceY < 0;
+			down |= distanceY > 0;
+			left |= distanceX < 0;
+			right |= distanceX > 0;
+
+			const double dx = distanceX * delta * JOY_SPEED;
+			const double dy = distanceY * delta * JOY_SPEED;
+
+			if (up){
+				loc_.y += dy;
+				lastUpDown = DIR_U;
+			}
+			if (down){
+				loc_.y += dy;
+				lastUpDown = DIR_D;
+			}
+			if (left){
+				loc_.x += dx;
+				lastLeftRight = DIR_L;
+			}
+			if (right){
+				loc_.x += dx;
+				lastLeftRight = DIR_R;
+			}
+		}
 
         if (loc_.x < gameState->leftBound)
             loc_.x = gameState->leftBound;
@@ -211,31 +255,29 @@ namespace Game {
         if (loc_.y > gameState->bottomBound)
             loc_.y = gameState->bottomBound;
 
+		if (state != ATTACKING)
+			state = MOVING;
+		if (up && right)
+			updateDirection(DIR_E);
+		else if (down && right)
+			updateDirection(DIR_F);
+		else if (down && left)
+			updateDirection(DIR_G);
+		else if (up && left)
+			updateDirection(DIR_H);
+		else if (up)
+			updateDirection(DIR_U);
+		else if (down)
+			updateDirection(DIR_D);
+		else if (left)
+			updateDirection(DIR_L);
+		else if (right)
+			updateDirection(DIR_R);
+		else
+			if (state != ATTACKING)
+				state = IDLE;
 
         //debug(loc_.x, ",", loc_.y);
-
-        VampireState oldState = state;
-        if (state != ATTACKING)
-            state = MOVING;
-        if (up && right)
-            updateDirection(DIR_E);
-        else if (down && right)
-            updateDirection(DIR_F);
-        else if (down && left)
-            updateDirection(DIR_G);
-        else if (up && left)
-            updateDirection(DIR_H);
-        else if (up)
-            updateDirection(DIR_U);
-        else if (down)
-            updateDirection(DIR_D);
-        else if (left)
-            updateDirection(DIR_L);
-        else if (right)
-            updateDirection(DIR_R);
-        else
-            if (state != ATTACKING)
-                state = IDLE;
 
         if (state != oldState){
             if (state == IDLE)
@@ -334,7 +376,8 @@ namespace Game {
 		bool result = false;
 
 		// Process input
-		if (isKeyPressed(attack.getKey())) {
+		if (isKeyPressed(attack.getKey()) ||
+			joystick.isPressed(attack.getJoyButton())) {
 
 			assert(!attack.isPlaying());
 

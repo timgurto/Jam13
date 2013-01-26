@@ -17,6 +17,7 @@ namespace Game {
         virtual bool isBatAttack() const;
 
 		virtual SDLKey getKey() const;
+		virtual int getJoyButton() const;
 		virtual const Sound& getHitSound() const;
 		virtual timer_t getCooldownTime() const;
 		virtual int getFailureCost() const;

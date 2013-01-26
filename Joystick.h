@@ -4,6 +4,7 @@
 #define JOYSTICK_H
 
 #include "SDL.h"
+#include <vector>
 
 namespace Game {
 
@@ -11,13 +12,31 @@ namespace Game {
     class Joystick {
 
 	public:
+		Joystick();
 		void enable();
 		void disable();
-		void processEvents();
+		void processEvents(SDL_Event& event);
+
+		bool enabled() { return joystick != 0; }
+		double getUpDownAxis() const;
+		double getLeftRightAxis() const;
+
+		bool isPressed(int button);
+
+		void update();
 
 	private:
 		SDL_Joystick *joystick;
 
+		int numAxes;
+		int numButtons;
+		int numBalls;
+		int numHats;
+
+		double axisLR;
+		double axisUD;
+
+		std::vector<bool> buttons;
     };
 
 } //namespace Game

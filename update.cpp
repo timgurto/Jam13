@@ -11,6 +11,7 @@
 #include "misc.h"
 #include "globals.h"
 #include "Debug.h"
+#include "Joystick.h"
 #include "MessageBox.h"
 #include "Screen.h"
 #include "GameState.h"
@@ -18,6 +19,7 @@
 
 namespace Game {
 
+extern Joystick joystick;
 extern Debug debug;
 
 void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
@@ -178,7 +180,9 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
     if (allDisabled)
         state.bloods.clear();
 
-
+	// Clear joystick button states which were set in
+	// handleEvents() at the top of update()
+	joystick.update();
 }
 
 void handleEvents(GameState &state, MessageBox &fpsDisplay){
@@ -285,7 +289,9 @@ void handleEvents(GameState &state, MessageBox &fpsDisplay){
          pushMouseMove();
          break;
 
-
+	  default:
+		  joystick.processEvents(event);
+		  break;
 
       } //switch event
 }

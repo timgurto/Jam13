@@ -10,7 +10,7 @@
 namespace Game {
 
 	class Person;
-    class GameState;
+    struct GameState;
 
     class Vampire : public Entity{
 

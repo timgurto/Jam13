@@ -40,6 +40,10 @@ extern Debug debug;
 		return SDLK_x;
 	}
 
+	int BatAttack::getJoyButton() const {
+		return 1; // B
+	}
+
 	const Sound& BatAttack::getHitSound() const {
 		return sound;
 	}

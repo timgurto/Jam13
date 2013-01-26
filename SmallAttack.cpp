@@ -31,6 +31,10 @@ namespace Game {
 		return SDLK_z;
 	}
 
+	int SmallAttack::getJoyButton() const {
+		return 0; // A
+	}
+
 	const Sound& SmallAttack::getHitSound() const {
 		return sound;
 	}

@@ -46,6 +46,7 @@ namespace Game {
 		bool isAnimationPlaying() const;
 
 		virtual SDLKey getKey() const = 0;
+		virtual int getJoyButton() const = 0;
 		virtual const Sound& getHitSound() const = 0;
 		virtual timer_t getCooldownTime() const = 0;
 		virtual int getFailureCost() const = 0;
