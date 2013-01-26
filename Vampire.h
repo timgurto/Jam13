@@ -35,6 +35,7 @@ namespace Game {
             *idleG,
             *idleH;
 
+
     public:
 
 		AOEAttack aoeAttack;

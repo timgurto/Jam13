@@ -37,6 +37,9 @@ namespace Game {
 		// Boom
 		Sound sound_;
 
+		// Blood absorbed
+		int blood_;
+
     public:
 		static const timer_t ATTACKING_TIME;
 		static const timer_t COOLDOWN_TIME;
@@ -47,8 +50,8 @@ namespace Game {
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 
 		// Hit a person if I am attacking and they are in range
-		void attack(Person& person) const;
-		void operator()(Person& person) const;
+		void attack(Person& person);
+		void operator()(Person& person);
 
 		// Start attack
 		void activate(const Location& loc);

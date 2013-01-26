@@ -21,7 +21,8 @@ namespace Game {
 		attackingTimer_(0),
 		cooldownTimer_(0),
 		radius_(40),
-		sound_(SOUND_PATH + "boom1.wav") {
+		sound_(SOUND_PATH + "boom1.wav"),
+		blood_(0) {
 
     }
 
@@ -90,7 +91,7 @@ namespace Game {
 		}
     }
 
-	void AOEAttack::attack(Person& person) const {
+	void AOEAttack::attack(Person& person) {
 		
 		if (!active_) {
 			return;
@@ -101,11 +102,13 @@ namespace Game {
 		if (dist <= radius_)
 		{
 			// kill
-			person.hit(Person::MAX_LIFE);
+			const int power = Person::MAX_LIFE;
+			blood_ += power;
+			person.hit(power);
 		}
 	}
 
-	void AOEAttack::operator()(Person& person) const {
+	void AOEAttack::operator()(Person& person) {
 		attack(person);
 	}
 

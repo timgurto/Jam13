@@ -125,4 +125,8 @@ void GameState::swapPersonLists() {
 	currPersonList = &tmp;
 }
 
+bool GameState::isAllDead() const {
+	return getPersonList().empty();
+}
+
 } // namespace Game

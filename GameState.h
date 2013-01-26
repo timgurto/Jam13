@@ -7,6 +7,7 @@
 #include "Surface.h"
 #include "Sound.h"
 #include "Entity.h"
+#include "Environment.h"
 #include "Vampire.h"
 #include "Map.h"
 
@@ -32,13 +33,14 @@ struct GameState{
 
    Location offset;
    Map map;
+   Environment environment;
 
    typedef std::vector<Person*> PersonList;
    const PersonList& getPersonList() const;
    PersonList& getPersonList();
    PersonList& getTmpList();
    void swapPersonLists();
-
+   bool isAllDead() const;
 
 private:
 	Sound scream;
