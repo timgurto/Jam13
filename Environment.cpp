@@ -20,7 +20,8 @@ namespace Game {
 		countdownTimer_(COUNTDOWN_TIME),
 		healthBar_(startingHealth, maxHealth),
         sunBar(IMAGE_PATH + "SunBar/BlackWhite.png", true),
-        sunBarLoc(400-256, 600-128),
+        sunBarColor(IMAGE_PATH + "SunBar/ColourBar.png", true),
+        sunBarLoc(0, 600-107),
         sunBarDim(800, 107){
 
     }
@@ -51,17 +52,15 @@ namespace Game {
 	{
 		healthBar_.draw(offset, surface);
 
-        size_t frame = size_t(1.0 * SUN_BAR_FRAMES * (COUNTDOWN_TIME - countdownTimer_) / COUNTDOWN_TIME);
-        size_t
-            row = frame / SUN_BAR_COLUMNS,
-            col = frame % SUN_BAR_COLUMNS;
+        double progress = 1.0 * (COUNTDOWN_TIME - countdownTimer_) / COUNTDOWN_TIME;
+
         SDL_Rect srcRect;
-        srcRect.x = col * sunBarDim.x;
-        srcRect.y = row * sunBarDim.y;
-        srcRect.w = sunBarDim.x;
+        srcRect.x = 0;
+        srcRect.y = 0;
+        srcRect.w = progress * (743-79) + 79;
         srcRect.h = sunBarDim.y;
-        //screenBuf.fill(CYAN);
-        sunBar.draw(screenBuf, &makeRect(sunBarLoc.x, sunBarLoc.y), &srcRect);
+        sunBar.draw(screenBuf, &makeRect(sunBarLoc.x, sunBarLoc.y));
+        sunBarColor.draw(screenBuf, &makeRect(sunBarLoc.x, sunBarLoc.y), &srcRect);
 	}
 
 	bool Environment::isSunUp() const {
