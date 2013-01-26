@@ -11,11 +11,17 @@ namespace Game {
 
     extern Debug debug;
 
-	const timer_t Environment::COUNTDOWN_TIME = 100000;
+	const timer_t Environment::COUNTDOWN_TIME = 150000;
+
+    const size_t Environment::SUN_BAR_FRAMES = 50;
+    const size_t Environment::SUN_BAR_COLUMNS = 4;
 
 	Environment::Environment(double startingHealth, double maxHealth) :
 		countdownTimer_(COUNTDOWN_TIME),
-		healthBar_(startingHealth, maxHealth) {
+		healthBar_(startingHealth, maxHealth),
+        sunBar(IMAGE_PATH + "sunBar.png", true),
+        sunBarLoc(400-256, 600-128),
+        sunBarDim(512, 128){
 
     }
 
@@ -44,6 +50,18 @@ namespace Game {
 	void Environment::draw(Point offset, Surface &surface) const
 	{
 		healthBar_.draw(offset, surface);
+
+        size_t frame = size_t(1.0 * SUN_BAR_FRAMES * (COUNTDOWN_TIME - countdownTimer_) / COUNTDOWN_TIME);
+        size_t
+            row = frame / SUN_BAR_COLUMNS,
+            col = frame % SUN_BAR_COLUMNS;
+        SDL_Rect srcRect;
+        srcRect.x = col * sunBarDim.x;
+        srcRect.y = row * sunBarDim.y;
+        srcRect.w = sunBarDim.x;
+        srcRect.h = sunBarDim.y;
+        //screenBuf.fill(CYAN);
+        sunBar.draw(screenBuf, &makeRect(sunBarLoc.x, sunBarLoc.y), &srcRect);
 	}
 
 	bool Environment::isSunUp() const {

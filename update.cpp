@@ -100,14 +100,14 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 	state.environment.healthBar_.update(delta);
 
 	// Check for win
-	if (state.isAllDead()) {
+	/*if (state.isAllDead()) {
 		state.outcome = WON;
 		state.loop = false;
 		debug("win");
-	}
+	}*/
 
 	// Check for win
-	else if (state.vampire.isBloodFull()) {
+	/*else*/ if (state.vampire.isBloodFull()) {
 		state.outcome = WON;
 		state.loop = false;
 		debug("win");
