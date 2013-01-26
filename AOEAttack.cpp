@@ -4,12 +4,15 @@
 #include "util.h"
 #include "Debug.h"
 #include "Person.h"
+#include "GameState.h"
 #include <algorithm>
 #include <cmath>
 
 namespace Game {
 
     extern Debug debug;
+
+    GameState *AOEAttack::state = 0;
 
 	AOEAttack::AOEAttack() :
 		Entity(),
@@ -101,6 +104,12 @@ namespace Game {
 			const int power = Person::MAX_LIFE;
             debug("Hit: ", isBatAttack() ? "Bat attack!" : "Normal attack!");
 			person.hit(power, isBatAttack());
+
+            //shake screen
+            if (isBatAttack())
+                state->shakeScreen(300, 25);
+            else
+                state->shakeScreen(400, 40);
 
 			// Mark that we hit something for scoring when attack ends
 			attackHitSomething_ = true;

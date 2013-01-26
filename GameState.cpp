@@ -13,6 +13,7 @@
 #include "Person.h"
 #include "Screen.h"
 #include "Map.h"
+#include "AOEAttack.h"
 
 namespace Game {
 
@@ -49,6 +50,7 @@ shakingTime(0),
 shakingMagnitude(0){
 
     Person::state = this;
+    AOEAttack::state = this;
 
     // Populate people
 	const size_t maxPeople = MAX_CHANNELS;

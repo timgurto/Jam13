@@ -20,7 +20,6 @@ namespace Game {
 
 	Person::Person(Point startPos) :
     Entity(),
-    /*heart(beat),*/
     ambling_(1.0*rand()/RAND_MAX < AMBLE_CHANCE),
     ambleTimer_(rand()%MAX_AMBLE_TIMER),
     direction_(rand()%4),

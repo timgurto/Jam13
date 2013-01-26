@@ -9,6 +9,7 @@
 namespace Game {
 
 	class Person;
+    struct GameState;
 
     class AOEAttack : public Entity{
 
@@ -27,6 +28,8 @@ namespace Game {
 
     public:
 		AOEAttack();
+
+        static GameState *state;
 
         virtual bool isBatAttack() const;
 
