@@ -80,7 +80,7 @@ namespace Game {
         }
     }
 
-	void Person::hit(int hitLife) {
+	void Person::hit(int hitLife, bool isBatAttack) {
 		life_ = std::max(0, life_ - hitLife);
 		debug("argh!");
 	}

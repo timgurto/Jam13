@@ -33,18 +33,18 @@ namespace Game {
 
 		// Only set if changed
 		// (comparing doubles ==)
-		if (std::abs(health - lastSetHealth_) > 0.0) {
+		/*if (std::abs(health - lastSetHealth_) > 0.0) {
 			return;
 		}
-		lastSetHealth_ = health;
+		lastSetHealth_ = health;*/
 
 		// Get difference between bar's current health and desired health
 		const double diff = max<double>(0.0, health - getHealth());
 
 		// No change - return
-		if (diff == 0) {
-			return;
-		}
+		//if (diff == 0) {
+		//	return;
+		//}
 
 		// Calculate amount we are filling
 		const double percent = diff / MAX_HEALTH;

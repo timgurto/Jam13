@@ -40,7 +40,7 @@ namespace Game {
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 
 		// Get's hit - remove life
-		void hit(int hitLife);
+		void hit(int hitLife, bool isBatAttack);
 		bool isDead() const;
 	};
 

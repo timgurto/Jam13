@@ -98,7 +98,7 @@ namespace Game {
 		{
 			// kill
 			const int power = Person::MAX_LIFE;
-			person.hit(power);
+			person.hit(power, isBatAttack());
 
 			// Mark that we hit something for scoring when attack ends
 			attackHitSomething_ = true;
