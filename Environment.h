@@ -8,6 +8,8 @@
 
 namespace Game {
 
+    struct GameState;
+
     class Environment{
 
 		// Time until game ends
@@ -23,6 +25,8 @@ namespace Game {
 		
 
     public:
+        static GameState *state;
+
 		static const timer_t COUNTDOWN_TIME;
 
 		Environment(double startingHealth, double maxHealth);

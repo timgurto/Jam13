@@ -14,6 +14,7 @@
 #include "Screen.h"
 #include "Map.h"
 #include "AOEAttack.h"
+#include "Environment.h"
 
 namespace Game {
 
@@ -50,6 +51,7 @@ shakingMagnitude(0){
 
     Person::state = this;
     AOEAttack::state = this;
+    Environment::state = this;
 
     // Populate people
 	const size_t maxPeople = MAX_CHANNELS;
@@ -191,8 +193,8 @@ void GameState::newVictim(const Victim &victim){
 }
 
 void GameState::shakeScreen(timer_t ms, pixels_t magnitude){
-    shakingTime = ms;
-    shakingMagnitude = magnitude;
+    shakingTime = max(shakingTime, ms);
+    shakingMagnitude = max(shakingMagnitude, magnitude);
 }
 
 Location GameState::shakeOffset() const{

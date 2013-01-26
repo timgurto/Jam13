@@ -5,6 +5,7 @@
 #include "Debug.h"
 #include "Person.h"
 #include "util.h"
+#include "GameState.h"
 #include <algorithm>
 #include <cmath>
 
@@ -12,7 +13,9 @@ namespace Game {
 
     extern Debug debug;
 
-	const timer_t Environment::COUNTDOWN_TIME = 150000;
+    GameState *Environment::state = 0;
+
+	const timer_t Environment::COUNTDOWN_TIME = 15000;
 
     const size_t Environment::SUN_BAR_FRAMES = 50;
     const size_t Environment::SUN_BAR_COLUMNS = 4;
@@ -48,9 +51,13 @@ namespace Game {
 				const timer_t dt = countdownTimer_ - timeElapsed;
 				countdownTimer_ = std::max<timer_t>(0, dt);
 			}
-			if (countdownTimer_ < 5000) {
-				debug("countdown ", countdownTimer_);
-			}
+			if (countdownTimer_ < 1000){
+				state->shakeScreen(1000, 20);
+            }else if (countdownTimer_ < 4000){
+                state->shakeScreen(4000, 10);
+            }else if (countdownTimer_ < 10000){
+                state->shakeScreen(10000, 5);
+            }
 		}
     }
 
@@ -74,6 +81,7 @@ namespace Game {
         srcRect.h = sunBarDim.y;
         sunBar.draw(screenBuf, &makeRect(sunBarLoc.x, sunBarLoc.y));
         sunBarColor.draw(screenBuf, &makeRect(sunBarLoc.x, sunBarLoc.y), &srcRect);
+
 	}
 
 	bool Environment::isSunUp() const {

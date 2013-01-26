@@ -38,10 +38,12 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
         it->draw(false, offset);
 
 	if (isKeyPressed(SDLK_SPACE)) {
-        ITERATE(GameState::PersonList::const_iterator, state.getPersonList(), it) {
-			const Person* p = *it;
-			assert(p);
-            p->draw(offset);
+        if (DEBUG){
+            ITERATE(GameState::PersonList::const_iterator, state.getPersonList(), it) {
+			    const Person* p = *it;
+			    assert(p);
+                p->draw(offset);
+            }
 		}
 	}
 
