@@ -5,6 +5,7 @@
 
 #include "Entity.h"
 #include "Sound.h"
+#include "GameState.h"
 
 namespace Game {
 
@@ -33,6 +34,8 @@ namespace Game {
 
     public:
 		static const int MAX_LIFE;
+
+        static GameState *state;
 
 		Person(Point startPos);
 

@@ -57,6 +57,11 @@ struct GameState{
    victims_t
        victims;
 
+   Death *getBatDeath();
+   Death *getCloseDeath();
+
+   void newVictim(const Victim &victim);
+
 
 private:
 	Sound scream;

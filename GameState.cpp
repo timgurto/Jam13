@@ -38,9 +38,11 @@ scream(SOUND_PATH + "death1.wav"),
 environment(vampire.getTotalBlood(), Vampire::MAX_HEALTH),
 overlay(IMAGE_PATH + "Overlay.png", true){
 
+    Person::state = this;
+
     // Populate people
 	const size_t maxPeople = MAX_CHANNELS;
-	const size_t numPeople = 3;
+	const size_t numPeople = 6;
 	personList1.reserve(numPeople);
 	personList2.reserve(numPeople);
     for (int i = 0; i != numPeople; ++i) {
@@ -161,6 +163,19 @@ void GameState::swapPersonLists() {
 
 bool GameState::isAllDead() const {
 	return getPersonList().empty();
+}
+
+
+Death *GameState::getBatDeath(){
+    return &batDeaths[rand() % batDeaths.size()];
+}
+
+Death *GameState::getCloseDeath(){
+    return &closeDeaths[rand() % closeDeaths.size()];
+}
+
+void GameState::newVictim(const Victim &victim){
+    victims.push_back(victim);
 }
 
 } // namespace Game

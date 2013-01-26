@@ -3,10 +3,14 @@
 #include "Person.h"
 #include "util.h"
 #include "Debug.h"
+#include "Victim.h"
+#include "GameState.h"
 
 namespace Game {
 
     extern Debug debug;
+
+    GameState *Person::state = 0;
 
 	const timer_t Person::MAX_AMBLE_TIMER = 3000;
     const double Person::AMBLE_CHANCE = 0.3;
@@ -83,6 +87,14 @@ namespace Game {
 	void Person::hit(int hitLife, bool isBatAttack) {
 		life_ = std::max(0, life_ - hitLife);
 		debug("argh!");
+
+        //death
+        Death *death;
+        if (isBatAttack)
+            death = state->getBatDeath();
+        else
+            death = state->getCloseDeath();
+        state->newVictim(Victim(loc_, death));
 	}
 
 	bool Person::isDead() const {

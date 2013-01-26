@@ -194,10 +194,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\AOEAttackVariety.h"
-				>
-			</File>
-			<File
 				RelativePath=".\BatAttack.h"
 				>
 			</File>
@@ -274,6 +270,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SmallAttack.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Sound.h"
 				>
 			</File>
@@ -315,10 +315,6 @@
 			>
 			<File
 				RelativePath=".\AOEAttack.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\AOEAttackVariety.cpp"
 				>
 			</File>
 			<File
@@ -391,6 +387,10 @@
 			</File>
 			<File
 				RelativePath=".\ScreenElement.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SmallAttack.cpp"
 				>
 			</File>
 			<File

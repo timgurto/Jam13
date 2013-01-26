@@ -237,7 +237,7 @@ namespace Game {
 				const timer_t dt = cooldownTimer_ - timeElapsed;
 				cooldownTimer_ = std::max<timer_t>(0, dt);
 			}
-			debug("cooldown ", cooldownTimer_);
+			//debug("cooldown ", cooldownTimer_);
 		}
 
 		// Check for key press and update attacks that are attacking
