@@ -66,7 +66,7 @@ int main(int argc, char **argv){
 //#endif
 
    //SDL initialization
-   int sdlInit(SDL_Init(SDL_INIT_VIDEO));
+   int sdlInit(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK));
    assert (sdlInit == 0);
    int ttfInit(TTF_Init());
    assert (ttfInit >= 0);
@@ -78,6 +78,15 @@ int main(int argc, char **argv){
 
    //initialize screen buffer
    screenBuf = Surface(SUR_SCREEN);
+
+	// Print joysticks
+	debug(SDL_NumJoysticks(), " joysticks were found.");
+    debug("The names of the joysticks are:");
+		
+    for(int i = 0; i < SDL_NumJoysticks(); ++i) 
+    {
+        debug(SDL_JoystickName(i));
+    }
    
    {//new scope for surfaces
 
