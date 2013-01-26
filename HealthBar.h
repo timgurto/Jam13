@@ -4,6 +4,7 @@
 #define HEALTH_BAR_H
 
 #include "Entity.h"
+#include "Surface.h"
 
 namespace Game {
 
@@ -11,6 +12,8 @@ namespace Game {
 	public:
 
 		HealthBar(double startingHealth, double maxHealth);
+
+		pixels_t getHeight() const;
 
 		virtual SDL_Rect drawRect() const;
         virtual SDL_Rect collisionRect() const;
@@ -26,6 +29,11 @@ namespace Game {
 
 		void update(double delta);
 		virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
+
+		Surface negativeFillingBar;
+		Surface outlineBar;
+		Surface fullBar;
+		Surface positiveFillingBar;
 
 	private:
 		const double MAX_HEALTH;
