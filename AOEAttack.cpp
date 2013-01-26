@@ -13,16 +13,17 @@ namespace Game {
 	AOEAttack::AOEAttack() :
 		Entity(),
 		active_(false),
+		radius_(40),
 		sound_(SOUND_PATH + "boom1.wav") {
 
     }
 
     SDL_Rect AOEAttack::drawRect() const{
-        return makeRect(-40, -40, 80, 80);
+        return makeRect(-radius_, -radius_, radius_*2, radius_*2);
     }
 
     SDL_Rect AOEAttack::collisionRect() const{
-        return makeRect(-40, -40, 80, 80);
+        return makeRect(-radius_, -radius_, radius_*2, radius_*2);
     }
 
     Surface *AOEAttack::image() const{
@@ -47,12 +48,18 @@ namespace Game {
     }
 
 	void AOEAttack::attack(Person& person) const {
-		// if within radius
-		// kill
+		
 		if (!active_) {
 			return;
 		}
-		person.hit(Person::MAX_LIFE);
+
+		// if within radius
+		const pixels_t dist = distance(person.getLoc(), this->getLoc());
+		if (dist <= radius_)
+		{
+			// kill
+			person.hit(Person::MAX_LIFE);
+		}
 	}
 
 	void AOEAttack::operator()(Person& person) const {

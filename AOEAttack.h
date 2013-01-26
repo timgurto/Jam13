@@ -19,6 +19,7 @@ namespace Game {
         virtual Surface *image() const;
 
 		bool active_;
+		pixels_t radius_;
 		Sound sound_;
 
     public:
