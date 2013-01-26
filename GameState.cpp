@@ -36,7 +36,10 @@ map(offset),
 scream(SOUND_PATH + "death1.wav"),
 
 environment(vampire.getTotalBlood(), Vampire::MAX_HEALTH),
-overlay(IMAGE_PATH + "Overlay.png", true){
+overlay(IMAGE_PATH + "Overlay.png", true),
+
+shakingTime(0),
+shakingMagnitude(0){
 
     Person::state = this;
 
@@ -181,6 +184,27 @@ Death *GameState::getCloseDeath(){
 
 void GameState::newVictim(const Victim &victim){
     victims.push_back(victim);
+}
+
+void GameState::shakeScreen(timer_t ms, pixels_t magnitude){
+    shakingTime = ms;
+    shakingMagnitude = magnitude;
+}
+
+Location GameState::shakeOffset() const{
+    Location l = offset;
+    if (shakingTime > 0){
+        l.x += (1.0 * rand() / RAND_MAX * shakingMagnitude) - shakingMagnitude/2;
+        l.y += (1.0 * rand() / RAND_MAX * shakingMagnitude) - shakingMagnitude/2;
+    }
+    return l;
+}
+
+void GameState::reduceShakeTime(timer_t ms){
+    if (shakingTime > ms)
+        shakingTime -= ms;
+    else
+        shakingTime = 0;
 }
 
 } // namespace Game

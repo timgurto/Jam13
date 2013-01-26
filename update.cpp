@@ -134,6 +134,9 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
 	}
 
+    //screen shaking
+    state.reduceShakeTime(timeElapsed);
+
 
 }
 
@@ -201,6 +204,8 @@ void handleEvents(GameState &state, MessageBox &fpsDisplay){
                   return;
                }
                break;
+
+
 
             default:
                break;

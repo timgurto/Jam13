@@ -44,7 +44,7 @@ namespace Game {
 		rect.x -= offset.x;
 		rect.y -= offset.y;
         SDL_Color color = MAGENTA;
-        surface.fill(color, &rect);
+        surface.box(color, &rect);
 		Entity::draw(offset, surface);
     }
 
