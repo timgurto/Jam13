@@ -21,7 +21,7 @@ namespace Game {
         Point tileSize;
         Point mapSize;
         const Location &offset;
-        void draw() const;
+        void draw(const Location &offset) const;
         void randomize();
         SDL_Rect getRect() const;
         size_t *data;

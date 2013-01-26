@@ -27,6 +27,8 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 	handleEvents(state, fpsDisplay);
 
     state.vampire.update(delta);
+
+    state.offset = state.vampire.getLoc() - Location(400, 300);
     
     //determine the closest person, so that their heart is heard
     const Location& vampLoc = state.vampire.getLoc();

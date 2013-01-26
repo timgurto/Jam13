@@ -10,15 +10,15 @@ namespace Game {
     offset(offsetArg),
     data(0){}
 
-    void Map::draw() const{
+    void Map::draw(const Location &offset) const{
         size_t numTiles = mapSize.x * mapSize.y;
         for (int i = 0; i != numTiles; ++i){
             size_t
                 row = i / mapSize.y,
                 col = i - (row * mapSize.y);
             SDL_Rect drawRect;
-            drawRect.x = row * tileSize.x;
-            drawRect.y = col * tileSize.y;
+            drawRect.x = row * tileSize.x - offset.x;
+            drawRect.y = col * tileSize.y - offset.y;
             tiles[data[i]].draw(screenBuf, &drawRect);
         }
     }
