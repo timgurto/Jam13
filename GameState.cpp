@@ -28,6 +28,8 @@ currPersonList(&personList1),
 
 heartbeat(SOUND_PATH + "beat1.wav"),
 offset(0, 0),
+closestPerson(0),
+heartTimer(rand()%200 + 900),
 
 map(offset),
 
@@ -41,8 +43,6 @@ scream(SOUND_PATH + "death1.wav") {
     for (int i = 0; i != numPeople; ++i) {
         personList1.push_back(new Person(Point(rand()%800, rand()%600)));
 	}
-
-    Person::heartbeat = &heartbeat;
 
     map.tileSize = Point(40, 40);
     std::string TILES_PATH = IMAGE_PATH + "Tiles/";
@@ -79,8 +79,6 @@ scream(SOUND_PATH + "death1.wav") {
 }
 
 GameState::~GameState() {
-
-    Person::heartbeat = 0;
 
     free(map.data);
 

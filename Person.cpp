@@ -3,7 +3,6 @@
 #include "Person.h"
 #include "util.h"
 #include "Debug.h"
-#include <cmath>
 
 namespace Game {
 
@@ -12,11 +11,6 @@ namespace Game {
 	const timer_t Person::MAX_AMBLE_TIMER = 3000;
     const double Person::AMBLE_CHANCE = 0.3;
     const double Person::SPEED = .4;
-    Sound *Person::heartbeat;
-
-    const pixels_t Person::MAX_SOUND_DISTANCE = 300;
-
-    const int Person::MAX_HEARTBEATS = 1;
 
 	const int Person::MAX_LIFE = 1;
 
@@ -26,8 +20,6 @@ namespace Game {
     ambling_(1.0*rand()/RAND_MAX < AMBLE_CHANCE),
     ambleTimer_(rand()%MAX_AMBLE_TIMER),
     direction_(rand()%4),
-    
-    heartTimer_(rand()%200 + 900),
 	
 	life_(MAX_LIFE) {
 
@@ -86,34 +78,6 @@ namespace Game {
                 loc_.y += distance;
             }
         }
-
-        
-        //heartbeat timer
-        if (heartTimer_ <= timeElapsed){
-            //heartTimer_ = rand()%200 + 900 - (timeElapsed - heartTimer_);
-            if (isClosest && distToVamp <= MAX_SOUND_DISTANCE){
-                //close enough; play sound
-                double distance = max(min(1.0 * (distToVamp-10) / (MAX_SOUND_DISTANCE-10), 1.0), 0.0);
-                heartTimer_ = distance * 1600 + 350;
-
-                double volume = 1 - pow(distance, 0.25);
-
-                //double invDist = 1 - distance;
-                //double volume = invDist * invDist; volume *= volume;
-
-                //double volume = (1-distance) * (1-distance);
-
-                //double volume = 1.0 / (x+.1) - .1
-
-                //double volume = 1 - distance;
-
-
-                heartbeat->changeVolume(min<int>(volume*MIX_MAX_VOLUME, MIX_MAX_VOLUME));
-                heartbeat->play(-1, 0);
-                //debug("Playing sound; volume=", volume*MIX_MAX_VOLUME);
-            }
-        }else
-            heartTimer_ -= timeElapsed;
     }
 
 	void Person::hit(int hitLife) {

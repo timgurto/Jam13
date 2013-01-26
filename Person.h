@@ -25,19 +25,14 @@ namespace Game {
         int direction_;
 
         //heartbeat
-        timer_t heartTimer_; //time remaining until next beat
+        //timer_t heartTimer_; //time remaining until next beat
         static const pixels_t MAX_SOUND_DISTANCE;
-        //double stress_; //maybe bool would be better.  Determines heartrate.
 
 		// Life
 		int life_;
 
     public:
 		static const int MAX_LIFE;
-
-        static Sound *heartbeat;
-        static const int MAX_HEARTBEATS;
-        bool isClosest; //whether this person is (one of) the closest to the vampire
 
 		Person(Point startPos);
 

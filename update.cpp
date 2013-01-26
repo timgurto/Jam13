@@ -4,6 +4,7 @@
 #include <sstream>
 #include <ctime>
 #include <map>
+#include <cmath>
 #include "update.h"
 #include "game.h"
 #include "util.h"
@@ -21,29 +22,53 @@ extern Debug debug;
 
 void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
+    timer_t timeElapsed = delta * DELTA_MODIFIER;
+
 	handleEvents(state, fpsDisplay);
 
     state.vampire.update(delta);
     
-    //determine the closest persons, so that their hearts are heard
-    typedef std::multimap<pixels_t, Person *> closestPersons_t;
-    closestPersons_t closestPersons;
+    //determine the closest person, so that their heart is heard
     const Location& vampLoc = state.vampire.getLoc();
+    state.closestPerson = 0;
+    double closestPersonDist = 0;
     ITERATE(GameState::PersonList::iterator, state.getPersonList(), it){
 		Person* p = *it;
 		assert(p);
-        p->isClosest = false;
-        closestPersons.insert(std::pair<pixels_t, Person *>(
-			distance(p->getLoc(), vampLoc), p));
-    }
-
-    int i = 0;
-    ITERATE(closestPersons_t::iterator, closestPersons, it){
-        if (i != Person::MAX_HEARTBEATS){
-            (it->second)->isClosest = true;
-            ++i;
+        double dist = distance(p->getLoc(), vampLoc);
+        if (!state.closestPerson || dist < closestPersonDist){
+            closestPersonDist = dist;
+            state.closestPerson = p;
         }
     }
+
+    //heartbeat timer
+    const pixels_t MAX_SOUND_DISTANCE = 300;
+
+    if (state.heartTimer <= timeElapsed){
+        if (closestPersonDist <= MAX_SOUND_DISTANCE){
+            double distance = max(min(1.0 * (closestPersonDist-10) / (MAX_SOUND_DISTANCE-10), 1.0), 0.0);
+            state.heartTimer = distance * 1600 + 350;
+
+
+            double volume = 1 - pow(distance, 0.25);
+
+            //double invDist = 1 - distance;
+            //double volume = invDist * invDist; volume *= volume;
+
+            //double volume = (1-distance) * (1-distance);
+
+            //double volume = 1.0 / (x+.1) - .1
+
+            //double volume = 1 - distance;
+
+
+            state.heartbeat.changeVolume(min<int>(volume*MIX_MAX_VOLUME, MIX_MAX_VOLUME));
+            state.heartbeat.play(-1, 0);
+        }
+        
+    }else
+        state.heartTimer -= timeElapsed;
 	
 	GameState::PersonList& personList = state.getPersonList();
 	GameState::PersonList& stillAliveList = state.getTmpList();

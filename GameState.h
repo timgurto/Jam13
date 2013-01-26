@@ -30,6 +30,8 @@ struct GameState{
    Vampire vampire;
 
    Sound heartbeat;
+   timer_t heartTimer;
+   Person *closestPerson;
 
    Location offset;
    Map map;
