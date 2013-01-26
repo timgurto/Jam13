@@ -34,7 +34,9 @@ heartTimer(rand()%200 + 900),
 map(offset),
 
 scream(SOUND_PATH + "death1.wav"),
-environment(vampire.getTotalBlood()) {
+
+environment(vampire.getTotalBlood()),
+overlay(IMAGE_PATH + "Overlay.png", true){
 
     // Populate people
 	const size_t maxPeople = MAX_CHANNELS;
@@ -81,6 +83,30 @@ environment(vampire.getTotalBlood()) {
     attackingG = Surface(VAMPIRE_PATH + "attackingG.png", true);
     attackingH = Surface(VAMPIRE_PATH + "attackingH.png", true);
     Vampire::setAttackingImages(&attackingE, &attackingF, &attackingG, &attackingH);
+
+    std::string deathsPath = IMAGE_PATH + "Death/";
+
+   batDeaths.push_back(Death
+       (deathsPath + "batkill.png", 20, 8, Point(128, 128), Point(33, 106)));
+   batDeaths.push_back(Death
+       (deathsPath + "batkill2.png", 20, 8, Point(128, 128), Point(90, 106)));
+
+   closeDeaths.push_back(Death
+       (deathsPath + "farmer_fall.png", 40, 8, Point(128, 128), Point(34, 106)));
+   closeDeaths.push_back(Death
+       (deathsPath + "farmer_fall2.png", 40, 8, Point(128, 128), Point(91, 106)));
+   closeDeaths.push_back(Death
+       (deathsPath + "gibletman.png", 41, 8, Point(256, 128), Point(125, 106)));
+   closeDeaths.push_back(Death
+       (deathsPath + "skeleton.png", 40, 8, Point(128, 128), Point(59, 106)));
+   closeDeaths.push_back(Death
+       (deathsPath + "skeleton_blow_up.png", 40, 5, Point(384, 128), Point(29, 106)));
+   closeDeaths.push_back(Death
+       (deathsPath + "skeleton_blow_up2.png", 40, 5, Point(384, 128), Point(352, 106)));
+   closeDeaths.push_back(Death
+       (deathsPath + "skeleton2.png", 40, 8, Point(128, 128), Point(68, 106)));
+
+   //victims.push_back(Victim(Location(380, 350), &closeDeaths[2]));
 }
 
 GameState::~GameState() {

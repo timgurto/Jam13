@@ -202,6 +202,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Death.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Debug.h"
 				>
 			</File>
@@ -223,6 +227,10 @@
 			</File>
 			<File
 				RelativePath=".\globals.h"
+				>
+			</File>
+			<File
+				RelativePath=".\HealthBar.h"
 				>
 			</File>
 			<File
@@ -289,6 +297,10 @@
 				RelativePath=".\Vampire.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Victim.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -314,6 +326,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Death.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Debug.cpp"
 				>
 			</File>
@@ -331,6 +347,10 @@
 			</File>
 			<File
 				RelativePath=".\GameState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\HealthBar.cpp"
 				>
 			</File>
 			<File
@@ -391,6 +411,10 @@
 			</File>
 			<File
 				RelativePath=".\Vampire.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Victim.cpp"
 				>
 			</File>
 		</Filter>

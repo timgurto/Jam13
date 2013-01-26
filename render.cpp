@@ -27,7 +27,13 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
 
     state.map.draw(state.offset);
 
+    ITERATE(victims_t::const_iterator, state.victims, it)
+        it->draw(true, state.offset);
+
     state.vampire.draw(state.offset);
+
+    ITERATE(victims_t::const_iterator, state.victims, it)
+        it->draw(false, state.offset);
 
 	if (isKeyPressed(SDLK_SPACE)) {
         ITERATE(GameState::PersonList::const_iterator, state.getPersonList(), it) {
@@ -37,7 +43,9 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
 		}
 	}
 
-	state.environment.draw(state.offset, screenBuf);
+    state.overlay.draw();
+
+	//state.environment.draw(Point(), screenBuf);
 
    debug.display();
    fpsDisplay.draw();
