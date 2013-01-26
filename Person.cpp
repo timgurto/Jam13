@@ -70,15 +70,23 @@ namespace Game {
             switch (direction_){
             case 0:
                 loc_.x -= distance;
+                if (loc_.x < state->leftBound)
+                    loc_.x = state->leftBound;
                 break;
             case 1:
                 loc_.x += distance;
+                if (loc_.x > state->rightBound)
+                    loc_.x = state->rightBound;
                 break;
             case 2:
                 loc_.y -= distance;
+                if (loc_.y < state->topBound)
+                    loc_.y = state->topBound;
                 break;
             case 3:
                 loc_.y += distance;
+                if (loc_.y > state->bottomBound)
+                    loc_.y = state->bottomBound;
             }
         }
     }

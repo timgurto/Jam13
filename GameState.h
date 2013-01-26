@@ -40,6 +40,12 @@ struct GameState{
    Location offset;
    Map map;
    Environment environment;
+   
+   pixels_t
+        leftBound,
+        rightBound,
+        topBound,
+        bottomBound;
 
    typedef std::vector<Person*> PersonList;
    const PersonList& getPersonList() const;
