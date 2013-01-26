@@ -108,7 +108,12 @@ overlay(IMAGE_PATH + "Overlay.png", true){
    closeDeaths.push_back(Death
        (deathsPath + "skeleton2.png", 40, 8, Point(128, 128), Point(68, 106)));
 
-   //victims.push_back(Victim(Location(380, 350), &closeDeaths[2]));
+   // Health bar
+   const std::string HEALTH_PATH = IMAGE_PATH + "HealthBar/";
+   environment.healthBar_.negativeFillingBar = Surface(HEALTH_PATH + "Blue.png", true);
+   environment.healthBar_.outlineBar = Surface(HEALTH_PATH + "Outline.png", true);
+   environment.healthBar_.fullBar = Surface(HEALTH_PATH + "Red.png", true);
+   environment.healthBar_.positiveFillingBar = Surface(HEALTH_PATH + "Yellow.png", true);
 }
 
 GameState::~GameState() {

@@ -8,7 +8,6 @@
 
 namespace Game {
 
-	const pixels_t HEIGHT = 20;
 	const pixels_t OUTLINE_THICKNESS = 1;
 	const double FILLING_SPEED = 0.001;
 
@@ -19,6 +18,10 @@ namespace Game {
 	{
 		loc_.x = 5;
 		loc_.y = 3;
+	}
+
+	pixels_t HealthBar::getHeight() const {
+		return fullBar.getDim().y;
 	}
 
 	double HealthBar::getHealth() const {
@@ -77,22 +80,22 @@ namespace Game {
 	// Outline
 	SDL_Rect HealthBar::outlineRect() const{
 		const pixels_t width = getMaxWidth() + (OUTLINE_THICKNESS * 2);
-		const pixels_t height = HEIGHT + (OUTLINE_THICKNESS);
-        return makeRect(0, 0, width, height);
+		const pixels_t height = getHeight() + (OUTLINE_THICKNESS);
+        return makeRect(0, 0, width, getHeight());
     }
 
 	// Current fill
     SDL_Rect HealthBar::fillRect() const{
 		const pixels_t width = getFillWidth();
-		const pixels_t height = HEIGHT;
-        return makeRect(0, 0, width, height);
+		const pixels_t height = getHeight();
+        return makeRect(0, 0, width, getHeight());
     }
 
 	// Fill being added/subtracted
     SDL_Rect HealthBar::fillingRect() const{
 		const pixels_t width = getFillingWidth();
-		const pixels_t height = HEIGHT;
-        return makeRect(0, 0, width, height);
+		const pixels_t height = getHeight();
+        return makeRect(0, 0, width, getHeight());
     }
 
     Surface *HealthBar::image() const{
@@ -115,22 +118,14 @@ namespace Game {
 
 	void HealthBar::draw(Point offset, Surface &surface) const {
 
-		// Outline square
-		{
-			const SDL_Color outlineColour = GRAY;
-			SDL_Rect rect = outlineRect();
-			rect.x += static_cast<Sint16>(loc_.x - OUTLINE_THICKNESS + 0.5);
-			rect.y += static_cast<Sint16>(loc_.y - OUTLINE_THICKNESS + 0.5);
-			surface.box(outlineColour, &rect, OUTLINE_THICKNESS);
-		}
-
 		// Fill square
 		{
 			const SDL_Color fillColour = RED;
 			SDL_Rect rect = fillRect();
 			rect.x += static_cast<Sint16>(loc_.x + 0.5);
 			rect.y += static_cast<Sint16>(loc_.y + 0.5);
-			surface.fill(fillColour, &rect);
+			//surface.fill(fillColour, &rect);
+			fullBar.draw(surface, &rect, &rect);
 		}
 
 		// Filling square
@@ -140,7 +135,8 @@ namespace Game {
 			SDL_Rect rect = fillingRect();
 			rect.x += static_cast<Sint16>(loc_.x + getFillWidth() + 0.5);
 			rect.y += static_cast<Sint16>(loc_.y + 0.5);
-			surface.fill(fillingColour, &rect);
+			//surface.fill(fillingColour, &rect);
+			positiveFillingBar.draw(surface, &rect, &rect);
 		}
 		else if (fillingPercent_ < 0)
 		{
@@ -148,7 +144,18 @@ namespace Game {
 			SDL_Rect rect = fillingRect();
 			rect.x += static_cast<Sint16>(loc_.x + getFillWidth() + 0.5);
 			rect.y += static_cast<Sint16>(loc_.y + 0.5);
-			surface.fill(fillingColour, &rect);
+			//surface.fill(fillingColour, &rect);
+			negativeFillingBar.draw(surface, &rect, &rect);
+		}
+
+		// Outline square
+		{
+			const SDL_Color outlineColour = GRAY;
+			SDL_Rect rect = outlineRect();
+			rect.x += static_cast<Sint16>(loc_.x - OUTLINE_THICKNESS + 0.5);
+			rect.y += static_cast<Sint16>(loc_.y - OUTLINE_THICKNESS + 0.5);
+			//surface.box(outlineColour, &rect, OUTLINE_THICKNESS);
+			outlineBar.draw(surface, &rect, &rect);
 		}
 	}
 
