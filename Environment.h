@@ -22,6 +22,10 @@ namespace Game {
         Point sunBarDim;
 
         Surface overlay[5];
+
+        Surface wisp;
+
+        double wispTimer;
 		
 
     public:
