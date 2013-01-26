@@ -33,12 +33,18 @@ namespace Game {
 	const int START_BLOOD = 4;
 
     Vampire::Vampire(const Location &loc) :
-    dir(DIR_F),
-    frameTime(rand()%42),
-    state(IDLE),
-    frame(rand()%idleFrames),
-	totalBlood_(START_BLOOD),
-	cooldownTimer_(0) {    
+		frameTime(rand()%42),
+		frame(rand()%idleFrames),
+		state(IDLE),
+		smallAttack(),
+		batAttack(),
+		totalBlood_(START_BLOOD),
+		cooldownTimer_(0),
+		lastUpDown(DIR_D),
+		lastLeftRight(DIR_R),
+		dir(DIR_F)
+	{
+
         loc_ = loc;
     }
 
@@ -115,6 +121,10 @@ namespace Game {
                 image = attackingH; break;
             }
             break;
+		default:
+			// Should not happen
+			assert(false);
+			break;
         }
 
 		assert(image);
@@ -131,6 +141,11 @@ namespace Game {
         case ATTACKING:
             row = frame / attackingColumns;
             col = frame % attackingColumns;
+			break;
+		default:
+			// Should not happen
+			assert(false);
+			break;
         }
         SDL_Rect srcRect;
         srcRect.w = srcRect.h = 128;

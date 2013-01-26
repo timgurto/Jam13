@@ -13,10 +13,12 @@ namespace Game {
 
 	AOEAttack::AOEAttack() :
 		Entity(),
-		attacking_(false),
 		attackingTimer_(0),
 		sound_(SOUND_PATH + "boom1.wav"),
-		attackHitSomething_(false) {
+		attacking_(false),
+		attackHitSomething_(false),
+		attackSucceeded_(false),
+		attackMissed_(false) {
 
     }
 
