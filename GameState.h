@@ -10,12 +10,17 @@
 #include "Environment.h"
 #include "Vampire.h"
 #include "Map.h"
+#include "Death.h"
+#include "Victim.h"
 
 #include "SDL_mixer.h"
 
 namespace Game {
 
 class Person;
+
+typedef std::vector<Death> deaths_t;
+typedef std::vector<Victim> victims_t;
 
 struct GameState{
 
@@ -37,12 +42,21 @@ struct GameState{
    Map map;
    Environment environment;
 
+   Surface overlay;
+
    typedef std::vector<Person*> PersonList;
    const PersonList& getPersonList() const;
    PersonList& getPersonList();
    PersonList& getTmpList();
    void swapPersonLists();
    bool isAllDead() const;
+
+   deaths_t
+       batDeaths,
+       closeDeaths;
+   victims_t
+       victims;
+
 
 private:
 	Sound scream;

@@ -26,7 +26,12 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
 	handleEvents(state, fpsDisplay);
 
+    ITERATE(victims_t::iterator, state.victims, it)
+        it->update(timeElapsed);
+
     state.vampire.update(delta);
+
+    Victim::vampY = state.vampire.getLoc().y;
 
     state.offset = state.vampire.getLoc() - Location(400, 300);
     
@@ -112,6 +117,8 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 		}
 
 	}
+
+
 }
 
 void handleEvents(GameState &state, MessageBox &fpsDisplay){

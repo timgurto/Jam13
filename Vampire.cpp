@@ -39,7 +39,7 @@ namespace Game {
     }
 
     SDL_Rect Vampire::drawRect() const{
-        return makeRect(-64, -100, 128, 128);
+        return makeRect(-64, -120, 128, 128);
     }
 
     SDL_Rect Vampire::collisionRect() const{
@@ -57,8 +57,8 @@ namespace Game {
 		batAttack.draw(offset, surface);
 
 		// Red square
-        SDL_Rect rect = collisionRect();
-        surface.box(RED, &getCollisionRect(offset));
+        //SDL_Rect rect = collisionRect();
+        //surface.box(RED, &getCollisionRect(offset));
 
 		// Vampire sprite
         const Surface *image = 0;
@@ -199,7 +199,7 @@ namespace Game {
         //animation
         timer_t timeElapsed = delta * DELTA_MODIFIER;
         if (timeElapsed >= frameTime){
-            frameTime = 42 - (timeElapsed - frameTime);
+            frameTime = max<int>(42 - (timeElapsed - frameTime), 0);
             ++frame;
             if (state == IDLE && frame >= idleFrames ||
                 state == MOVING && frame >= movingFrames ||

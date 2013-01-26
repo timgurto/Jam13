@@ -21,7 +21,7 @@ namespace Game {
 	}
 
 	pixels_t SmallAOEAttack::getRadius() const {
-		return 20;
+		return 40;
 	}
 
 	SDLKey SmallAOEAttack::getKey() const {
