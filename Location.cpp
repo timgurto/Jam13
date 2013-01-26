@@ -25,4 +25,11 @@ Location::operator SDL_Rect() const{
    return r;
 }
 
+Location Location::operator-(const Location &rhs) const{
+    Location l;
+    l.x = x - rhs.x;
+    l.y = y - rhs.y;
+    return l;
+}
+
 } // namespace Game

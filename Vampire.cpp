@@ -48,7 +48,7 @@ namespace Game {
 
 		// Red square
         SDL_Rect rect = collisionRect();
-        surface.fill(RED, &getCollisionRect(offset));
+        surface.box(RED, &getCollisionRect(offset));
 
 		// Vampire sprite
         const Surface *image = 0;

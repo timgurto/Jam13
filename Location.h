@@ -14,6 +14,8 @@ struct Location{
 
    Location(const Point &rhs);
    Location(double x = 0, double y = 0);
+
+   Location operator-(const Location &rhs) const;
    
    operator Point() const;
 
