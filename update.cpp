@@ -15,6 +15,7 @@
 #include "Screen.h"
 #include "GameState.h"
 #include "Person.h"
+#include "Vampire.h"
 
 namespace Game {
 
@@ -23,6 +24,15 @@ extern Debug debug;
 void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
     timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
+
+    if (state.gameOverTimer > 0){
+        if (state.gameOverTimer <= timeElapsed){
+            //End the game
+            state.loop=false;
+            return;
+        }else
+            state.gameOverTimer -= timeElapsed;
+    }
 
 	handleEvents(state, fpsDisplay);
 
@@ -108,7 +118,7 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 	// Check for win
 	/*else*/ if (state.vampire.isBloodFull()) {
 		state.outcome = WON;
-		state.loop = false;
+		//state.loop = false;
 		debug("win");
 	}
 
@@ -118,16 +128,20 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 		if (state.vampire.isDead()) {
 			// Game over
 			state.outcome = QUIT;
-			state.loop = false;
+			//state.loop = false;
 			debug("out of health");
 		}
 
 		// Game countdown
 		state.environment.update(delta);
-		if (state.environment.isSunUp()) {
+        if (state.environment.isSunUp() && state.vampire.state != Vampire::BURNING) {
 			// Game over
+            state.vampire.state = Vampire::BURNING;
+            state.vampire.frame = 0;
+            state.vampire.frameTime = 42;
 			state.outcome = QUIT;
-			state.loop = false;
+            state.startGameOverTimer();
+			//state.loop = false;
 			debug("sun came up");
 		}
 

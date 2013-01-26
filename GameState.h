@@ -72,6 +72,10 @@ struct GameState{
    std::vector<Surface> bloodImages;
    std::vector<Blood> bloods;
 
+   void startGameOverTimer(timer_t ms = 2500);
+
+   timer_t gameOverTimer;
+
 
 
 private:
@@ -101,7 +105,9 @@ private:
        attackingE,
        attackingF,
        attackingG,
-       attackingH;
+       attackingH,
+       burningL,
+       burningR;
 
    timer_t shakingTime;
    pixels_t shakingMagnitude;

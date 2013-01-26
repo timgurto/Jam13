@@ -27,6 +27,8 @@ namespace Game {
     const Surface *Vampire::attackingF = 0;
     const Surface *Vampire::attackingG = 0;
     const Surface *Vampire::attackingH = 0;
+    const Surface *Vampire::burningL = 0;
+    const Surface *Vampire::burningR = 0;
 
     const size_t Vampire::idleColumns = 16;
     const size_t Vampire::idleFrames = 65;
@@ -34,6 +36,8 @@ namespace Game {
     const size_t Vampire::movingFrames = 30;
     const size_t Vampire::attackingColumns = 4;
     const size_t Vampire::attackingFrames = 15;
+    const size_t Vampire::burningColumns = 8;
+    const size_t Vampire::burningFrames = 37;
 
 	const int START_BLOOD = 4;
 
@@ -47,7 +51,8 @@ namespace Game {
 		cooldownTimer_(0),
 		lastUpDown(DIR_D),
 		lastLeftRight(DIR_R),
-		dir(DIR_F)
+		dir(DIR_F),
+        visible(true)
 	{
 
         loc_ = loc;
@@ -79,13 +84,12 @@ namespace Game {
 
     void Vampire::draw(Point offset, Surface &surface) const{
 
+        if (!visible)
+            return;
+
 		// Draw attack under vampire sprite
 		smallAttack.draw(offset, surface);
 		batAttack.draw(offset, surface);
-
-		// Red square
-        //SDL_Rect rect = collisionRect();
-        //surface.box(RED, &getCollisionRect(offset));
 
 		// Vampire sprite
         const Surface *image = 0;
@@ -98,6 +102,8 @@ namespace Game {
                 image = movingE; break;
             case ATTACKING:
                 image = attackingE; break;
+            case BURNING:
+                image = burningR; break;
             }
             break;
         case DIR_F:
@@ -108,6 +114,8 @@ namespace Game {
                 image = movingF; break;
             case ATTACKING:
                 image = attackingF; break;
+            case BURNING:
+                image = burningR; break;
             }
             break;
         case DIR_G:
@@ -118,6 +126,8 @@ namespace Game {
                 image = movingG; break;
             case ATTACKING:
                 image = attackingG; break;
+            case BURNING:
+                image = burningL; break;
             }
             break;
         case DIR_H:
@@ -128,6 +138,8 @@ namespace Game {
                 image = movingH; break;
             case ATTACKING:
                 image = attackingH; break;
+            case BURNING:
+                image = burningL; break;
             }
             break;
 		default:
@@ -151,6 +163,11 @@ namespace Game {
             row = frame / attackingColumns;
             col = frame % attackingColumns;
 			break;
+        case BURNING:
+            row = frame / burningColumns;
+            col = frame % burningColumns;
+            debug("Burning; frame=", frame);
+            break;
 		default:
 			// Should not happen
 			assert(false);
@@ -166,99 +183,103 @@ namespace Game {
     }
 
     void Vampire::update(double delta){
-        //movement through arrow keys
-        bool
-            up =    isKeyPressed(SDLK_UP),
-            down =  isKeyPressed(SDLK_DOWN),
-            left =  isKeyPressed(SDLK_LEFT),
-            right = isKeyPressed(SDLK_RIGHT);
-
-        if (up && down)
-            up = down = false;
-        if (left && right)
-            left = right = false;
-
-        double distance = delta * SPEED;
-        if ((up || down) && (left || right))
-            //diagonal movement
-            distance *= INV_SQRT2; //for each of the two directions
-
-        if (up){
-            loc_.y -= distance;
-            lastUpDown = DIR_U;
-        }else if (down){
-            loc_.y += distance;
-            lastUpDown = DIR_D;
-        }
-        if (left){
-            loc_.x -= distance;
-            lastLeftRight = DIR_L;
-        }else if (right){
-            loc_.x += distance;
-            lastLeftRight = DIR_R;
-        }
-
-        if (loc_.x < gameState->leftBound)
-            loc_.x = gameState->leftBound;
-        if (loc_.x > gameState->rightBound)
-            loc_.x = gameState->rightBound;
-        if (loc_.y < gameState->topBound)
-            loc_.y = gameState->topBound;
-        if (loc_.y > gameState->bottomBound)
-            loc_.y = gameState->bottomBound;
-
-
-        //debug(loc_.x, ",", loc_.y);
-
-        VampireState oldState = state;
-        if (state != ATTACKING)
-            state = MOVING;
-        if (up && right)
-            updateDirection(DIR_E);
-        else if (down && right)
-            updateDirection(DIR_F);
-        else if (down && left)
-            updateDirection(DIR_G);
-        else if (up && left)
-            updateDirection(DIR_H);
-        else if (up)
-            updateDirection(DIR_U);
-        else if (down)
-            updateDirection(DIR_D);
-        else if (left)
-            updateDirection(DIR_L);
-        else if (right)
-            updateDirection(DIR_R);
-        else
-            if (state != ATTACKING)
-                state = IDLE;
-
-        if (state != oldState){
-            if (state == IDLE)
-                frame = rand() % idleFrames;
-            else if (state == MOVING)
-                frame = rand() % movingFrames;
-        }
-
-		// Tick time for cooldown
 		const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER);
-		if (cooldownTimer_ > 0) {
-			// Prevent underflow
-			if (cooldownTimer_ < timeElapsed) {
-				// Clamp to 0
-				cooldownTimer_ = 0;
-			}
-			else {
-				// Subtract time
-				const timer_t dt = cooldownTimer_ - timeElapsed;
-				cooldownTimer_ = std::max<timer_t>(0, dt);
-			}
-			//debug("cooldown ", cooldownTimer_);
-		}
 
-		// Check for key press and update attacks that are attacking
-		updateAttack(smallAttack, delta);
-		updateAttack(batAttack, delta);
+        if (state != BURNING){
+
+            //movement through arrow keys
+            bool
+                up =    isKeyPressed(SDLK_UP),
+                down =  isKeyPressed(SDLK_DOWN),
+                left =  isKeyPressed(SDLK_LEFT),
+                right = isKeyPressed(SDLK_RIGHT);
+
+            if (up && down)
+                up = down = false;
+            if (left && right)
+                left = right = false;
+
+            double distance = delta * SPEED;
+            if ((up || down) && (left || right))
+                //diagonal movement
+                distance *= INV_SQRT2; //for each of the two directions
+
+            if (up){
+                loc_.y -= distance;
+                lastUpDown = DIR_U;
+            }else if (down){
+                loc_.y += distance;
+                lastUpDown = DIR_D;
+            }
+            if (left){
+                loc_.x -= distance;
+                lastLeftRight = DIR_L;
+            }else if (right){
+                loc_.x += distance;
+                lastLeftRight = DIR_R;
+            }
+
+            if (loc_.x < gameState->leftBound)
+                loc_.x = gameState->leftBound;
+            if (loc_.x > gameState->rightBound)
+                loc_.x = gameState->rightBound;
+            if (loc_.y < gameState->topBound)
+                loc_.y = gameState->topBound;
+            if (loc_.y > gameState->bottomBound)
+                loc_.y = gameState->bottomBound;
+
+
+            //debug(loc_.x, ",", loc_.y);
+
+            VampireState oldState = state;
+            if (state != ATTACKING)
+                state = MOVING;
+            if (up && right)
+                updateDirection(DIR_E);
+            else if (down && right)
+                updateDirection(DIR_F);
+            else if (down && left)
+                updateDirection(DIR_G);
+            else if (up && left)
+                updateDirection(DIR_H);
+            else if (up)
+                updateDirection(DIR_U);
+            else if (down)
+                updateDirection(DIR_D);
+            else if (left)
+                updateDirection(DIR_L);
+            else if (right)
+                updateDirection(DIR_R);
+            else
+                if (state != ATTACKING)
+                    state = IDLE;
+
+            if (state != oldState){
+                if (state == IDLE)
+                    frame = rand() % idleFrames;
+                else if (state == MOVING)
+                    frame = rand() % movingFrames;
+            }
+
+		    // Tick time for cooldown
+		    if (cooldownTimer_ > 0) {
+			    // Prevent underflow
+			    if (cooldownTimer_ < timeElapsed) {
+				    // Clamp to 0
+				    cooldownTimer_ = 0;
+			    }
+			    else {
+				    // Subtract time
+				    const timer_t dt = cooldownTimer_ - timeElapsed;
+				    cooldownTimer_ = std::max<timer_t>(0, dt);
+			    }
+			    //debug("cooldown ", cooldownTimer_);
+		    }
+
+		    // Check for key press and update attacks that are attacking
+		    updateAttack(smallAttack, delta);
+		    updateAttack(batAttack, delta);
+        }
 
         //animation
         if (timeElapsed >= frameTime){
@@ -266,10 +287,14 @@ namespace Game {
             ++frame;
             if (state == IDLE && frame >= idleFrames ||
                 state == MOVING && frame >= movingFrames ||
-                state == ATTACKING && frame >= attackingFrames){
+                state == ATTACKING && frame >= attackingFrames ||
+                state == BURNING && frame >= burningFrames){
                 frame = 0;
                 if (state == ATTACKING)
                     state = MOVING;
+                else if (state == BURNING){
+                    visible=false;
+                }
             }
                 
         }
@@ -402,6 +427,12 @@ namespace Game {
         attackingF = f;
         attackingG = g;
         attackingH = h;
+    }
+
+    void Vampire::setBurningImages(const Surface *l,
+                                      const Surface *r){
+        burningL = l;
+        burningR = r;
     }
 
     SDL_Rect Vampire::getDrawRect(Point offset) const{

@@ -10,7 +10,7 @@
 namespace Game {
 
 	class Person;
-    class GameState;
+    struct GameState;
 
     class Vampire : public Entity{
 
@@ -23,12 +23,6 @@ namespace Game {
             DIR_F,
             DIR_G,
             DIR_H
-        };
-
-        enum VampireState{
-            IDLE,
-            MOVING,
-            ATTACKING
         };
 
         virtual SDL_Rect drawRect() const;
@@ -51,7 +45,9 @@ namespace Game {
             *attackingE,
             *attackingF,
             *attackingG,
-            *attackingH;
+            *attackingH,
+            *burningL,
+            *burningR;
 
         const static size_t
             idleColumns,
@@ -59,12 +55,11 @@ namespace Game {
             movingColumns,
             movingFrames,
             attackingColumns,
-            attackingFrames;
+            attackingFrames,
+            burningColumns,
+            burningFrames;
 
-        timer_t frameTime; //time until next frame.  Resets at 42ms (~24f/s)
-        size_t frame; //current frame
-
-        VampireState state;
+        bool visible; //invisibility for post-death
 
 		SmallAttack smallAttack;
 		BatAttack batAttack;
@@ -77,6 +72,19 @@ namespace Game {
 		timer_t cooldownTimer_;
 
     public:
+
+        enum VampireState{
+            IDLE,
+            MOVING,
+            ATTACKING,
+            BURNING,
+            SHOT
+        };
+
+        timer_t frameTime; //time until next frame.  Resets at 42ms (~24f/s)
+        size_t frame; //current frame
+
+        VampireState state;
 
         static GameState *gameState;
 
@@ -106,6 +114,9 @@ namespace Game {
                                        const Surface *f,
                                        const Surface *g,
                                        const Surface *h);
+
+        static void setBurningImages(const Surface *l,
+                                     const Surface *r);
 
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 

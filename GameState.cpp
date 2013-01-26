@@ -25,6 +25,7 @@ extern Debug debug;
 GameState::GameState():
 loop(true),
 outcome(IN_PROGRESS),
+gameOverTimer(0),
 
 vampire(Location(1000, 1000)),
 
@@ -107,6 +108,9 @@ shakingMagnitude(0){
     attackingG = Surface(VAMPIRE_PATH + "attackingG.png", true);
     attackingH = Surface(VAMPIRE_PATH + "attackingH.png", true);
     Vampire::setAttackingImages(&attackingE, &attackingF, &attackingG, &attackingH);
+    burningL = Surface(VAMPIRE_PATH + "burningL.png", true);
+    burningR = Surface(VAMPIRE_PATH + "burningR.png", true);
+    Vampire::setBurningImages(&burningL, &burningR);
 
     std::string deathsPath = IMAGE_PATH + "Death/";
 
@@ -129,6 +133,8 @@ shakingMagnitude(0){
        (deathsPath + "skeleton_blow_up2.png", &deathBonesScreamSound, 40, 5, Point(384, 128), Point(352, 106)));
    closeDeaths.push_back(Death
        (deathsPath + "skeleton2.png", &deathBonesSound, 40, 8, Point(128, 128), Point(68, 106)));
+   closeDeaths.push_back(Death
+       (deathsPath + "explosion_man.png", &deathBonesSound, 50, 8, Point(256, 128), Point(129, 106)));
 
    // Health bar
    const std::string HEALTH_PATH = IMAGE_PATH + "HealthBar/";
@@ -232,6 +238,10 @@ void GameState::reduceShakeTime(timer_t ms){
         shakingTime -= ms;
     else
         shakingTime = 0;
+}
+
+void GameState::startGameOverTimer(timer_t ms){
+    gameOverTimer = ms;
 }
 
 } // namespace Game
