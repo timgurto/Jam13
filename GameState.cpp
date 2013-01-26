@@ -83,10 +83,14 @@ shakingMagnitude(0){
     map.tiles.push_back(TILES_PATH + "Tombstone.png");
     map.tiles.push_back(TILES_PATH + "Tombstone2.png");
 
+    map.baseObstacleProportion = 0.7;
+    map.obstacleTiles.push_back(TILES_PATH + "wallA.png");//Important: first [0] is the base tile
+    map.obstacleTiles.push_back(TILES_PATH + "wallB.png");
+
     map.mapSize = Point(50, 50);
     map.randomize();
 
-    size_t marginSize = 10; //ensures invisible borders
+    size_t marginSize = Map::MARGIN_SIZE; //ensures borders
     leftBound = marginSize * map.tileSize.x;
     topBound = marginSize * map.tileSize.y;
     rightBound = (map.mapSize.x - marginSize) * map.tileSize.x;
