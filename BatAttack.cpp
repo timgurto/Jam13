@@ -18,8 +18,12 @@ extern Debug debug;
 
     BatAttack::BatAttack():
     image(IMAGE_PATH + "Vampire/batAttack.png", true),
+	sound(SOUND_PATH + "EVIL.WAV"),
     frame(0),
-    frameTime(0){}
+    frameTime(0)
+	{
+		hitSoundPtr_ = &sound;
+	}
 
 	timer_t BatAttack::getAttackingTime() const {
 		return 2000;

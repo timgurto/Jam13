@@ -13,6 +13,8 @@ namespace Game {
 
         mutable Surface image;
 
+		Sound sound;
+
 	public:
 		virtual SDLKey getKey() const;
 		//virtual Sound& getSound() const;

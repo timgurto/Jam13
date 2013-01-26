@@ -12,6 +12,8 @@ namespace Game {
     class SmallAttack : public AOEAttack{
 
 	public:
+		SmallAttack();
+
 		virtual SDLKey getKey() const;
 		//virtual Sound& getSound() const;
 
@@ -24,6 +26,9 @@ namespace Game {
 	protected:
 		virtual timer_t getAttackingTime() const;
 		virtual pixels_t getRadius() const;
+
+	private:
+		Sound sound;
 	};
 
 

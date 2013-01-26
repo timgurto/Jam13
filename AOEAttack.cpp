@@ -19,7 +19,8 @@ namespace Game {
 		attacking_(false),
 		attackHitSomething_(false),
 		attackSucceeded_(false),
-		attackMissed_(false) {
+		attackMissed_(false),
+		hitSoundPtr_(0) {
 
     }
 
@@ -101,6 +102,10 @@ namespace Game {
 			const int power = Person::MAX_LIFE;
             debug("Hit: ", isBatAttack() ? "Bat attack!" : "Normal attack!");
 			person.hit(power, isBatAttack());
+
+			if (hitSoundPtr_) {
+				hitSoundPtr_->play(-1, 0);
+			}
 
 			// Mark that we hit something for scoring when attack ends
 			attackHitSomething_ = true;
