@@ -107,9 +107,9 @@ namespace Game {
 
             //shake screen
             if (isBatAttack())
-                state->shakeScreen(300, 25);
+                state->shakeScreen(250, 10);
             else
-                state->shakeScreen(400, 40);
+                state->shakeScreen(400, 25);
 
 			// Mark that we hit something for scoring when attack ends
 			attackHitSomething_ = true;
