@@ -14,8 +14,7 @@ namespace Game {
 
 	HealthBar::HealthBar(double startingHealth) : Entity(),
 		fillPercent_(startingHealth / MAX_HEALTH),
-		fillingPercent_(0.0),
-		lastSetHealth_(startingHealth)
+		fillingPercent_(0.0)
 	{
 		loc_.x = 5;
 		loc_.y = 3;
@@ -31,24 +30,17 @@ namespace Game {
 	// Health bar is animated with changes
 	void HealthBar::setHealth(double health) {
 
-		// Only set if changed
-		// (comparing doubles ==)
-		/*if (std::abs(health - lastSetHealth_) > 0.0) {
-			return;
-		}
-		lastSetHealth_ = health;*/
-
 		// Get difference between bar's current health and desired health
-		const double diff = max<double>(0.0, health - getHealth());
+		const double diff = health - getHealth();
 
 		// No change - return
-		//if (diff == 0) {
-		//	return;
-		//}
+		if (std::abs(diff) < 0.00001) {
+			return;
+		}
 
 		// Calculate amount we are filling
 		const double percent = diff / MAX_HEALTH;
-		fillingPercent_ = percent;
+		fillingPercent_ = max(-1.0, min(percent, 1.0));
 		assert(fillingPercent_ <= 1.0);
 		assert(fillingPercent_ >= -1.0);
 	}
@@ -75,8 +67,10 @@ namespace Game {
 	}
 
 	pixels_t HealthBar::getFillingWidth() const {
-		assert(fillingPercent_ >= 0);
-		return static_cast<pixels_t>(fillingPercent_ * getMaxWidth());
+		assert(fillingPercent_ >= -1.0);
+		assert(fillingPercent_ <= 1.0);
+		const double diff = fillingPercent_ * getMaxWidth();
+		return static_cast<pixels_t>(std::abs(diff) + 0.5);
 	}
 
 	// Outline
@@ -108,13 +102,13 @@ namespace Game {
 
 		// Use std for double
 		if (std::abs(fillingPercent_) > 0.0) {
-			const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER);
+			const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
 
 			const double fillDelta = fillingPercent_ * timeElapsed * FILLING_SPEED;
 			fillPercent_ += fillDelta;
 			fillPercent_ = max(0.0, min(fillPercent_, 1.0));
 			fillingPercent_ -= fillDelta;
-			fillingPercent_ = max(0.0, min(fillingPercent_, 1.0));
+			fillingPercent_ = max(-1.0, min(fillingPercent_, 1.0));
 		}
 	}
 
@@ -139,7 +133,7 @@ namespace Game {
 		}
 
 		// Filling square
-		if (fillPercent_ > 0)
+		if (fillingPercent_ > 0)
 		{
 			const SDL_Color fillingColour = YELLOW;
 			SDL_Rect rect = fillingRect();
@@ -147,7 +141,7 @@ namespace Game {
 			rect.y += static_cast<Sint16>(loc_.y + 0.5);
 			surface.fill(fillingColour, &rect);
 		}
-		else if (fillPercent_ < 0)
+		else if (fillingPercent_ < 0)
 		{
 			const SDL_Color fillingColour = BLUE;
 			SDL_Rect rect = fillingRect();
