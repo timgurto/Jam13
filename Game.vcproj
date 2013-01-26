@@ -194,6 +194,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AOEAttackVariety.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BatAttack.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Debug.h"
 				>
 			</File>
@@ -295,6 +303,14 @@
 			>
 			<File
 				RelativePath=".\AOEAttack.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\AOEAttackVariety.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BatAttack.cpp"
 				>
 			</File>
 			<File

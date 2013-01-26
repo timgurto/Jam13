@@ -5,6 +5,7 @@
 
 #include "Entity.h"
 #include "AOEAttackVariety.h"
+#include "BatAttack.h"
 
 namespace Game {
 
@@ -58,7 +59,7 @@ namespace Game {
         VampireState state;
 
 		SmallAOEAttack smallAoeAttack;
-		BigAOEAttack bigAoeAttack;
+		BatAttack batAttack;
 
     public:
 

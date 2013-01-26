@@ -28,21 +28,9 @@ namespace Game {
 		return SDLK_z;
 	}
 
-	// Big
-	timer_t BigAOEAttack::getAttackingTime() const {
-		return 1000;
-	}
+    //void SmallAOEAttack::draw(Point offset, Surface &surface) const{
+    //    
+    //}
 
-	timer_t BigAOEAttack::getCooldownTime() const {
-		return 2000;
-	}
-
-	pixels_t BigAOEAttack::getRadius() const {
-		return 40;
-	}
-
-	SDLKey BigAOEAttack::getKey() const {
-		return SDLK_x;
-	}
 
 } //namespace Game

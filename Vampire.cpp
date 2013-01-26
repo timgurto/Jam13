@@ -45,7 +45,7 @@ namespace Game {
 
 		// Draw attack under vampire sprite
 		smallAoeAttack.draw(offset, surface);
-		bigAoeAttack.draw(offset, surface);
+		batAttack.draw(offset, surface);
 
 		// Red square
         SDL_Rect rect = collisionRect();
@@ -152,7 +152,7 @@ namespace Game {
 
 		// Killing
 		updateAttack(smallAoeAttack, delta);
-		updateAttack(bigAoeAttack, delta);
+		updateAttack(batAttack, delta);
 
         //animation
         timer_t timeElapsed = delta * DELTA_MODIFIER;
@@ -205,7 +205,7 @@ namespace Game {
 
 	void Vampire::applyAttacks(Person& p) {
 		smallAoeAttack(p);
-		bigAoeAttack(p);
+		batAttack(p);
 	}
 
     void Vampire::setIdleImages(const Surface *e,
