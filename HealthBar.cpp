@@ -10,9 +10,9 @@ namespace Game {
 	const pixels_t HEIGHT = 20;
 	const pixels_t OUTLINE_THICKNESS = 1;
 	const double FILLING_SPEED = 0.001;
-	const double MAX_HEALTH = 10;
 
-	HealthBar::HealthBar(double startingHealth) : Entity(),
+	HealthBar::HealthBar(double startingHealth, double maxHealth) : Entity(),
+		MAX_HEALTH(maxHealth),
 		fillPercent_(startingHealth / MAX_HEALTH),
 		fillingPercent_(0.0)
 	{

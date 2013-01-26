@@ -9,6 +9,7 @@ namespace Game {
     extern Debug debug;
 
     const double Vampire::SPEED = 3;
+	const double Vampire::MAX_HEALTH = 10;
 
     const Surface *Vampire::idleE = 0;
     const Surface *Vampire::idleF = 0;
@@ -54,6 +55,10 @@ namespace Game {
 
 	bool Vampire::isDead() const {
 		return getTotalBlood() <= 0;
+	}
+
+	bool Vampire::isBloodFull() const {
+		return getTotalBlood() >= MAX_HEALTH;
 	}
 
     SDL_Rect Vampire::drawRect() const{

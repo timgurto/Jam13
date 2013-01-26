@@ -45,15 +45,10 @@ namespace Game {
 		virtual SDLKey getKey() const = 0;
 		//virtual Sound& getSound() const = 0;
 
-		bool isAttacking() const { return attacking_; }
-		bool attackSucceeded() const { return attackSucceeded_; }
-		bool attackFailed() const { return attackMissed_; }
-		void resetAttackState() {
-			attacking_ = false;
-			attackHitSomething_ = false;
-			attackSucceeded_ = false;
-			attackMissed_ = false;
-		}
+		bool isAttacking() const;
+		bool attackSucceeded() const;
+		bool attackFailed() const;
+		void resetAttackState();
 
 		virtual timer_t getCooldownTime() const = 0;
 		virtual int getFailureCost() const = 0;

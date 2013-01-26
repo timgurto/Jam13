@@ -17,7 +17,7 @@ namespace Game {
     public:
 		static const timer_t COUNTDOWN_TIME;
 
-		Environment(double startingHealth);
+		Environment(double startingHealth, double maxHealth);
 
 		void update(double delta);
 		void draw(Point offset = Point(), Surface &surface = screenBuf) const;

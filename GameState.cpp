@@ -35,7 +35,7 @@ map(offset),
 
 scream(SOUND_PATH + "death1.wav"),
 
-environment(vampire.getTotalBlood()),
+environment(vampire.getTotalBlood(), Vampire::MAX_HEALTH),
 overlay(IMAGE_PATH + "Overlay.png", true){
 
     // Populate people

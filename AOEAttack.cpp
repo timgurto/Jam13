@@ -123,4 +123,23 @@ namespace Game {
         return false;
     }
 
+	bool AOEAttack::isAttacking() const {
+		return attacking_;
+	}
+
+	bool AOEAttack::attackSucceeded() const {
+		return attackSucceeded_;
+	}
+
+	bool AOEAttack::attackFailed() const {
+		return attackMissed_;
+	}
+
+	void AOEAttack::resetAttackState() {
+		attacking_ = false;
+		attackHitSomething_ = false;
+		attackSucceeded_ = false;
+		attackMissed_ = false;
+	}
+
 } //namespace Game

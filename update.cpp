@@ -31,7 +31,7 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
     state.vampire.update(delta);
 
-    Victim::vampY = state.vampire.getLoc().y;
+    Victim::vampY = static_cast<pixels_t>(state.vampire.getLoc().y + 0.5);
 
     state.offset = state.vampire.getLoc() - Location(400, 300);
     
@@ -101,6 +101,13 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
 	// Check for win
 	if (state.isAllDead()) {
+		state.outcome = WON;
+		state.loop = false;
+		debug("win");
+	}
+
+	// Check for win
+	else if (state.vampire.isBloodFull()) {
 		state.outcome = WON;
 		state.loop = false;
 		debug("win");

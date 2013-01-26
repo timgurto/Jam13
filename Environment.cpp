@@ -13,9 +13,9 @@ namespace Game {
 
 	const timer_t Environment::COUNTDOWN_TIME = 100000;
 
-	Environment::Environment(double startingHealth) :
+	Environment::Environment(double startingHealth, double maxHealth) :
 		countdownTimer_(COUNTDOWN_TIME),
-		healthBar_(startingHealth) {
+		healthBar_(startingHealth, maxHealth) {
 
     }
 

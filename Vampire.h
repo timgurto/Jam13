@@ -77,10 +77,13 @@ namespace Game {
 
     public:
 
+		static const double MAX_HEALTH;
+
         Vampire(const Location &loc);
 
 		double getTotalBlood() const;
 		bool isDead() const;
+		bool isBloodFull() const;
 
         SDL_Rect getDrawRect(Point offset) const;
 
