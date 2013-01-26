@@ -28,7 +28,7 @@ namespace Game {
 
         BatAttack();
 
-        virtual bool isBatAttack();
+        virtual bool isBatAttack() const;
 
 		virtual timer_t getCooldownTime() const;
 		virtual int getFailureCost() const;

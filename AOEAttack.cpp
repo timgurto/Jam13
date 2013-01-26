@@ -65,7 +65,7 @@ namespace Game {
 				const timer_t dt = attackingTimer_ - timeElapsed;
 				attackingTimer_ = std::max<timer_t>(0, dt);
 			}
-			debug("attacking ", attackingTimer_);
+			//debug("attacking ", attackingTimer_);
 
 			// Attack has finished
 			if (attackingTimer_ == 0) {
@@ -98,6 +98,7 @@ namespace Game {
 		{
 			// kill
 			const int power = Person::MAX_LIFE;
+            debug("Hit: ", isBatAttack() ? "Bat attack!" : "Normal attack!");
 			person.hit(power, isBatAttack());
 
 			// Mark that we hit something for scoring when attack ends
@@ -116,7 +117,7 @@ namespace Game {
 		attacking_ = true;
 		attackingTimer_ = getAttackingTime();
 		sound_.play(-1, 0);
-		debug("die!");
+		//debug("die!");
 	}
 
     bool AOEAttack::isBatAttack() const{

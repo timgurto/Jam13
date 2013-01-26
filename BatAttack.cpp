@@ -67,7 +67,7 @@ extern Debug debug;
         if (attacking_){
             //update frame
             const timer_t timeElapsed = static_cast<timer_t>(delta * DELTA_MODIFIER + 0.5);
-			debug("frameTime ", frameTime);
+			//debug("frameTime ", frameTime);
 			//assert(frameTime > 0);
 			// FIXME negative frame time?
             if ((int)timeElapsed > frameTime){
@@ -80,7 +80,7 @@ extern Debug debug;
         }
     }
 
-    bool BatAttack::isBatAttack(){
+    bool BatAttack::isBatAttack() const{
        return true;
     }
 
