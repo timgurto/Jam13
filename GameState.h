@@ -33,6 +33,12 @@ struct GameState{
 
    Location offset;
    Map map;
+
+   Surface
+       idleE,
+       idleF,
+       idleG,
+       idleH;
 };
 
 } // namespace Game
