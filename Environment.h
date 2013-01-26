@@ -4,6 +4,7 @@
 #define ENVIRONMENT_H
 
 #include "types.h"
+#include "HealthBar.h"
 
 namespace Game {
 
@@ -11,15 +12,19 @@ namespace Game {
 
 		// Time until game ends
 		timer_t countdownTimer_;
+		
 
     public:
 		static const timer_t COUNTDOWN_TIME;
 
 		Environment();
 
-		void Environment::update(double delta);
+		void update(double delta);
+		void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 
 		bool isSunUp() const;
+
+		HealthBar healthBar_;
 	};
 
 } //namespace Game

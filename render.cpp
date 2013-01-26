@@ -37,6 +37,8 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
 		}
 	}
 
+	state.environment.draw(state.offset, screenBuf);
+
    debug.display();
    fpsDisplay.draw();
 

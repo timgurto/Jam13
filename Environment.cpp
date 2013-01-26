@@ -40,6 +40,11 @@ namespace Game {
 		}
     }
 
+	void Environment::draw(Point offset, Surface &surface) const
+	{
+		healthBar_.draw(offset, surface);
+	}
+
 	bool Environment::isSunUp() const {
 		return (countdownTimer_ == 0);
 	}

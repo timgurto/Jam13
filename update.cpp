@@ -90,6 +90,9 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 	}
 	state.swapPersonLists();
 
+	state.environment.healthBar_.setHealth(50);
+	state.environment.healthBar_.update(delta);
+
 	// Check for win
 	if (state.isAllDead()) {
 		state.outcome = WON;
