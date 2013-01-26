@@ -31,7 +31,7 @@ namespace Game {
 		void operator()(Person& person) const;
 
 		// Start attack
-		void activate();
+		void activate(const Location& loc);
 
 		// Stop attack
 		void deactivate();

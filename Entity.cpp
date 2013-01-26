@@ -27,8 +27,18 @@ namespace Game {
    }
 
    void Entity::draw(Point offset, Surface &surface) const{
-      SDL_Rect rect = drawRect() + offset;
-      image()->draw(surface, &rect);
+	  if (image()) {
+	     SDL_Rect rect = drawRect() + offset;
+         image()->draw(surface, &rect);
+	  }
+	  const bool drawDebug = DEBUG;
+	  if (drawDebug) {
+		  SDL_Rect locRect = makeRect(-5, -5, 5, 5);
+		  locRect.x = loc_.x;
+		  locRect.y = loc_.y;
+		  SDL_Color color = BLACK;
+          surface.fill(color, &locRect);
+	  }
    }
 
    //comparison, for sorting/sets/maps.  Compares y co-ordinate of location.

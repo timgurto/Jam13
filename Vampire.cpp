@@ -24,9 +24,14 @@ namespace Game {
     }
 
     void Vampire::draw(Point offset, Surface &surface) const{
+
+		aoeAttack.draw(offset, surface);
+
         SDL_Rect rect = drawRect();
         surface.fill(RED, &makeRect(loc_.x-rect.x-offset.x, loc_.y-rect.y-offset.y, rect.w, rect.h));
-    }
+		
+		Entity::draw(offset, surface);
+	}
 
     void Vampire::update(double delta){
         //movement through arrow keys
@@ -57,7 +62,7 @@ namespace Game {
 
 		// Killing
 		if (isKeyPressed(SDLK_SPACE)) {
-			aoeAttack.activate();
+			aoeAttack.activate(loc_);
 		}
 		else {
 			aoeAttack.deactivate();

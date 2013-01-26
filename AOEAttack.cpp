@@ -33,12 +33,13 @@ namespace Game {
 			return;
 		}
         SDL_Rect rect = drawRect();
+		rect.x = loc_.x - (rect.w / 2);
+		rect.y = loc_.y - (rect.h / 2);
+		rect.x -= offset.x;
+		rect.y -= offset.y;
         SDL_Color color = MAGENTA;
-        surface.fill(color,
-			&makeRect(loc_.x-rect.x-offset.x,
-				loc_.y-rect.y-offset.y,
-				rect.w,
-				rect.h));
+        surface.fill(color, &rect);
+		Entity::draw(offset, surface);
     }
 
     void AOEAttack::update(double delta){
@@ -57,7 +58,8 @@ namespace Game {
 		attack(person);
 	}
 
-	void AOEAttack::activate() {
+	void AOEAttack::activate(const Location& loc) {
+		loc_ = loc;
 		active_ = true;
 	}
 

@@ -54,6 +54,7 @@ namespace Game {
 				loc_.y-rect.y-offset.y,
 				rect.w,
 				rect.h));
+		Entity::draw(offset, surface);
     }
 
     void Person::update(double delta, pixels_t distToVamp){
