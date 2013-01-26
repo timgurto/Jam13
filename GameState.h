@@ -24,6 +24,8 @@ struct GameState{
    GameState();
    ~GameState();
 
+   void soundScream();
+
    Vampire vampire;
 
    Sound heartbeat;
@@ -37,7 +39,9 @@ struct GameState{
    PersonList& getTmpList();
    void swapPersonLists();
 
+
 private:
+	Sound scream;
    PersonList* currPersonList;
    PersonList personList1;
    PersonList personList2;

@@ -29,7 +29,9 @@ currPersonList(&personList1),
 heartbeat(SOUND_PATH + "beat1.wav"),
 offset(0, 0),
 
-map(offset){
+map(offset),
+
+scream(SOUND_PATH + "boom1.wav") {
 
     // Populate people
 	const size_t maxPeople = MAX_CHANNELS;
@@ -79,6 +81,10 @@ GameState::~GameState() {
 		safe_delete(p);
 	}
 
+}
+
+void GameState::soundScream() {
+	scream.play(-1, 0);
 }
 
 const GameState::PersonList& GameState::getPersonList() const

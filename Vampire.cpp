@@ -54,6 +54,14 @@ namespace Game {
             loc_.x -= distance;
         if (right)
             loc_.x += distance;
+
+		// Killing
+		if (isKeyPressed(SDLK_SPACE)) {
+			aoeAttack.activate();
+		}
+		else {
+			aoeAttack.deactivate();
+		}
     }
 
 } //namespace Game

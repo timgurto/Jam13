@@ -29,7 +29,7 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
 
     state.vampire.draw();
 
-    if (isKeyPressed(SDLK_SPACE)) {
+	if (isKeyPressed(SDLK_z)) {
         ITERATE(GameState::PersonList::const_iterator, state.getPersonList(), it) {
 			const Person* p = *it;
 			assert(p);

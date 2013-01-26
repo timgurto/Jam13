@@ -4,6 +4,7 @@
 #define VAMPIRE_H
 
 #include "Entity.h"
+#include "AOEAttack.h"
 
 namespace Game {
 
@@ -18,6 +19,8 @@ namespace Game {
         static const double SPEED;
 
     public:
+
+		AOEAttack aoeAttack;
 
         Vampire(const Location &loc);
 

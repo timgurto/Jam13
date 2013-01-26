@@ -30,10 +30,11 @@ namespace Game {
         //double stress_; //maybe bool would be better.  Determines heartrate.
 
 		// Life
-		static const int MAX_LIFE;
 		int life_;
 
     public:
+		static const int MAX_LIFE;
+
         static Sound *heartbeat;
         static const int MAX_HEARTBEATS;
         bool isClosest; //whether this person is (one of) the closest to the vampire
