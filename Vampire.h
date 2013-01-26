@@ -23,6 +23,7 @@ namespace Game {
 
         enum VampireState{
             IDLE,
+            MOVING,
         };
 
         virtual SDL_Rect drawRect() const;
@@ -37,13 +38,17 @@ namespace Game {
             *idleE,
             *idleF,
             *idleG,
-            *idleH;
+            *idleH,
+            *movingE,
+            *movingF,
+            *movingG,
+            *movingH;
 
         const static size_t
             idleColumns,
             idleFrames,
-            walkingColumns,
-            walkingFrames;
+            movingColumns,
+            movingFrames;
 
         timer_t frameTime; //time until next frame.  Resets at 42ms (~24f/s)
         size_t frame; //current frame
@@ -65,6 +70,11 @@ namespace Game {
                                   const Surface *g,
                                   const Surface *h);
 
+        static void setMovingImages(const Surface *e,
+                                    const Surface *f,
+                                    const Surface *g,
+                                    const Surface *h);
+
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 
         void update(double delta);
@@ -73,7 +83,6 @@ namespace Game {
         Direction lastLeftRight;
         Direction dir;
         void updateDirection(Direction newDir);
-
 	};
 
 } //namespace Game

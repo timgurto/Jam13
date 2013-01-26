@@ -11,11 +11,15 @@ namespace Game {
     const Surface *Vampire::idleF = 0;
     const Surface *Vampire::idleG = 0;
     const Surface *Vampire::idleH = 0;
+    const Surface *Vampire::movingE = 0;
+    const Surface *Vampire::movingF = 0;
+    const Surface *Vampire::movingG = 0;
+    const Surface *Vampire::movingH = 0;
 
     const size_t Vampire::idleColumns = 16;
     const size_t Vampire::idleFrames = 65;
-    const size_t Vampire::walkingColumns = 8;
-    const size_t Vampire::walkingFrames = 30;
+    const size_t Vampire::movingColumns = 8;
+    const size_t Vampire::movingFrames = 30;
 
     Vampire::Vampire(const Location &loc) :
     dir(DIR_F),
@@ -48,15 +52,22 @@ namespace Game {
 
 		// Vampire sprite
         const Surface *image = 0;
-        switch (dir){
-        case DIR_E:
-            image = idleE; break;
-        case DIR_F:
-            image = idleF; break;
-        case DIR_G:
-            image = idleG; break;
-        case DIR_H:
-            image = idleH; break;
+        if (state == IDLE || state == MOVING){
+            bool moving = (state == MOVING);
+            switch (dir){
+            case DIR_E:
+                image = moving ? movingE : idleE;
+                break;
+            case DIR_F:
+                image = moving ? movingF : idleF;
+                break;
+            case DIR_G:
+                image = moving ? movingG : idleG;
+                break;
+            case DIR_H:
+                image = moving ? movingH : idleH;
+                break;
+            }
         }
 
 		assert(image);
@@ -64,6 +75,9 @@ namespace Game {
         if (state == IDLE){
             row = frame / idleColumns;
             col = frame % idleColumns;
+        }else if (state == MOVING){
+            row = frame / movingColumns;
+            col = frame % movingColumns;
         }
         SDL_Rect srcRect;
         srcRect.w = srcRect.h = 128;
@@ -107,6 +121,8 @@ namespace Game {
             lastLeftRight = DIR_R;
         }
 
+        VampireState oldState = state;
+        state = MOVING;
         if (up && right)
             updateDirection(DIR_E);
         else if (down && right)
@@ -123,6 +139,15 @@ namespace Game {
             updateDirection(DIR_L);
         else if (right)
             updateDirection(DIR_R);
+        else
+            state = IDLE;
+
+        if (state != oldState){
+            if (state == IDLE)
+                frame = rand() % idleFrames;
+            else if (state == MOVING)
+                frame = rand() % movingFrames;
+        }
 
 		// Killing
 		aoeAttack.update(delta);
@@ -138,8 +163,8 @@ namespace Game {
         if (timeElapsed >= frameTime){
             frameTime = 42 - (timeElapsed - frameTime);
             ++frame;
-            if (state == IDLE && frame >= idleFrames /*||
-                state == asdf && ...*/)
+            if (state == IDLE && frame >= idleFrames ||
+                state == MOVING && frame >= movingFrames)
                 frame = 0;
         }else
             frameTime -= timeElapsed;
@@ -181,6 +206,18 @@ namespace Game {
             idleF = f;
             idleG = g;
             idleH = h;
+        };
+    }
+
+    void Vampire::setMovingImages(const Surface *e,
+                                  const Surface *f,
+                                  const Surface *g,
+                                  const Surface *h){
+        {
+            movingE = e;
+            movingF = f;
+            movingG = g;
+            movingH = h;
         };
     }
 

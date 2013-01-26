@@ -52,7 +52,11 @@ private:
        idleE,
        idleF,
        idleG,
-       idleH;
+       idleH,
+       movingE,
+       movingF,
+       movingG,
+       movingH;
 };
 
 } // namespace Game

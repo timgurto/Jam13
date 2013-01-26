@@ -202,6 +202,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Environment.h"
+				>
+			</File>
+			<File
 				RelativePath=".\game.h"
 				>
 			</File>
@@ -299,6 +303,10 @@
 			</File>
 			<File
 				RelativePath=".\Entity.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Environment.cpp"
 				>
 			</File>
 			<File

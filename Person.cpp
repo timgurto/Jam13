@@ -90,11 +90,11 @@ namespace Game {
         
         //heartbeat timer
         if (heartTimer_ <= timeElapsed){
-            heartTimer_ = rand()%200 + 900 - (timeElapsed - heartTimer_);
+            //heartTimer_ = rand()%200 + 900 - (timeElapsed - heartTimer_);
             if (isClosest && distToVamp <= MAX_SOUND_DISTANCE){
                 //close enough; play sound
-                double distance = max(min(1.0 * (distToVamp-30) / (MAX_SOUND_DISTANCE-30), 1.0), 0.0);
-
+                double distance = max(min(1.0 * (distToVamp-10) / (MAX_SOUND_DISTANCE-10), 1.0), 0.0);
+                heartTimer_ = distance * 1600 + 350;
 
                 double volume = 1 - pow(distance, 0.25);
 
