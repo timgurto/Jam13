@@ -26,7 +26,6 @@ namespace Game {
         int direction_;
 
         //heartbeat
-        //timer_t heartTimer_; //time remaining until next beat
         static const pixels_t MAX_SOUND_DISTANCE;
 
 		// Life
@@ -42,7 +41,7 @@ namespace Game {
 		virtual void update(double delta, pixels_t distToVamp);
         virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;
 
-		// Get's hit - remove life
+		// Gets hit: remove life
 		void hit(int hitLife, bool isBatAttack);
 		bool isDead() const;
 	};

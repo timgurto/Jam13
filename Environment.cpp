@@ -4,6 +4,8 @@
 #include "util.h"
 #include "Debug.h"
 #include "Person.h"
+#include "util.h"
+#include "GameState.h"
 #include <algorithm>
 #include <cmath>
 
@@ -11,7 +13,9 @@ namespace Game {
 
     extern Debug debug;
 
-	const timer_t Environment::COUNTDOWN_TIME = 150000;
+    GameState *Environment::state = 0;
+
+	const timer_t Environment::COUNTDOWN_TIME = 15000;
 
     const size_t Environment::SUN_BAR_FRAMES = 50;
     const size_t Environment::SUN_BAR_COLUMNS = 4;
@@ -19,11 +23,16 @@ namespace Game {
 	Environment::Environment(double startingHealth, double maxHealth) :
 		countdownTimer_(COUNTDOWN_TIME),
 		healthBar_(startingHealth, maxHealth),
-        sunBar(IMAGE_PATH + "SunBar/BlackWhite.png", true),
-        sunBarColor(IMAGE_PATH + "SunBar/ColourBar.png", true),
+        sunBar(IMAGE_PATH + "Time/BlackWhite.png", true),
+        sunBarColor(IMAGE_PATH + "Time/ColourBar.png", true),
         sunBarLoc(0, 600-107),
         sunBarDim(800, 107){
 
+        overlay[0] = Surface(IMAGE_PATH + "Time/1.png", true);
+        overlay[1] = Surface(IMAGE_PATH + "Time/2.png", true);
+        overlay[2] = Surface(IMAGE_PATH + "Time/3.png", true);
+        overlay[3] = Surface(IMAGE_PATH + "Time/4.png", true);
+        overlay[4] = Surface(IMAGE_PATH + "Time/5.png", true);
     }
 
 
@@ -42,18 +51,29 @@ namespace Game {
 				const timer_t dt = countdownTimer_ - timeElapsed;
 				countdownTimer_ = std::max<timer_t>(0, dt);
 			}
-			if (countdownTimer_ < 5000) {
-				debug("countdown ", countdownTimer_);
-			}
+			if (countdownTimer_ < 1000){
+				state->shakeScreen(1000, 20);
+            }else if (countdownTimer_ < 4000){
+                state->shakeScreen(4000, 10);
+            }else if (countdownTimer_ < 10000){
+                state->shakeScreen(10000, 5);
+            }
 		}
     }
 
 	void Environment::draw(Point offset, Surface &surface) const
 	{
+        //overlay
+        double progress = 1.0 * (COUNTDOWN_TIME - countdownTimer_) / COUNTDOWN_TIME;
+        size_t overlayIndex = progress * 5;
+        if (overlayIndex == 5)
+            overlayIndex = 4;
+        overlay[overlayIndex].draw();
+
+        //blood bar
 		healthBar_.draw(offset, surface);
 
-        double progress = 1.0 * (COUNTDOWN_TIME - countdownTimer_) / COUNTDOWN_TIME;
-
+        //sun bar
         SDL_Rect srcRect;
         srcRect.x = 0;
         srcRect.y = 0;
@@ -61,6 +81,7 @@ namespace Game {
         srcRect.h = sunBarDim.y;
         sunBar.draw(screenBuf, &makeRect(sunBarLoc.x, sunBarLoc.y));
         sunBarColor.draw(screenBuf, &makeRect(sunBarLoc.x, sunBarLoc.y), &srcRect);
+
 	}
 
 	bool Environment::isSunUp() const {

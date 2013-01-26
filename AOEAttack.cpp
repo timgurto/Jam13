@@ -4,12 +4,15 @@
 #include "util.h"
 #include "Debug.h"
 #include "Person.h"
+#include "GameState.h"
 #include <algorithm>
 #include <cmath>
 
 namespace Game {
 
     extern Debug debug;
+
+    GameState *AOEAttack::state = 0;
 
 	AOEAttack::AOEAttack() :
 		Entity(),
@@ -103,6 +106,11 @@ namespace Game {
             debug("Hit: ", isBatAttack() ? "Bat attack!" : "Normal attack!");
 			person.hit(power, isBatAttack());
 
+            //shake screen
+            if (isBatAttack())
+                state->shakeScreen(250, 10);
+            else
+                state->shakeScreen(400, 35);
 			if (hitSoundPtr_) {
 				hitSoundPtr_->play(-1, 0);
 			}

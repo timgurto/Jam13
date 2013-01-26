@@ -8,6 +8,8 @@
 
 namespace Game {
 
+    struct GameState;
+
     class Environment{
 
 		// Time until game ends
@@ -18,9 +20,13 @@ namespace Game {
         static const size_t SUN_BAR_COLUMNS;
         Point sunBarLoc;
         Point sunBarDim;
+
+        Surface overlay[5];
 		
 
     public:
+        static GameState *state;
+
 		static const timer_t COUNTDOWN_TIME;
 
 		Environment(double startingHealth, double maxHealth);

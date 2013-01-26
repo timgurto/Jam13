@@ -31,14 +31,14 @@ namespace Game {
 	     SDL_Rect rect = drawRect() - offset;
          image()->draw(surface, &rect);
 	  }
-	  const bool drawDebug = DEBUG && false;
-	  if (drawDebug) {
-		  SDL_Rect locRect = makeRect(-2, -2, 4, 4);
-		  locRect.x = loc_.x;
-		  locRect.y = loc_.y;
-		  SDL_Color color = BLACK;
-          surface.fill(color, &locRect);
-	  }
+	  const bool drawDebug = DEBUG;
+	  //if (drawDebug) {
+		 // SDL_Rect locRect = makeRect(-2, -2, 4, 4);
+		 // locRect.x = loc_.x;
+		 // locRect.y = loc_.y;
+		 // SDL_Color color = BLACK;
+         // surface.fill(color, &locRect);
+	  //}
    }
 
    //comparison, for sorting/sets/maps.  Compares y co-ordinate of location.
