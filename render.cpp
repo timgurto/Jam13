@@ -25,21 +25,23 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
 
    screenBuf.fill();
 
-    state.map.draw(state.offset);
+    Location offset = state.shakeOffset();
+
+    state.map.draw(offset);
 
     ITERATE(victims_t::const_iterator, state.victims, it)
-        it->draw(true, state.offset);
+        it->draw(true, offset);
 
-    state.vampire.draw(state.offset);
+    state.vampire.draw(offset);
 
     ITERATE(victims_t::const_iterator, state.victims, it)
-        it->draw(false, state.offset);
+        it->draw(false, offset);
 
 	if (isKeyPressed(SDLK_SPACE)) {
         ITERATE(GameState::PersonList::const_iterator, state.getPersonList(), it) {
 			const Person* p = *it;
 			assert(p);
-            p->draw(state.offset);
+            p->draw(offset);
 		}
 	}
 

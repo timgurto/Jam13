@@ -60,6 +60,10 @@ struct GameState{
 
    void newVictim(const Victim &victim);
 
+   void shakeScreen(timer_t ms, pixels_t magnitude);
+   Location shakeOffset() const;
+   void reduceShakeTime(timer_t ms);
+
 
 private:
 
@@ -89,6 +93,9 @@ private:
        attackingF,
        attackingG,
        attackingH;
+
+   timer_t shakingTime;
+   pixels_t shakingMagnitude;
 };
 
 } // namespace Game

@@ -19,9 +19,9 @@ namespace Game {
 	Environment::Environment(double startingHealth, double maxHealth) :
 		countdownTimer_(COUNTDOWN_TIME),
 		healthBar_(startingHealth, maxHealth),
-        sunBar(IMAGE_PATH + "sunBar.png", true),
+        sunBar(IMAGE_PATH + "SunBar/BlackWhite.png", true),
         sunBarLoc(400-256, 600-128),
-        sunBarDim(512, 128){
+        sunBarDim(800, 107){
 
     }
 
