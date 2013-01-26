@@ -91,8 +91,10 @@ namespace Game {
         Death *death;
         if (isBatAttack)
             death = state->getBatDeath();
-        else
+        else{
+            state->bloods.push_back(Blood());
             death = state->getCloseDeath();
+        }
         state->newVictim(Victim(loc_, death));
 	}
 

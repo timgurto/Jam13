@@ -49,6 +49,9 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
 
 	state.environment.draw(Point(), screenBuf);
 
+    ITERATE(std::vector<Blood>::const_iterator, state.bloods, it)
+        it->draw();
+
    debug.display();
    fpsDisplay.draw();
 

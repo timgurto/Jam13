@@ -15,7 +15,7 @@ namespace Game {
 
     GameState *Environment::state = 0;
 
-	const timer_t Environment::COUNTDOWN_TIME = 15000;
+	const timer_t Environment::COUNTDOWN_TIME = 150000;
 
     const size_t Environment::SUN_BAR_FRAMES = 50;
     const size_t Environment::SUN_BAR_COLUMNS = 4;

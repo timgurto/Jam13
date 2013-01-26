@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "Death.h"
 #include "Victim.h"
+#include "Blood.h"
 
 #include "SDL_mixer.h"
 
@@ -61,6 +62,10 @@ struct GameState{
    void shakeScreen(timer_t ms, pixels_t magnitude);
    Location shakeOffset() const;
    void reduceShakeTime(timer_t ms);
+
+   std::vector<Surface> bloodImages;
+   std::vector<Blood> bloods;
+
 
 
 private:

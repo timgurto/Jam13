@@ -15,6 +15,7 @@
 #include "Map.h"
 #include "AOEAttack.h"
 #include "Environment.h"
+#include "Blood.h"
 
 namespace Game {
 
@@ -127,6 +128,18 @@ shakingMagnitude(0){
    environment.healthBar_.outlineBar = Surface(HEALTH_PATH + "Outline.png", true);
    environment.healthBar_.fullBar = Surface(HEALTH_PATH + "Red.png", true);
    environment.healthBar_.positiveFillingBar = Surface(HEALTH_PATH + "Yellow.png", true);
+
+
+   bloodImages.push_back(Surface(IMAGE_PATH + "Death/blood0.png", true));
+   bloodImages.push_back(Surface(IMAGE_PATH + "Death/blood1.png", true));
+   bloodImages.push_back(Surface(IMAGE_PATH + "Death/blood2.png", true));
+   bloodImages.push_back(Surface(IMAGE_PATH + "Death/blood3.png", true));
+   bloodImages.push_back(Surface(IMAGE_PATH + "Death/blood4.png", true));
+   bloodImages.push_back(Surface(IMAGE_PATH + "Death/blood5.png", true));
+   bloodImages.push_back(Surface(IMAGE_PATH + "Death/blood6.png", true));
+
+   Blood::images = &bloodImages;
+
 }
 
 GameState::~GameState() {

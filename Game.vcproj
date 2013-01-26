@@ -198,6 +198,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Blood.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Death.h"
 				>
 			</File>
@@ -319,6 +323,10 @@
 			</File>
 			<File
 				RelativePath=".\BatAttack.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Blood.cpp"
 				>
 			</File>
 			<File

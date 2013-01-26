@@ -164,6 +164,15 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
     //screen shaking
     state.reduceShakeTime(timeElapsed);
 
+    bool allDisabled = true;
+    ITERATE(std::vector<Blood>::iterator, state.bloods, it){
+        it->update(delta);
+        if (it->lifespan < Blood::MAX_LIFESPAN)
+            allDisabled = false;
+    }
+    if (allDisabled)
+        state.bloods.clear();
+
 
 }
 
