@@ -102,7 +102,11 @@ int main(int argc, char **argv){
          mainMenu(BUTTON_NEW, BUTTON_QUIT),
          game(&gameMode),
          credits(BUTTON_QUIT, BUTTON_QUIT);
+      Surface menuImage(IMAGE_PATH + "FlashTitle.png");
+      mainMenu.setBackground(menuImage);
       buildScreens(mainMenu, credits);
+
+      int level;
 
 
       if (!DEBUG){
@@ -148,38 +152,48 @@ int main(int argc, char **argv){
 
 void buildScreens(Screen &mainMenu,
                   Screen &credits){
-   
+
    //Main menu
    mainMenu.addElement(ScreenElement
-      (ELEM_LABEL, "[ Lord of Night ]", ANCHOR_CENTER, Point(0, -150)));
+      (ELEM_BUTTON, "Begin", ANCHOR_CENTER, Point(0, 70), BUTTON_NEW));
    mainMenu.addElement(ScreenElement
-      (ELEM_BUTTON, "Begin", ANCHOR_CENTER, Point(0, -60), BUTTON_NEW));
+      (ELEM_BUTTON, "Credits",    ANCHOR_CENTER, Point(0, 145),   BUTTON_CREDITS));
    mainMenu.addElement(ScreenElement
-      (ELEM_BUTTON, "Credits",    ANCHOR_CENTER, Point(0, 0),   BUTTON_CREDITS));
-   mainMenu.addElement(ScreenElement
-      (ELEM_BUTTON, "Quit",       ANCHOR_CENTER, Point(0, 60),  BUTTON_QUIT));
+      (ELEM_BUTTON, "Quit",       ANCHOR_CENTER, Point(0, 220),  BUTTON_QUIT));
 
    //Credits
    credits.addElement(ScreenElement
       (ELEM_BUTTON, "Back", ANCHOR_TOP_RIGHT, Point(-30, 30), BUTTON_QUIT));
 
-   int yPos = CREDITS_OFFSET;
+   int yPos = -100;
 
-   //addCreditTitle(credits, yPos, "Title");
-   addCredit     (credits, yPos, "Programming - Tim Gurto, Jacqui Hawkins");
-   addCredit     (credits, yPos, "Art and animation - Michael Chu, Ryan Crumplin");
+   addCreditTitle(credits, yPos, "Programming");
+   addCredit     (credits, yPos, "Tim Gurto");
+   addCredit     (credits, yPos, "Jacqui Hawkins");
+   addCreditGap(yPos);
+
+   addCreditTitle(credits, yPos, "Art");
+   addCredit     (credits, yPos, "Ryan Crumplin");
+   addCreditGap(yPos);
+   
+   addCreditTitle(credits, yPos, "Animation");
+   addCredit     (credits, yPos, "Michael Chu");
+   addCreditGap(yPos);
+
+   addCreditTitle(credits, yPos, "Sound");
+   addCredit     (credits, yPos, "Ryan Crumplin");;
    //addCreditGap(yPos);
 }
 
 void addCreditTitle(Screen &creditsScreen, int &yPos, std::string text){
-   creditsScreen.addElement(ScreenElement(ELEM_LABEL, text, ANCHOR_LEFT,
+   creditsScreen.addElement(ScreenElement(ELEM_LABEL, text, ANCHOR_CENTER,
                                           Point(CREDITS_X_OFFSET, yPos), ScreenElement::NO_ID,
                                           0, 0, 22, CREDITS_HEADING_COLOR));
    yPos += CREDITS_INCREMENT;
 }
 
 void addCredit(Screen &creditsScreen, int &yPos, std::string text){
-   creditsScreen.addElement(ScreenElement(ELEM_LABEL, text, ANCHOR_LEFT,
+   creditsScreen.addElement(ScreenElement(ELEM_LABEL, text, ANCHOR_CENTER,
                                           Point(CREDITS_X_OFFSET, yPos), ScreenElement::NO_ID,
                                           0, 0, 18));
    yPos += CREDITS_INCREMENT;

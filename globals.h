@@ -68,7 +68,7 @@ const std::string SCREENSHOTS_PATH = "Screenshots/";
 
 //font filenames
 const std::string FONT_DEBUG = "Dina.fon";
-const std::string FONT_GAME = "Dina.fon";
+const std::string FONT_GAME = "8-BIT WONDER.TTF";
 
 //Not enum:
 //Never used as a type, and values are fixed in SDL
@@ -79,7 +79,7 @@ const Uint8 MOUSE_BUTTON_SCROLL_UP   = 4;
 const Uint8 MOUSE_BUTTON_SCROLL_DOWN = 5;
 
 //Layout of credits screen
-const int CREDITS_OFFSET = 0; //initial y offset from center
+const int CREDITS_OFFSET = 50; //initial y offset from center
 const int CREDITS_INCREMENT = 27;
 const int CREDITS_GAP = 19;
 const int CREDITS_X_OFFSET = 0;
