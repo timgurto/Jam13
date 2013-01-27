@@ -127,13 +127,15 @@ int main(int argc, char **argv){
 
             case BUTTON_NEW:
                {
+                   int level = 1;
                    while (loop){
                       GameOutcome outcome;
-                      int level = 1;
                       while ((outcome = (GameOutcome)game(&level)) == RESTART)
                          ;
-                      if (outcome == ALT_F4)
+                      if (outcome == ALT_F4 || outcome == QUIT){
                          loop = false;
+                         break;
+                      }
                       if (outcome == WON)
                           ++level;
                    }
