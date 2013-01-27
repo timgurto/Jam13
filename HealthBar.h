@@ -26,6 +26,7 @@ namespace Game {
 
 		double getPercent() const;
 		void setPercent(double p);
+		void setRawPercent(double p);
 
 		void update(double delta);
 		virtual void draw(Point offset = Point(), Surface &surface = screenBuf) const;

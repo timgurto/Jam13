@@ -49,6 +49,12 @@ namespace Game {
 		assert(fillingPercent_ >= -1.0);
 	}
 
+	void HealthBar::setRawPercent(double p) {
+		fillPercent_ = p;
+		fillPercent_ = max(0.0, min(fillPercent_, 1.0));
+		fillingPercent_ = 0.0;
+	}
+
 	// Outline
 	SDL_Rect HealthBar::drawRect() const{
         return outlineRect();
