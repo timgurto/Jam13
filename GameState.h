@@ -77,9 +77,6 @@ struct GameState{
    timer_t gameOverTimer;
 
 
-
-private:
-
 	Sound ahBreathSound;
 	Sound deathBonesSound;
 	Sound deathBonesScreamSound;
@@ -87,6 +84,9 @@ private:
 	Sound evilSound;
 	Sound miss1Sound;
 	Sound miss2Sound;
+
+private:
+
 	//Sound slashSound;
 
    PersonList* currPersonList;

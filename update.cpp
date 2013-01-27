@@ -70,7 +70,7 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
     const pixels_t MAX_SOUND_DISTANCE = 300;
 
     if (state.heartTimer <= timeElapsed){
-        if (closestPersonDist <= MAX_SOUND_DISTANCE){
+        if (closestPersonDist <= MAX_SOUND_DISTANCE && state.vampire.state != Vampire::BURNING){
             double distance = max(min(1.0 * (closestPersonDist-10) / (MAX_SOUND_DISTANCE-10), 1.0), 0.0);
             state.heartTimer = static_cast<timer_t>( distance * 1600 + 350 + 0.5 );
 
@@ -153,6 +153,8 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 	// Check for win
 	/*else*/ if (state.vampire.isBloodFull()) {
 		state.outcome = WON;
+        state.startGameOverTimer();
+        state.evilSound.play();
 		//state.loop = false;
 		debug("win");
 	}
@@ -162,7 +164,11 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 		// Check for death
 		if (state.vampire.isDead()) {
 			// Game over
+            state.vampire.state = Vampire::BURNING;
+            state.vampire.frame = 0;
+            state.vampire.frameTime = 42;
 			state.outcome = QUIT;
+            state.startGameOverTimer();
 			//state.loop = false;
 			debug("out of health");
 		}

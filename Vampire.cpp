@@ -15,7 +15,7 @@ namespace Game {
     GameState *Vampire::gameState = 0;
 
     const double Vampire::SPEED = 3;
-	const double Vampire::MAX_HEALTH = 10;
+	const double Vampire::MAX_HEALTH = 30;
 
     const Surface *Vampire::idleE = 0;
     const Surface *Vampire::idleF = 0;
@@ -41,7 +41,7 @@ namespace Game {
     const size_t Vampire::burningColumns = 8;
     const size_t Vampire::burningFrames = 37;
 
-	const int START_BLOOD = 4;
+	const int START_BLOOD = 10;
 
     Vampire::Vampire(const Location &loc) :
 		frameTime(rand()%42),

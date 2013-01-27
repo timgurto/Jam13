@@ -30,11 +30,11 @@ namespace Game {
         wisp(IMAGE_PATH + "wisp.png", true),
         wispTimer(rand()){
 
-        overlay[0] = Surface(IMAGE_PATH + "Time/1.png", true);
-        overlay[1] = Surface(IMAGE_PATH + "Time/2.png", true);
-        overlay[2] = Surface(IMAGE_PATH + "Time/3.png", true);
-        overlay[3] = Surface(IMAGE_PATH + "Time/4.png", true);
-        overlay[4] = Surface(IMAGE_PATH + "Time/5.png", true);
+        overlay[0] = Surface(IMAGE_PATH + "Time/overlay1.png", true);
+        overlay[1] = Surface(IMAGE_PATH + "Time/overlay2.png", true);
+        overlay[2] = Surface(IMAGE_PATH + "Time/overlay3.png", true);
+        overlay[3] = Surface(IMAGE_PATH + "Time/overlay4.png", true);
+        overlay[4] = Surface(IMAGE_PATH + "Time/overlay5.png", true);
     }
 
 

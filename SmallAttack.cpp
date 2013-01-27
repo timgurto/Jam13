@@ -44,7 +44,7 @@ namespace Game {
 	}
 
 	int SmallAttack::getSuccessBonus() const {
-		return 3;
+		return 4;
 	}
 
 } //namespace Game
