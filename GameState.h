@@ -87,6 +87,7 @@ struct GameState{
 	Sound miss2Sound;
 
 	Hunter* hunter;
+    void setLevel(int level);
 
 private:
 

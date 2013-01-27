@@ -21,7 +21,7 @@ extern Debug debug;
 Surface *Screen::cursor_ = 0;
 Point Screen::screenRes_(800, 600);
 Point Screen::mousePos = screenRes_ / 2;
-bool Screen::windowedMode_ = true || DEBUG;
+bool Screen::windowedMode_ = DEBUG;
 
 //Default screen functionality.  Accepts input and renders until a button is pushed.
 unsigned Screen::goDefault_(Screen &thisScreen, const void *data){

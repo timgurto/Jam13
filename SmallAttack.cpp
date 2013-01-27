@@ -24,11 +24,11 @@ namespace Game {
 	}
 
 	pixels_t SmallAttack::getRadius() const {
-		return 40;
+		return 60;
 	}
 
 	SDLKey SmallAttack::getKey() const {
-		return SDLK_z;
+		return SDLK_SPACE;
 	}
 
 	int SmallAttack::getJoyButton() const {

@@ -37,7 +37,7 @@ extern Debug debug;
 	}
 
 	SDLKey BatAttack::getKey() const {
-		return SDLK_x;
+        return SDLK_x;
 	}
 
 	int BatAttack::getJoyButton() const {

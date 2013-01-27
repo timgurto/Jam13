@@ -64,14 +64,14 @@ namespace Game {
 		SmallAttack smallAttack;
 		BatAttack batAttack;
 
-		// Health of vampire
-		double totalBlood_;
-
 		// Time before you can activate the attack again
 		// counted from the start of the attack activation
 		timer_t cooldownTimer_;
 
     public:
+
+		// Health of vampire
+		double totalBlood_;
 
         enum VampireState{
             IDLE,

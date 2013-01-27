@@ -61,8 +61,7 @@ shakingMagnitude(0){
     Vampire::gameState = this;
 
     // Populate people
-	const size_t maxPeople = MAX_CHANNELS;
-	const size_t numPeople = 15;
+	const size_t numPeople = 10;
 	personList1.reserve(numPeople);
 	personList2.reserve(numPeople);
     for (int i = 0; i != numPeople; ++i) {
@@ -253,6 +252,28 @@ void GameState::reduceShakeTime(timer_t ms){
 
 void GameState::startGameOverTimer(timer_t ms){
     gameOverTimer = ms;
+}
+
+void GameState::setLevel(int level){
+    switch(level){
+    case 1:
+        map.randomize();
+        vampire.totalBlood_ = 20;
+        environment.healthBar_.setPercent(1.0*20/30);
+        break;
+
+    case 2:
+        map.randomize();
+        vampire.totalBlood_ = 10;
+        environment.healthBar_.setPercent(1.0*10/30);
+       break;
+
+    case 3:
+        map.randomize();
+        vampire.totalBlood_ = 7;
+        environment.healthBar_.setPercent(1.0*10/30);
+        break;
+    }
 }
 
 } // namespace Game
