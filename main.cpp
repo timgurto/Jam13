@@ -59,6 +59,10 @@ enum ButtonID{
    BUTTON_CREDITS,
 };
 
+enum{
+    
+};
+
 // Keep main in default namespace
 int main(int argc, char **argv){
 

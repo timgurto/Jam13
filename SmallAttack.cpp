@@ -28,7 +28,7 @@ namespace Game {
 	}
 
 	SDLKey SmallAttack::getKey() const {
-		return SDLK_z;
+		return SDLK_SPACE;
 	}
 
 	int SmallAttack::getJoyButton() const {
