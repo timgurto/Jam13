@@ -463,7 +463,7 @@ namespace Game {
 
 		// There was a change
 		if (fabs(suckedBlood) > 0.0) {
-			totalBlood_ = std::min(totalBlood_ + suckedBlood, MAX_HEALTH);
+			totalBlood_ = std::max(0.0, std::min(totalBlood_ + suckedBlood, MAX_HEALTH));
 
 			// Died from blood loss
 			if (isDead()) {
