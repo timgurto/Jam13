@@ -96,6 +96,7 @@ namespace Game {
 		double getBloodPercent() const;
 		bool isDead() const;
 		bool isBloodFull() const;
+		void die();
 
         SDL_Rect getDrawRect(Point offset) const;
 

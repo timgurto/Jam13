@@ -13,6 +13,7 @@
 #include "misc.h"
 #include "Vampire.h"
 #include "Person.h"
+#include "Hunter.h"
 
 namespace Game {
 
@@ -33,6 +34,10 @@ void render(const GameState &state, const MessageBox &fpsDisplay){
         it->draw(true, offset);
 
     state.vampire.draw(offset);
+
+	if (state.hunter){
+		state.hunter->draw(offset);
+	}
 
     ITERATE(victims_t::const_iterator, state.victims, it)
         it->draw(false, offset);
