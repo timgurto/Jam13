@@ -162,7 +162,7 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 	else {
 
 		// Check for death
-		if (state.vampire.isDead()) {
+		if (state.vampire.isDead() && state.outcome != QUIT) {
 			// Game over
             state.vampire.state = Vampire::BURNING;
             state.vampire.frame = 0;
@@ -175,7 +175,7 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
 		// Game countdown
 		state.environment.update(delta);
-        if (state.environment.isSunUp() && state.vampire.state != Vampire::BURNING) {
+        if (state.environment.isSunUp() && state.outcome != QUIT) {
 			// Game over
             state.vampire.state = Vampire::BURNING;
             state.vampire.frame = 0;
