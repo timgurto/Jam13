@@ -76,6 +76,10 @@ namespace Game {
 		return getTotalBlood() >= MAX_HEALTH;
 	}
 
+	void Vampire::die() {
+		totalBlood_ = 0;
+	}
+
     SDL_Rect Vampire::drawRect() const{
         return makeRect(-64, -120, 128, 128);
     }

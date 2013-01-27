@@ -17,6 +17,7 @@
 #include "GameState.h"
 #include "Person.h"
 #include "Vampire.h"
+#include "Hunter.h"
 
 namespace Game {
 
@@ -124,6 +125,18 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 		}
 	}
 	state.swapPersonLists();
+
+	// Update hunter
+	if (state.hunter && !state.hunter->attacking_)
+	{
+		const pixels_t distToVamp = distance(state.hunter->getLoc(), state.vampire.getLoc());
+		state.hunter->update(delta, distToVamp);
+		if (state.hunter->attacking_) {
+			state.vampire.die();
+			// Update health bar
+			state.environment.healthBar_.setPercent(state.vampire.getBloodPercent());
+		}
+	}
 
 	// Animate health bar
 	state.environment.healthBar_.update(delta);

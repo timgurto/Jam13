@@ -18,6 +18,7 @@
 
 namespace Game {
 
+class Hunter;
 class Person;
 
 typedef std::vector<Death> deaths_t;
@@ -85,6 +86,7 @@ struct GameState{
 	Sound miss1Sound;
 	Sound miss2Sound;
 
+	Hunter* hunter;
     void setLevel(int level);
 
 private:
@@ -94,6 +96,8 @@ private:
    PersonList* currPersonList;
    PersonList personList1;
    PersonList personList2;
+
+   
 
    Surface
        idleE,

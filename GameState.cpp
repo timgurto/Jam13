@@ -17,6 +17,7 @@
 #include "Environment.h"
 #include "Blood.h"
 #include "Vampire.h"
+#include "Hunter.h"
 
 namespace Game {
 
@@ -47,6 +48,8 @@ miss1Sound(SOUND_PATH + "Miss.wav"),
 miss2Sound(SOUND_PATH + "Miss2.wav"),
 //slashSound(SOUND_PATH + "Slash_Sound_Effects_and_Music_006220237_prev.mp3"),
 
+hunter(0),
+
 environment(vampire.getBloodPercent()),
 
 shakingTime(0),
@@ -64,6 +67,8 @@ shakingMagnitude(0){
     for (int i = 0; i != numPeople; ++i) {
         personList1.push_back(new Person(Point(rand()%1800 + 100, rand()%1800 + 100)));
 	}
+
+	hunter = new Hunter( Hunter(Point(400, 400)) );
 
     map.tileSize = Point(40, 40);
     std::string TILES_PATH = IMAGE_PATH + "Tiles/";
@@ -165,6 +170,8 @@ GameState::~GameState() {
 
 	// Stop all channels
 	Mix_HaltChannel(-1);
+
+	safe_delete(hunter);
 	
 	GameState::PersonList& currList = getPersonList();
 	while (!currList.empty()) {
