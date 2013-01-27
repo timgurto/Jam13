@@ -271,7 +271,7 @@ void GameState::setLevel(int level){
     case 3:
         map.randomize();
         vampire.totalBlood_ = 10;
-        environment.healthBar_.setRawPercent(1.0*7/30);
+        environment.healthBar_.setRawPercent(1.0*10/30);
         hunter = new Hunter( Hunter(Point(600, 600)) );
         break;
     }
