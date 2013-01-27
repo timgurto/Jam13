@@ -110,10 +110,8 @@ int main(int argc, char **argv){
       mainMenu.setBackground(menuImage);
       buildScreens(mainMenu, credits);
 
-      int level;
 
-
-      if (!DEBUG){
+      //if (!DEBUG){
 
          //main menu
          bool loop = true;
@@ -130,17 +128,24 @@ int main(int argc, char **argv){
             case BUTTON_NEW:
                {
                   GameOutcome outcome;
-                  while ((outcome = (GameOutcome)game()) == RESTART)
-                     ;
-                  if (outcome == ALT_F4)
-                     loop = false;
+                  for (int i = 0; i != 3; ++i){
+                      int level = i + 1;
+                      while ((outcome = (GameOutcome)game(&level)) != RESTART)
+                         ;
+                      if (outcome == ALT_F4){
+                         loop = false;
+                         break;
+                      }
+                      if (outcome != WON)
+                          --level;
+                  }
                }
                break;
             }
          }while(loop);
 
-      }else
-         while (game() == RESTART);
+      //}else
+      //   while (game() == RESTART);
 
    }
 

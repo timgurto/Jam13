@@ -85,6 +85,8 @@ struct GameState{
 	Sound miss1Sound;
 	Sound miss2Sound;
 
+    void setLevel(int level);
+
 private:
 
 	//Sound slashSound;

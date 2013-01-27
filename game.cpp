@@ -29,7 +29,7 @@ extern Debug debug;
 extern bool gameLoop;
 extern GameOutcome gameOutcome;
 
-unsigned gameMode(Screen &/*screen*/, const void * /*data*/){
+unsigned gameMode(Screen &/*screen*/, const void * data){
 
    GameState state;
 
@@ -51,6 +51,29 @@ unsigned gameMode(Screen &/*screen*/, const void * /*data*/){
       debug("Unhandled event: ", int(event.type));
 
    timer_t oldTicks = SDL_GetTicks();
+
+   //data tells us which level we're in.
+   int level = *(int*)data;
+       
+   //first: tutorial
+    {
+        Surface tutImage(IMAGE_PATH + "level" + format2(level) + ".png");
+        bool quitTutorial = false;
+        while (!quitTutorial){
+            screenBuf << tutImage;
+            screenBuf.flip();
+
+            //wait for key down or mouse down
+            while(SDL_PollEvent(&event)){
+                if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN){
+                    quitTutorial = true;
+                    break;
+                }
+            }
+        }
+    }
+
+
 
    while (state.loop){
 
