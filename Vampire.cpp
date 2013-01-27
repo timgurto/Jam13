@@ -238,8 +238,8 @@ namespace Game {
 		    if (joystick.enabled())
 		    {
 			    const double JOY_SPEED = 0.55;
-			    const double distanceX = delta * joystick.getLeftRightAxis() * JOY_SPEED;
-			    const double distanceY = delta * joystick.getUpDownAxis() * JOY_SPEED;
+			    const double distanceX = joystick.getLeftRightAxis() * JOY_SPEED;
+			    const double distanceY = joystick.getUpDownAxis() * JOY_SPEED;
 
 			    up |= distanceY < 0;
 			    down |= distanceY > 0;
@@ -463,7 +463,7 @@ namespace Game {
 
 		// There was a change
 		if (fabs(suckedBlood) > 0.0) {
-			totalBlood_ += suckedBlood;
+			totalBlood_ = std::min(totalBlood_ + suckedBlood, MAX_HEALTH);
 
 			// Died from blood loss
 			if (isDead()) {
