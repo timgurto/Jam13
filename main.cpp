@@ -151,7 +151,7 @@ void buildScreens(Screen &mainMenu,
    
    //Main menu
    mainMenu.addElement(ScreenElement
-      (ELEM_LABEL, "[ Game name here ]", ANCHOR_CENTER, Point(0, -150)));
+      (ELEM_LABEL, "[ Lord of Night ]", ANCHOR_CENTER, Point(0, -150)));
    mainMenu.addElement(ScreenElement
       (ELEM_BUTTON, "Begin", ANCHOR_CENTER, Point(0, -60), BUTTON_NEW));
    mainMenu.addElement(ScreenElement
@@ -166,7 +166,8 @@ void buildScreens(Screen &mainMenu,
    int yPos = CREDITS_OFFSET;
 
    //addCreditTitle(credits, yPos, "Title");
-   addCredit     (credits, yPos, "(C) 2011 Tim Gurto");
+   addCredit     (credits, yPos, "Programming - Tim Gurto, Jacqui Hawkins");
+   addCredit     (credits, yPos, "Art and animation - Michael Chu, Ryan Crumplin");
    //addCreditGap(yPos);
 }
 

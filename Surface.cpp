@@ -59,7 +59,7 @@ isScreen_(false) {
                                   SDL_DOUBLEBUF);
 #endif
                                   
-      SDL_WM_SetCaption("[ Game name here ]", 0);
+      SDL_WM_SetCaption("[ Lord of Night ]", 0);
       isScreen_ = true;
       assert (screensSet_ == 0);
       screensSet_ = 1;
