@@ -175,12 +175,12 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 	else {
 
 		// Check for death
-		if (state.vampire.isDead() && state.outcome != QUIT) {
+		if (state.vampire.isDead() && state.outcome != RESTART) {
 			// Game over
             state.vampire.state = Vampire::BURNING;
             state.vampire.frame = 0;
             state.vampire.frameTime = 42;
-			state.outcome = QUIT;
+			state.outcome = RESTART;
             state.startGameOverTimer();
 			//state.loop = false;
 			debug("out of health");
@@ -188,12 +188,12 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 
 		// Game countdown
 		state.environment.update(delta);
-        if (state.environment.isSunUp() && state.outcome != QUIT) {
+        if (state.environment.isSunUp() && state.outcome != RESTART) {
 			// Game over
             state.vampire.state = Vampire::BURNING;
             state.vampire.frame = 0;
             state.vampire.frameTime = 42;
-			state.outcome = QUIT;
+			state.outcome = RESTART;
             state.startGameOverTimer();
 			//state.loop = false;
 			debug("sun came up");

@@ -45,8 +45,8 @@ namespace Game {
 		rect.y = static_cast<Sint16>(loc_.y - (rect.h / 2));
 		rect.x -= offset.x;
 		rect.y -= offset.y;
-        SDL_Color color = MAGENTA;
-        surface.box(color, &rect);
+        //SDL_Color color = MAGENTA;
+        //surface.box(color, &rect);
 		Entity::draw(offset, surface);
     }
 
