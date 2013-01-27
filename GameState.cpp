@@ -59,7 +59,7 @@ shakingMagnitude(0){
 
     // Populate people
 	const size_t maxPeople = MAX_CHANNELS;
-	const size_t numPeople = 60;
+	const size_t numPeople = 15;
 	personList1.reserve(numPeople);
 	personList2.reserve(numPeople);
     for (int i = 0; i != numPeople; ++i) {

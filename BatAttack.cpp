@@ -100,7 +100,7 @@ extern Debug debug;
     }
 
 	int BatAttack::getFailureCost() const {
-		return -3;
+		return -5;
 	}
 
 	int BatAttack::getSuccessBonus() const {
