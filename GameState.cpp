@@ -259,19 +259,19 @@ void GameState::setLevel(int level){
     case 1:
         map.randomize();
         vampire.totalBlood_ = 20;
-        environment.healthBar_.setPercent(1.0*20/30);
+        environment.healthBar_.setRawPercent(1.0*20/30);
         break;
 
     case 2:
         map.randomize();
         vampire.totalBlood_ = 10;
-        environment.healthBar_.setPercent(1.0*10/30);
+        environment.healthBar_.setRawPercent(1.0*10/30);
        break;
 
     case 3:
         map.randomize();
         vampire.totalBlood_ = 7;
-        environment.healthBar_.setPercent(1.0*10/30);
+        environment.healthBar_.setRawPercent(1.0*10/30);
         break;
     }
 }
