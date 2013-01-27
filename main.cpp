@@ -136,8 +136,12 @@ int main(int argc, char **argv){
                          loop = false;
                          break;
                       }
-                      if (outcome == WON)
+                      if (outcome == WON){
                           ++level;
+                          
+                            if (level > 3)
+                                loop = false;
+                      }
                    }
                }
                break;

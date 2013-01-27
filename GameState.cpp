@@ -68,7 +68,7 @@ shakingMagnitude(0){
         personList1.push_back(new Person(Point(rand()%1800 + 100, rand()%1800 + 100)));
 	}
 
-	hunter = new Hunter( Hunter(Point(400, 400)) );
+	//hunter = new Hunter( Hunter(Point(400, 400)) );
 
     map.tileSize = Point(40, 40);
     std::string TILES_PATH = IMAGE_PATH + "Tiles/";
@@ -271,7 +271,8 @@ void GameState::setLevel(int level){
     case 3:
         map.randomize();
         vampire.totalBlood_ = 7;
-        environment.healthBar_.setPercent(1.0*10/30);
+        environment.healthBar_.setPercent(1.0*7/30);
+        hunter = new Hunter( Hunter(Point(600, 600)) );
         break;
     }
 }

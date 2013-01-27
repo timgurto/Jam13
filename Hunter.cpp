@@ -1,6 +1,7 @@
 // (C) 2013 Tim Gurto
 
 #include <cassert>
+#include <cmath>
 #include "Hunter.h"
 #include "Point.h"
 #include "Debug.h"
@@ -10,8 +11,8 @@ namespace Game {
 
 extern Debug debug;
 
-	const pixels_t SOUND_RADIUS = 100;
-	const pixels_t KILL_RADIUS = 30;
+	const pixels_t SOUND_RADIUS = 250;
+	const pixels_t KILL_RADIUS = 120;
     Hunter::Hunter(Point startPos) :
 		Person(startPos),
 		hunterSound(SOUND_PATH + "Hunter.wav"),
@@ -43,7 +44,7 @@ extern Debug debug;
 		if ((distToVamp < SOUND_RADIUS) && (attackingTimer_ <= 0)){
 			hunterSound.play(-1, 0);
 
-			attackingTimer_ = static_cast<timer_t>( distToVamp * 10 + 5000 + 0.5 );
+			attackingTimer_ = static_cast<timer_t>( distToVamp * 10 + 1000 + 0.5 );
 
 			double volume = (1 - pow(distToVamp, 0.25))*0.8;
 			hunterSound.changeVolume(min<int>(
