@@ -58,22 +58,30 @@ unsigned gameMode(Screen &/*screen*/, const void * data){
    //first: tutorial
     {
         Surface tutImage(IMAGE_PATH + "level" + format2(level) + ".png");
-        bool quitTutorial = false;
-        while (!quitTutorial){
-            screenBuf << tutImage;
-            screenBuf.flip();
+        screenBuf << tutImage;
+        screenBuf.flip();
 
-            //wait for key down or mouse down
-            while(SDL_PollEvent(&event)){
-                if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN){
-                    quitTutorial = true;
-                    break;
-                }
-            }
+        //wait for key down or mouse down
+        //while (true){
+        //    SDL_PollEvent(&event);
+        //    if (event.type == SDL_MOUSEBUTTONUP || event.type == SDL_KEYUP)
+        //        break;
+        //}
+        while (true){
+            SDL_PollEvent(&event);
+            if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN)
+                break;
         }
+        while (true){
+            SDL_PollEvent(&event);
+            if (event.type == SDL_MOUSEBUTTONUP || event.type == SDL_KEYUP)
+                break;
+        }
+
+
     }
 
-
+    state.setLevel(level);
 
    while (state.loop){
 
