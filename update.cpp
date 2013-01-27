@@ -151,9 +151,9 @@ void updateState(double delta, GameState &state, MessageBox &fpsDisplay){
 	}*/
 
 	// Check for win
-	/*else*/ if (state.vampire.isBloodFull()) {
+	/*else*/ if (state.vampire.isBloodFull() && state.outcome != WON) {
 		state.outcome = WON;
-        state.startGameOverTimer();
+        state.startGameOverTimer(2500);
         state.evilSound.play();
 		//state.loop = false;
 		debug("win");
